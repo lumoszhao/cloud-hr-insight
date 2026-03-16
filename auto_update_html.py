@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-云行业HR洞察 - 自动更新HTML脚本
+云行业HR洞察 - 自动更新HTML脚本（改进版）
 功能：从 index.html 提取新闻，根据时间筛选，自动更新 HTML，推送到 GitHub
 """
 
@@ -191,9 +191,9 @@ def filter_news_by_time(news_list, time_range='week'):
 
     return filtered
 
-# 更新 HTML 中的新闻
-def update_html_news(soup, news_list, view_type='daily'):
-    """更新 HTML 中的新闻卡片
+# 更新 HTML 中的新闻（改进版）
+def update_html_news_v2(soup, news_list, view_type='daily'):
+    """更新 HTML 中的新闻卡片（改进版）
 
     Args:
         soup: BeautifulSoup 对象
@@ -210,56 +210,50 @@ def update_html_news(soup, news_list, view_type='daily'):
         logging.error(f"找不到 {view_id} section")
         return False
 
-    # 找到新闻标题（如"本周重点新闻"）
-    section_title = None
-    if view_type == 'daily':
-        # 今日观察的新闻在 news-grid 中
-        news_grid = view_section.find(class_='news-grid')
-        if news_grid:
-            # 清空所有新闻卡片
-            for card in news_grid.find_all(class_='news-card'):
-                card.decompose()
-            # 插入新的新闻卡片
-            for news in news_list:
-                news_grid.append(BeautifulSoup(news['html'], 'html.parser'))
-    else:
-        # 本周观察的新闻在标题之后
-        # 找到"本周重点新闻"标题
-        section_title = view_section.find(string=lambda text: text and '本周重点新闻' in text)
-        if section_title:
-            # 找到下一个标题或 section
-            next_elem = section_title.parent.find_next_sibling()
-            if next_elem and next_elem.name == 'h2':
-                # 找到所有新闻卡片
-                cards = []
-                sibling = next_elem.find_next_sibling()
-                while sibling:
-                    if sibling.name == 'div' and 'news-card' in sibling.get('class', []):
-                        cards.append(sibling)
-                        sibling = sibling.find_next_sibling()
-                    elif sibling.name == 'h2':
-                        break
-                    else:
-                        sibling = sibling.find_next_sibling()
-
-                # 删除所有新闻卡片
-                for card in cards:
-                    card.decompose()
-
-                # 插入新的新闻卡片
-                if news_list:
-                    for i, news in enumerate(news_list):
-                        card_soup = BeautifulSoup(news['html'], 'html.parser')
-                        section_title.parent.insert_after(card_soup)
+    # 方法：直接删除所有 news-card，然后重新插入符合条件的
+    deleted_count = 0
+    for card in view_section.find_all(class_='news-card'):
+        # 检查是否要保留
+        card_date_str = ''
+        meta_elem = card.find(class_='meta')
+        if meta_elem:
+            meta_text = meta_elem.get_text(strip=True)
+            date_match = re.search(r'发布时间:\s*(.+?)\s*\|', meta_text)
+            if date_match:
+                card_date_str = date_match.group(1).strip()
         else:
-            # 找到所有 news-card 并删除
-            for card in view_section.find_all(class_='news-card'):
-                card.decompose()
-            # 插入新的新闻卡片
-            for news in news_list:
-                view_section.append(BeautifulSoup(news['html'], 'html.parser'))
+            source_elem = card.find(class_='source')
+            if source_elem:
+                source_text = source_elem.get_text(strip=True)
+                date_match = re.search(r'📅\s*(.+?)\s*\|', source_text)
+                if date_match:
+                    card_date_str = date_match.group(1).strip()
 
-    return len(news_list) > 0
+        # 解析日期
+        card_date = parse_news_date(card_date_str, get_today_date())
+
+        # 判断是否要保留
+        should_keep = False
+        if view_type == 'daily':
+            should_keep = is_today(card_date, get_today_date())
+        elif view_type == 'weekly':
+            should_keep = is_within_this_week(card_date, get_this_week_range())
+
+        # 如果不符合条件，删除
+        if not should_keep:
+            title_elem = card.find('h3')
+            title = title_elem.get_text(strip=True) if title_elem else "（无标题）"
+            card.decompose()
+            deleted_count += 1
+            logging.info(f"  ✓ 删除: {title} ({card_date_str})")
+        else:
+            title_elem = card.find('h3')
+            title = title_elem.get_text(strip=True) if title_elem else "（无标题）"
+            logging.info(f"  ✓ 保留: {title} ({card_date_str})")
+
+    logging.info(f"✓ {view_type}: 删除 {deleted_count} 条旧新闻，保留 {len(view_section.find_all(class_='news-card'))} 条新闻")
+
+    return deleted_count > 0
 
 # 更新报告生成时间
 def update_report_time(soup):
@@ -287,7 +281,7 @@ def update_report_time(soup):
 # 主函数
 def main():
     logging.info("=" * 50)
-    logging.info("云行业HR洞察 - 自动更新HTML脚本")
+    logging.info("云行业HR洞察 - 自动更新HTML脚本（改进版）")
     logging.info("=" * 50)
 
     # 获取时间范围
@@ -332,18 +326,8 @@ def main():
 
     # 更新 HTML 中的新闻
     logging.info("\n📝 更新 HTML 中的新闻...")
-    daily_updated = update_html_news(soup, today_news, 'daily')
-    weekly_updated = update_html_news(soup, week_news, 'weekly')
-
-    if daily_updated:
-        logging.info(f"✓ 今日观察: 已更新 {len(today_news)} 条新闻")
-    else:
-        logging.info(f"✓ 今日观察: 无需更新（{len(today_news)} 条新闻）")
-
-    if weekly_updated:
-        logging.info(f"✓ 本周观察: 已更新 {len(week_news)} 条新闻")
-    else:
-        logging.info(f"✓ 本周观察: 无需更新（{len(week_news)} 条新闻）")
+    daily_updated = update_html_news_v2(soup, today_news, 'daily')
+    weekly_updated = update_html_news_v2(soup, week_news, 'weekly')
 
     # 更新报告时间
     logging.info("\n🕒 更新报告生成时间...")
