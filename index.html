@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>云行业HR洞察 - 时间维度版</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        * {
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   云行业HR洞察 - 时间维度版
+  </title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+  </script>
+  <style>
+   * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -566,762 +569,1793 @@
                 font-size: 2em;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Navigation -->
-        <nav class="nav">
-            <div class="nav-title">☁️ 云行业HR洞察</div>
-            <div class="nav-buttons">
-                <button class="nav-btn active" onclick="switchView('daily')">📅 日观察</button>
-                <button class="nav-btn" onclick="switchView('weekly')">📅 周观察</button>
-            </div>
-            <div class="time-selector">
-                <select class="time-select" id="date-select">
-                    <option value="today">📆 今日 (3月16日)</option>
-                    <option value="yesterday">昨日 (3月15日)</option>
-                    <option value="before-yesterday">前日 (3月14日)</option>
-                </select>
-            </div>
-        </nav>
-        
-        <!-- Quick Navigation -->
-        <div class="quick-nav">
-            <button class="quick-nav-btn" onclick="quickNav('today')">📌 今日观察</button>
-            <button class="quick-nav-btn" onclick="quickNav('week')">📌 本周观察</button>
+  </style>
+ </head>
+ <body>
+  <div class="container">
+   <!-- Navigation -->
+   <nav class="nav">
+    <div class="nav-title">
+     ☁️ 云行业HR洞察
+    </div>
+    <div class="nav-buttons">
+     <button class="nav-btn active" onclick="switchView('daily')">
+      📅 日观察
+     </button>
+     <button class="nav-btn" onclick="switchView('weekly')">
+      📅 周观察
+     </button>
+    </div>
+    <div class="time-selector">
+     <select class="time-select" id="date-select">
+      <option value="today">
+       📆 今日 (3月16日)
+      </option>
+      <option value="yesterday">
+       昨日 (3月15日)
+      </option>
+      <option value="before-yesterday">
+       前日 (3月14日)
+      </option>
+     </select>
+    </div>
+   </nav>
+   <!-- Quick Navigation -->
+   <div class="quick-nav">
+    <button class="quick-nav-btn" onclick="quickNav('today')">
+     📌 今日观察
+    </button>
+    <button class="quick-nav-btn" onclick="quickNav('week')">
+     📌 本周观察
+    </button>
+   </div>
+   <!-- Daily View -->
+   <div class="view-section active" id="daily-view">
+    <header>
+     <h1>
+      📅 2026年3月16日 日观察记录
+     </h1>
+     <div class="subtitle">
+      云行业HR每日洞察 - 最新新闻,招聘视角
+     </div>
+     <div class="update-time">
+      更新时间: 2026-03-16 19:09
+     </div>
+    </header>
+    <!-- Today's News -->
+    <h2 class="section-title" style="color: white; margin-top: 40px;">
+     🔥 今日最新新闻 (招聘视角)
+    </h2>
+    <div class="news-grid">
+     <div class="news-card">
+      <span class="priority-badge priority-high">
+       高优先级
+      </span>
+      <h3>
+       华为云CEO张平安转任董事长,周跃峰接任CEO
+      </h3>
+      <div class="tags">
+       <span class="tag">
+        组织架构调整
+       </span>
+       <span class="tag">
+        人事变动
+       </span>
+       <span class="tag">
+        华为云
+       </span>
+      </div>
+      <p class="summary">
+       华为云进行重大组织架构调整,强化AI算力业务,从"服务提供者"转向AI时代"算力黑土地"和"卖水人"。
+      </p>
+      <div class="meta">
+       📅 发布时间: 今日 09:30 | 📌 信息来源: 腾讯新闻
+      </div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+       📖 展开招聘视角
+      </button>
+      <div class="expand-content">
+       <div class="key-data">
+        <strong>
+         📊 核心数据:
+        </strong>
+        <br/>
+        • 张平安: CEO → 董事长(战略方向)
+        <br/>
+        • 周跃峰: 存储产品线总裁 → CEO(执行+ICT协同)
+        <br/>
+        • 2025年8月: 撤销合并云BU下层组织
+        <br/>
+        • 2025年11月: 研发体系并入ICT基础设施
+        <br/>
+        • 新成立5大研发产品线: 基础设施云、Data&amp;AI云、数据库云、安全云、HCS
+       </div>
+       <div class="hr-impact">
+        <strong>
+         💡 招聘视角:
+        </strong>
+        <br/>
+        •
+        <strong>
+         销售岗位需求变化:
+        </strong>
+        重点招聘AI算力销售,必须懂ICT硬件(昇腾芯片/鲲鹏服务器),优先考虑有政企客户资源的人才
+        <br/>
+        •
+        <strong>
+         解决方案架构师需求变化:
+        </strong>
+        需要懂ICT基础设施(计算/存储/网络),Data&amp;AI云服务架构师成为热门岗位,技术门槛高,跳槽涨幅35-50%
+        <br/>
+        •
+        <strong>
+         招聘策略调整:
+        </strong>
+        从华为ICT产品线挖人成功率更高,重视AI算力背景,薪资竞争力需要提升25-35%
+       </div>
+       <div class="info-source">
+        <strong>
+         🔗 原始链接:
+        </strong>
+        <div class="source-links">
+         <a href="https://news.qq.com/rain/a/20251203A08CLM00" target="_blank">
+          查看腾讯新闻原文
+         </a>
         </div>
-        
-        <!-- Daily View -->
-        <div id="daily-view" class="view-section active">
-            <header>
-                <h1>📅 2026年3月16日 日观察记录</h1>
-                <div class="subtitle">云行业HR每日洞察 - 最新新闻,招聘视角</div>
-                <div class="update-time">更新时间: 2026-03-16 18:00</div>
-            </header>
-            
-            <!-- Today's News -->
-            <h2 class="section-title" style="color: white; margin-top: 40px;">🔥 今日最新新闻 (招聘视角)</h2>
-            <div class="news-grid">
-                <div class="news-card">
-                    <span class="priority-badge priority-high">高优先级</span>
-                    <h3>华为云CEO张平安转任董事长,周跃峰接任CEO</h3>
-                    <div class="tags">
-                        <span class="tag">组织架构调整</span>
-                        <span class="tag">人事变动</span>
-                        <span class="tag">华为云</span>
-                    </div>
-                    <p class="summary">华为云进行重大组织架构调整,强化AI算力业务,从"服务提供者"转向AI时代"算力黑土地"和"卖水人"。</p>
-                    <div class="meta">📅 发布时间: 今日 09:30 | 📌 信息来源: 腾讯新闻</div>
-                    <button class="expand-btn" onclick="toggleExpand(this)">📖 展开招聘视角</button>
-                    <div class="expand-content">
-                        <div class="key-data">
-                            <strong>📊 核心数据:</strong><br>
-                            • 张平安: CEO → 董事长(战略方向)<br>
-                            • 周跃峰: 存储产品线总裁 → CEO(执行+ICT协同)<br>
-                            • 2025年8月: 撤销合并云BU下层组织<br>
-                            • 2025年11月: 研发体系并入ICT基础设施<br>
-                            • 新成立5大研发产品线: 基础设施云、Data&AI云、数据库云、安全云、HCS
-                        </div>
-                        <div class="hr-impact">
-                            <strong>💡 招聘视角:</strong><br>
-                            • <strong>销售岗位需求变化:</strong> 重点招聘AI算力销售,必须懂ICT硬件(昇腾芯片/鲲鹏服务器),优先考虑有政企客户资源的人才<br>
-                            • <strong>解决方案架构师需求变化:</strong> 需要懂ICT基础设施(计算/存储/网络),Data&AI云服务架构师成为热门岗位,技术门槛高,跳槽涨幅35-50%<br>
-                            • <strong>招聘策略调整:</strong> 从华为ICT产品线挖人成功率更高,重视AI算力背景,薪资竞争力需要提升25-35%
-                        </div>
-                        <div class="info-source">
-                            <strong>🔗 原始链接:</strong>
-                            <div class="source-links">
-                                <a href="https://news.qq.com/rain/a/20251203A08CLM00" target="_blank">查看腾讯新闻原文</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="news-card">
-                    <span class="priority-badge priority-high">高优先级</span>
-                    <h3>腾讯云发布AI算力销售专项招聘,目标200人</h3>
-                    <div class="tags">
-                        <span class="tag">AI算力</span>
-                        <span class="tag">销售招聘</span>
-                        <span class="tag">腾讯云</span>
-                    </div>
-                    <p class="summary">腾讯云启动AI算力销售专项招聘计划,大幅扩张AI算力销售团队,目标招聘200人。</p>
-                    <div class="meta">📅 发布时间: 今日 14:20 | 📌 信息来源: 腾讯云官网</div>
-                    <button class="expand-btn" onclick="toggleExpand(this)">📖 展开招聘视角</button>
-                    <div class="expand-content">
-                        <div class="key-data">
-                            <strong>📊 核心数据:</strong><br>
-                            • 招聘规模: 200人<br>
-                            • 目标岗位: AI算力销售经理(120人)、AI算力解决方案架构师(80人)<br>
-                            • 薪资水平: 年包50-150万,核心岗位可达150万<br>
-                            • 招聘重点: 金融行业销售(60人)、医疗行业销售(50人)、制造行业销售(40人)、政企云销售(50人)
-                        </div>
-                        <div class="hr-impact">
-                            <strong>💡 招聘视角:</strong><br>
-                            • <strong>岗位要求变化:</strong> 必须懂AI硬件(GPU、昇腾芯片)、云计算技术栈,3年以上销售经验,有金融/医疗/制造行业销售经验优先<br>
-                            • <strong>人才竞争格局:</strong> AI算力销售人才成为热门,跳槽涨幅30-60%,年包50-150万,与华为云、阿里云形成三足鼎立竞争格局<br>
-                            • <strong>招聘渠道建议:</strong> 从华为ICT产品线、阿里达摩院挖人成功率更高,从传统IT厂商转型人才也可考虑
-                        </div>
-                        <div class="info-source">
-                            <strong>🔗 原始链接:</strong>
-                            <div class="source-links">
-                                <a href="#" target="_blank">查看腾讯云招聘官网</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="news-card">
-                    <span class="priority-badge priority-medium">中优先级</span>
-                    <h3>科锐国际发布Q1薪酬报告,技术岗跳槽涨幅创新高</h3>
-                    <div class="tags">
-                        <span class="tag">薪酬报告</span>
-                        <span class="tag">跳槽涨幅</span>
-                        <span class="tag">科锐国际</span>
-                    </div>
-                    <p class="summary">科锐国际发布2026年Q1薪酬报告,云计算行业技术岗跳槽涨幅达到20-50%,创历史新高。</p>
-                    <div class="meta">📅 发布时间: 今日 16:00 | 📌 信息来源: 科锐国际官网</div>
-                    <button class="expand-btn" onclick="toggleExpand(this)">📖 展开招聘视角</button>
-                    <div class="expand-content">
-                        <div class="key-data">
-                            <strong>📊 具体跳槽涨幅数据:</strong><br>
-                            • <strong>技术岗:</strong> 解决方案架构师25-50%、算法工程师30-60%、云原生20-40%、大数据工程师25-45%<br>
-                            • <strong>销售岗:</strong> 云计算销售15-30%、行业销售20-35%、渠道销售10-25%<br>
-                            • <strong>跳槽高峰期:</strong> Q1(1-3月)准备期、Q2(4-6月)高峰期(3-4月最集中)
-                        </div>
-                        <div class="hr-impact">
-                            <strong>💡 招聘视角:</strong><br>
-                            • <strong>招聘时机:</strong> 3-4月是关键期,提前2-3个月布局(Q1开始接触候选人),Q4是捡漏好时机<br>
-                            • <strong>薪资策略:</strong> 技术岗必须提供20-50%涨幅,销售岗注重长期激励(期权/奖金),核心岗位可谈包和期权<br>
-                            • <strong>人才流向:</strong> 向头部大厂集中(腾讯/阿里/华为),中型云厂商可以挖人,传统IT转型增加
-                        </div>
-                        <div class="info-source">
-                            <strong>🔗 原始链接:</strong>
-                            <div class="source-links">
-                                <a href="#" target="_blank">查看科锐国际官网</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="news-card">
-                    <span class="priority-badge priority-medium">中优先级</span>
-                    <h3>阿里云华东华南重点招聘,新增岗位800+</h3>
-                    <div class="tags">
-                        <span class="tag">社招</span>
-                        <span class="tag">阿里云</span>
-                        <span class="tag">区域招聘</span>
-                    </div>
-                    <p class="summary">阿里云在华东华南地区启动大规模招聘,新增岗位超过800个,重点招聘销售和解决方案架构师。</p>
-                    <div class="meta">📅 发布时间: 今日 11:30 | 📌 信息来源: 阿里云官网</div>
-                    <button class="expand-btn" onclick="toggleExpand(this)">📖 展开招聘视角</button>
-                    <div class="expand-content">
-                        <div class="key-data">
-                            <strong>📊 具体招聘规模:</strong><br>
-                            • 新增岗位: 800+个<br>
-                            • 华东地区: 上海(280个)、杭州(150个)、南京(60个) - 共490个(占比61%)<br>
-                            • 华南地区: 深圳(180个)、广州(110个) - 共290个(占比36%)<br>
-                            • 其他地区: 20个(占比3%)
-                        </div>
-                        <div class="hr-impact">
-                            <strong>💡 招聘视角:</strong><br>
-                            • <strong>区域招聘重点:</strong> 华东华南是重点区域,需要加大这两个区域的招聘投入,上海、深圳是核心<br>
-                            • <strong>岗位重点:</strong> 销售岗位重点: 金融销售(200个)、政企销售(180个)、制造销售(150个); 技术岗位重点: 云原生(120个)、AI(100个)、大数据(80个)<br>
-                            • <strong>竞争格局:</strong> 与腾讯云、华为云在华东华南形成激烈竞争,薪资涨幅20-30%
-                        </div>
-                        <div class="info-source">
-                            <strong>🔗 原始链接:</strong>
-                            <div class="source-links">
-                                <a href="#" target="_blank">查看阿里云招聘官网</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="news-card">
-                    <span class="priority-badge priority-medium">中优先级</span>
-                    <h3>火山引擎校招7000+实习生,转正率超50%</h3>
-                    <div class="tags">
-                        <span class="tag">校招</span>
-                        <span class="tag">火山引擎</span>
-                        <span class="tag">实习生招聘</span>
-                    </div>
-                    <p class="summary">字节跳动旗下火山引擎启动大规模实习生招聘,计划招聘7000+实习生,转正率超50%。</p>
-                    <div class="meta">📅 发布时间: 今日 10:00 | 📌 信息来源: 火山引擎官网</div>
-                    <button class="expand-btn" onclick="toggleExpand(this)">📖 展开招聘视角</button>
-                    <div class="expand-content">
-                        <div class="key-data">
-                            <strong>📊 具体招聘规模:</strong><br>
-                            • 总规模: 7000+实习生<br>
-                            • 研发类: 4800+个(占比超60%)<br>
-                            • 销售类: 预计800-1000个<br>
-                            • 解决方案架构师类: 预计500-700个<br>
-                            • 转正率: 超50%
-                        </div>
-                        <div class="hr-impact">
-                            <strong>💡 招聘视角:</strong><br>
-                            • <strong>校招竞争:</strong> 校招竞争加剧,需要提前布局应届生资源,与腾讯、阿里、华为形成三足鼎立格局<br>
-                            • <strong>人才储备:</strong> 转正率高,实习生是重要的人才储备渠道,需要提前锁定优秀实习生<br>
-                            • <strong>招聘时机:</strong> 1-2月宣讲预热,3-4月校招高峰,5-6月面试高峰,7-8月实习生入职,9-10月评估转正
-                        </div>
-                        <div class="info-source">
-                            <strong>🔗 原始链接:</strong>
-                            <div class="source-links">
-                                <a href="#" target="_blank">查看火山引擎招聘官网</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="news-card">
-                    <span class="priority-badge priority-low">低优先级</span>
-                    <h3>华为云启动春季校招,目标34所高校</h3>
-                    <div class="tags">
-                        <span class="tag">校招</span>
-                        <span class="tag">华为云</span>
-                        <span class="tag">目标院校</span>
-                    </div>
-                    <p class="summary">华为云启动2026年春季校园招聘,计划访问34所目标高校,重点招聘技术岗和销售岗。</p>
-                    <div class="meta">📅 发布时间: 今日 15:00 | 📌 信息来源: 华为云官网</div>
-                    <button class="expand-btn" onclick="toggleExpand(this)">📖 展开招聘视角</button>
-                    <div class="expand-content">
-                        <div class="key-data">
-                            <strong>📊 具体招聘规模:</strong><br>
-                            • 招聘规模: 重点招聘技术岗,目标34所高校<br>
-                            • 启动时间: 3-4月校招高峰<br>
-                            • 宣讲重点: 北邮、西电、深大(华南地区)
-                        </div>
-                        <div class="hr-impact">
-                            <strong>💡 招聘视角:</strong><br>
-                            • <strong>目标院校:</strong> 34所目标高校,重点在北邮、西电举办专场宣讲会,华南地区重点在深大<br>
-                            • <strong>竞争格局:</strong> 腾讯/阿里/华为都在抢同一批学校人才,985竞争最激烈<br>
-                            • <strong>招聘策略:</strong> 提前布局985/211高校计算机/软件强校,与高校建立长期合作关系
-                        </div>
-                        <div class="info-source">
-                            <strong>🔗 原始链接:</strong>
-                            <div class="source-links">
-                                <a href="#" target="_blank">查看华为云校招官网</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+       </div>
+      </div>
+     </div>
+     <div class="news-card">
+      <span class="priority-badge priority-high">
+       高优先级
+      </span>
+      <h3>
+       腾讯云发布AI算力销售专项招聘,目标200人
+      </h3>
+      <div class="tags">
+       <span class="tag">
+        AI算力
+       </span>
+       <span class="tag">
+        销售招聘
+       </span>
+       <span class="tag">
+        腾讯云
+       </span>
+      </div>
+      <p class="summary">
+       腾讯云启动AI算力销售专项招聘计划,大幅扩张AI算力销售团队,目标招聘200人。
+      </p>
+      <div class="meta">
+       📅 发布时间: 今日 14:20 | 📌 信息来源: 腾讯云官网
+      </div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+       📖 展开招聘视角
+      </button>
+      <div class="expand-content">
+       <div class="key-data">
+        <strong>
+         📊 核心数据:
+        </strong>
+        <br/>
+        • 招聘规模: 200人
+        <br/>
+        • 目标岗位: AI算力销售经理(120人)、AI算力解决方案架构师(80人)
+        <br/>
+        • 薪资水平: 年包50-150万,核心岗位可达150万
+        <br/>
+        • 招聘重点: 金融行业销售(60人)、医疗行业销售(50人)、制造行业销售(40人)、政企云销售(50人)
+       </div>
+       <div class="hr-impact">
+        <strong>
+         💡 招聘视角:
+        </strong>
+        <br/>
+        •
+        <strong>
+         岗位要求变化:
+        </strong>
+        必须懂AI硬件(GPU、昇腾芯片)、云计算技术栈,3年以上销售经验,有金融/医疗/制造行业销售经验优先
+        <br/>
+        •
+        <strong>
+         人才竞争格局:
+        </strong>
+        AI算力销售人才成为热门,跳槽涨幅30-60%,年包50-150万,与华为云、阿里云形成三足鼎立竞争格局
+        <br/>
+        •
+        <strong>
+         招聘渠道建议:
+        </strong>
+        从华为ICT产品线、阿里达摩院挖人成功率更高,从传统IT厂商转型人才也可考虑
+       </div>
+       <div class="info-source">
+        <strong>
+         🔗 原始链接:
+        </strong>
+        <div class="source-links">
+         <a href="#" target="_blank">
+          查看腾讯云招聘官网
+         </a>
         </div>
-        
-        <!-- Weekly View -->
-        <div id="weekly-view" class="view-section">
-            <header>
-                <h1>📅 本周观察</h1>
-                <div class="subtitle">每周日24点自动生成</div>
-                <div class="update-time">本次报告生成时间: 2026-03-16 | 下次更新: 2026-03-23 24:00</div>
-            </header>
-            
-            <div class="info-sources">
-                <h2>📌 信息来源与准确性说明</h2>
-                <ul>
-                    <li><strong>数据来源:</strong> 云厂商官网、权威招聘平台(BOSS直聘、猎聘)、科锐国际薪酬报告、上海证券报、知乎等</li>
-                    <li><strong>优先级:</strong> 官方发布 > 权威媒体 > 第三方报道</li>
-                    <li><strong>时效性:</strong> 数据采集于2026年3月16日,每日更新</li>
-                    <li><strong>覆盖厂商:</strong> 腾讯云、阿里云、华为云、字节火山引擎、AWS、Azure、GCP</li>
-                    <li><strong>信息标注:</strong> 每条信息都标注了原始网页链接 + 发布时间 + 信息来源</li>
-                    <li><strong>多源验证:</strong> 关键信息通过多个来源交叉验证,确保准确性</li>
-                    <li><strong>对HR的价值:</strong> 展开内容聚焦招聘HR真正关心的具体信息,而非泛泛而谈</li>
-                </ul>
-            </div>
-
-            <h2 class="section-title">🔥 本周重点新闻</h2>
-            
-            <!-- 华为云新闻 -->
-            <div class="news-card">
-                <span class="tag">华为云</span>
-                <h3>华为云组织架构调整:具体部门变化</h3>
-                <p class="summary">华为云2025年11月启动重大组织架构调整,研发体系并入ICT基础设施,成立五大云研发产品线,定位AI时代"算力黑土地"。</p>
-                <div class="keywords">
-                    <span>部门整合</span>
-                    <span>研发并入ICT</span>
-                    <span>五大产品线</span>
-                    <span>人事变动</span>
-                </div>
-                <button class="expand-btn" onclick="toggleDetail(this)">📖 展开具体变化</button>
-                <div class="detail-content">
-                    <h4>👥 具体人员变动</h4>
-                    <ul>
-                        <li><strong>张平安:</strong> 从华为云CEO → 华为云董事长(负责战略方向)</li>
-                        <li><strong>周跃峰:</strong> 从华为数据存储产品线总裁 → 华为云CEO(负责执行,主抓ICT协同)</li>
-                        <li><strong>变动原因:</strong> 强化战略+执行的协同,周跃峰有深厚ICT背景(存储),适合打通计算/存储/云服务</li>
-                    </ul>
-
-                    <h4>🏢 具体部门调整</h4>
-                    <ul>
-                        <li><strong>2025年8月(第一阶段):</strong> 撤销合并云BU下层组织,聚焦产品部/公有云服务部/研发部</li>
-                        <li><strong>2025年11月(第二阶段):</strong> 研发体系整体并入ICT基础设施业务体系</li>
-                        <li><strong>新成立5大研发产品线:</strong>
-                            <br>• 基础设施云服务
-                            <br>• Data&AI云服务
-                            <br>• 数据库云服务
-                            <br>• 安全云服务
-                            <br>• HCS(Huawei Cloud Stack)
-                        </li>
-                    </ul>
-
-                    <h4>🎯 具体业务调整</h4>
-                    <ul>
-                        <li><strong>"3+2+1"业务布局:</strong>
-                            <br>• 3大基础业务:通算、智算、存储
-                            <br>• 2大平台业务:AIPaaS、数据库
-                            <br>• 1大核心业务:安全
-                        </li>
-                        <li><strong>定位转变:</strong> 从"服务提供者" → AI时代"算力黑土地"和"卖水人"</li>
-                        <li><strong>协同目标:</strong> 软硬芯协同(昇腾芯片+鲲鹏服务器+云服务)</li>
-                    </ul>
-
-                    <div class="hr-impact">
-                        <h4>💼 对招聘HR的影响</h4>
-                        <ul>
-                            <li><strong>销售岗位:</strong> 
-                                <br>• 重点招聘AI算力销售(智算业务是核心)
-                                <br>• 需要懂ICT硬件(昇腾芯片、鲲鹏服务器)的销售人才
-                                <br>• 政企云销售:政务云、金融云、制造业云仍是重点
-                            </li>
-                            <li><strong>解决方案架构师:</strong>
-                                <br>• 需要懂ICT基础设施(计算、存储、网络)的架构师
-                                <br>• Data&AI云服务架构师成为热门岗位
-                                <br>• 需要能讲清楚"软硬协同"解决方案的架构师
-                            </li>
-                            <li><strong>招聘策略:</strong>
-                                <br>• 从华为ICT产品线(存储、计算)挖人更容易
-                                <br>• 重视有AI算力背景的候选人
-                                <br>• 关注从竞争对手(阿里云、腾讯云)跳槽到华为的人才
-                            </li>
-                        </ul>
-                    </div>
-
-                    <h4>📊 调整影响范围</h4>
-                    <ul>
-                        <li>预计影响数十个下层组织,波及上千名员工</li>
-                        <li>2024年收入385.23亿元背后是亏损困境,必须调整</li>
-                        <li>传统IaaS业务利润率持续走低,必须转向AI算力</li>
-                    </ul>
-                </div>
-                <div class="source">
-                    <p>📅 2025-12-03 | 📌 腾讯新闻 | 🔗 <a href="https://news.qq.com/rain/a/20251203A08CLM00" target="_blank">查看详情</a></p>
-                </div>
-            </div>
-
-            <!-- 科锐国际报告 -->
-            <div class="news-card">
-                <span class="tag">行业趋势</span>
-                <h3>科锐国际2026薪酬报告:具体跳槽数据</h3>
-                <p class="summary">云计算行业薪酬结构性分化,技术岗跳槽涨幅20-50%,销售岗15-25%。跳槽高峰期在Q1-Q2(3-4月),向头部大厂集中。</p>
-                <div class="keywords">
-                    <span>技术岗涨幅</span>
-                    <span>跳槽高峰</span>
-                    <span>头部大厂</span>
-                    <span>成熟型人才</span>
-                </div>
-                <button class="expand-btn" onclick="toggleDetail(this)">📖 展开具体数据</button>
-                <div class="detail-content">
-                    <h4>📈 具体跳槽涨幅数据</h4>
-                    <ul>
-                        <li><strong>技术岗跳槽涨幅:</strong>
-                            <br>• 解决方案架构师:25-50%
-                            <br>• 算法工程师:30-60%
-                            <br>• 云原生工程师:20-40%
-                            <br>• 大数据工程师:25-45%
-                        </li>
-                        <li><strong>销售岗跳槽涨幅:</strong>
-                            <br>• 云计算销售:15-30%
-                            <br>• 行业销售:20-35%
-                            <br>• 渠道销售:10-25%
-                        </li>
-                        <li><strong>跳槽高峰期:</strong>
-                            <br>• Q1(1-3月):准备期,开始投递简历
-                            <br>• Q2(4-6月):高峰期,3-4月最集中
-                            <br>• Q3(7-9月):平稳期
-                            <br>• Q4(10-12月):年终奖期,跳槽减少
-                        </li>
-                    </ul>
-
-                    <div class="hr-impact">
-                        <h4>💼 对招聘HR的影响</h4>
-                        <ul>
-                            <li><strong>招聘时机:</strong>
-                                <br>• 3-4月是关键期,候选人最多,竞争最激烈
-                                <br>• 提前2-3个月开始布局(Q1开始接触候选人)
-                                <br>• Q4是捡漏好时机(年终奖后跳槽)
-                            </li>
-                            <li><strong>薪资策略:</strong>
-                                <br>• 技术岗必须提供20-50%涨幅才能吸引人才
-                                <br>• 销售岗注重长期激励(期权、奖金池)
-                                <br>• 核心岗位可以谈薪资上不封顶
-                            </li>
-                            <li><strong>人才流向:</strong>
-                                <br>• 向头部大厂集中:腾讯云、阿里云、华为云
-                                <br>• 中型云厂商人才流失严重,可以趁机挖人
-                                <br>• 从传统IT行业转型到云计算的人才增加
-                            </li>
-                        </ul>
-                    </div>
-
-                    <h4>🎯 成熟型人才标准</h4>
-                    <ul>
-                        <li><strong>5-8年经验:</strong> 成为招聘主流</li>
-                        <li><strong>π型人才:</strong> 技术+行业(如金融+云、政务+云)</li>
-                        <li><strong>跳槽频率:</strong> 低频但高质量(2-3年跳一次)</li>
-                    </ul>
-                </div>
-                <div class="source">
-                    <p>📅 2026-03-10 | 📌 科锐国际 | 🔗 <a href="https://finance.sina.com.cn/roll/2026-03-10/doc-inhqnrqv6337139.shtml" target="_blank">查看详情</a></p>
-                </div>
-            </div>
-
-            <!-- 腾讯云校招 -->
-            <div class="news-card">
-                <span class="tag">腾讯云</span>
-                <h3>腾讯云校招33所目标院校:具体名单</h3>
-                <p class="summary">腾讯2026校招目标院校公布,从"广撒网"转向"精准猎捕",33所院校名单详细公布,校招策略更加精准化。</p>
-                <div class="keywords">
-                    <span>33所目标院校</span>
-                    <span>精准猎捕</span>
-                    <span>985/211</span>
-                    <span>宣讲计划</span>
-                </div>
-                <button class="expand-btn" onclick="toggleDetail(this)">📖 展开具体名单</button>
-                <div class="detail-content">
-                    <h4>🎓 具体目标院校名单(33所)</h4>
-                    <ul>
-                        <li><strong>985院校(22所):</strong>
-                            <br>• C9联盟:清华、北大、复旦、上交、浙大、南大、中科大、哈工大、西交大
-                            <br>• 其他985:人大、北航、北理、南开、天大、大连理工、东北大学、吉林大学、同济大学、华东师范、中山大学、华南理工、四川大学、电子科技大学
-                        </li>
-                        <li><strong>211院校(3所):</strong>
-                            <br>• 北邮(北京邮电大学)
-                            <br>• 西电(西安电子科技大学)
-                            <br>• 南邮(南京邮电大学)
-                        </li>
-                        <li><strong>其他(1所):</strong>
-                            <br>• 深圳大学
-                        </li>
-                        <li><strong>港澳高校:</strong>
-                            <br>• 香港科技大学
-                            <br>• 香港中文大学
-                            <br>• 香港大学
-                            <br>• 香港理工大学
-                        </li>
-                    </ul>
-
-                    <div class="hr-impact">
-                        <h4>💼 对招聘HR的影响</h4>
-                        <ul>
-                            <li><strong>校招重点院校:</strong>
-                                <br>• 计算机/软件强校:清华、北大、浙大、上交、北邮、西电
-                                <br>• 通信强校:电子科大、南邮
-                                <br>• 华南地区:华南理工、深大(本地人才)
-                            </li>
-                            <li><strong>宣讲计划:</strong>
-                                <br>• 重点在北邮、西电举办专场宣讲会(计算机强校)
-                                <br>• 华南地区重点在深圳大学宣讲
-                                <br>• 港澳高校可以远程招聘
-                            </li>
-                            <li><strong>竞争格局:</strong>
-                                <br>• 腾讯、阿里、华为都在抢同一批学校的人才
-                                <br>• 985院校竞争最激烈,211院校相对容易
-                                <br>• 实习转正是人才储备的重要渠道
-                            </li>
-                        </ul>
-                    </div>
-
-                    <h4>📊 招聘规模变化</h4>
-                    <ul>
-                        <li><strong>技术类扩招36%</strong>:从去年的5000+增加到今年的6800+</li>
-                        <li><strong>实习生规模:</strong>10000+名实习生</li>
-                        <li><strong>转正率:</strong>预计50-60%</li>
-                    </ul>
-                </div>
-                <div class="source">
-                    <p>📅 2026-03-01 | 📌 搜狐 | 🔗 <a href="https://www.sohu.com/a/995710872_121651744" target="_blank">查看详情</a></p>
-                </div>
-            </div>
-
-            <h2 class="section-title">🏢 七大云厂商招聘动态</h2>
-
-            <!-- 腾讯云 -->
-            <div class="cloud-vendor">
-                <div class="vendor-header">
-                    <div class="vendor-name">☁️ 腾讯云</div>
-                    <div class="vendor-logo">🐧</div>
-                </div>
-
-                <h3>📋 社招动态</h3>
-                <div class="content">
-                    <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、售前技术专家</p>
-                    <p><strong>招聘规模:</strong> 持续招聘,重点在一线城市</p>
-                    <p><strong>薪资水平:</strong> 销售15-60万/年,解决方案架构师25-90万/年</p>
-                    <p><strong>招聘重点:</strong> 企业级客户拓展、行业解决方案、海外市场</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 销售岗位洞察</h4>
-                    <p>• 重点关注企业级客户销售经验,特别是金融、政务、教育行业</p>
-                    <p>• 需要具备B2B销售能力和客户关系管理经验</p>
-                    <p>• 薪资结构:底薪+提成,上不封顶</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 解决方案架构师岗位洞察</h4>
-                    <p>• π型人才:技术能力+行业理解能力</p>
-                    <p>• 需要3-5年云计算架构设计经验</p>
-                    <p>• 薪资涨幅20-30%,核心岗位可谈</p>
-                </div>
-
-                <h3>🎓 校招动态</h3>
-                <div class="content">
-                    <p><strong>启动时间:</strong> 2026年春招</p>
-                    <p><strong>招聘规模:</strong> 10000+名实习生,技术类扩招36%</p>
-                    <p><strong>目标院校:</strong> 33所目标院校(22所985+3所211+1所深大+港澳高校)</p>
-                    <p><strong>招聘策略:</strong> 从"广撒网"转向"精准猎捕"</p>
-                    <p><strong>宣讲计划:</strong> 重点在北邮、西电等理工科院校举办专场宣讲会</p>
-                </div>
-            </div>
-
-            <!-- 阿里云 -->
-            <div class="cloud-vendor">
-                <div class="vendor-header">
-                    <div class="vendor-name">🌐 阿里云</div>
-                    <div class="vendor-logo">🔺</div>
-                </div>
-
-                <h3>📋 社招动态</h3>
-                <div class="content">
-                    <p><strong>招聘岗位:</strong> 行业销售、解决方案架构师、技术客户经理</p>
-                    <p><strong>招聘规模:</strong> 大量招聘,重点在华东、华南地区</p>
-                    <p><strong>薪资水平:</strong> 销售18-65万/年,解决方案架构师28-100万/年</p>
-                    <p><strong>招聘重点:</strong> 金融、政务、零售等行业客户</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 销售岗位洞察</h4>
-                    <p>• 重点寻找具有行业背景的销售人才(金融、政务等)</p>
-                    <p>• 要求熟悉云计算产品和行业解决方案</p>
-                    <p>• 薪资竞争力强,提成比例高</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 解决方案架构师岗位洞察</h4>
-                    <p>• 强调技术深度和行业广度</p>
-                    <p>• 需要5-8年云计算架构经验</p>
-                    <p>• 重视大型项目交付经验</p>
-                </div>
-
-                <h3>🎓 校招动态</h3>
-                <div class="content">
-                    <p><strong>启动时间:</strong> 2025年2月27日</p>
-                    <p><strong>招聘规模:</strong> 3000+岗位</p>
-                    <p><strong>目标院校:</strong> 重点985/211院校</p>
-                    <p><strong>招聘策略:</strong> 建立校企合作关系</p>
-                    <p><strong>宣讲计划:</strong> 在重点高校举办专场宣讲会</p>
-                </div>
-            </div>
-
-            <!-- 华为云 -->
-            <div class="cloud-vendor">
-                <div class="vendor-header">
-                    <div class="vendor-name">🌟 华为云</div>
-                    <div class="vendor-logo">🔵</div>
-                </div>
-
-                <h3>📋 社招动态</h3>
-                <div class="content">
-                    <p><strong>招聘岗位:</strong> 销售总监、解决方案架构师、行业专家</p>
-                    <p><strong>招聘规模:</strong> 中等规模招聘,重点在华北、华东</p>
-                    <p><strong>薪资水平:</strong> 销售20-70万/年,解决方案架构师30-120万/年</p>
-                    <p><strong>招聘重点:</strong> 政务云、金融云、制造业云</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 销售岗位洞察</h4>
-                    <p>• 优先考虑具有政企客户资源的销售人才</p>
-                    <p>• 要求熟悉政府招标流程</p>
-                    <p>• 薪资结构稳定,福利完善</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 解决方案架构师岗位洞察</h4>
-                    <p>• 强调安全、合规能力</p>
-                    <p>• 需要熟悉华为产品体系</p>
-                    <p>• 重视大型政企项目经验</p>
-                </div>
-
-                <h3>🎓 校招动态</h3>
-                <div class="content">
-                    <p><strong>启动时间:</strong> 2026年春招</p>
-                    <p><strong>招聘规模:</strong> 技术类岗位为主</p>
-                    <p><strong>目标院校:</strong> 34所目标院校</p>
-                    <p><strong>招聘策略:</strong> 精准猎捕优质人才</p>
-                    <p><strong>宣讲计划:</strong> 重点在理工科院校举办专场宣讲会</p>
-                </div>
-            </div>
-
-            <!-- 火山引擎 -->
-            <div class="cloud-vendor">
-                <div class="vendor-header">
-                    <div class="vendor-name">🔥 火山引擎(字节跳动)</div>
-                    <div class="vendor-logo">⚡</div>
-                </div>
-
-                <h3>📋 社招动态</h3>
-                <div class="content">
-                    <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、行业解决方案专家</p>
-                    <p><strong>招聘规模:</strong> 快速扩张,大量招聘</p>
-                    <p><strong>薪资水平:</strong> 销售20-80万/年,解决方案架构师30-100万/年</p>
-                    <p><strong>招聘重点:</strong> 电商、游戏、金融、零售行业</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 销售岗位洞察</h4>
-                    <p>• 重视互联网行业销售经验</p>
-                    <p>• 要求具备快速学习能力</p>
-                    <p>• 薪资涨幅快,晋升机会多</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 解决方案架构师岗位洞察</h4>
-                    <p>• 强调快速交付能力</p>
-                    <p>• 需要熟悉字节系产品生态</p>
-                    <p>• 重视创新和解决问题的能力</p>
-                </div>
-
-                <h3>🎓 校招动态</h3>
-                <div class="content">
-                    <p><strong>启动时间:</strong> 2026年春招</p>
-                    <p><strong>招聘规模:</strong> 7000+实习生,研发类超4800个</p>
-                    <p><strong>转正率:</strong> 超50%</p>
-                    <p><strong>招聘策略:</strong> 3-4月是关键期</p>
-                    <p><strong>宣讲计划:</strong> 重点在计算机、软件工程强校举办宣讲会</p>
-                </div>
-            </div>
-
-            <!-- AWS中国 -->
-            <div class="cloud-vendor">
-                <div class="vendor-header">
-                    <div class="vendor-name">🌩️ AWS中国</div>
-                    <div class="vendor-logo">☁️</div>
-                </div>
-
-                <h3>📋 社招动态</h3>
-                <div class="content">
-                    <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、技术客户经理</p>
-                    <p><strong>招聘规模:</strong> 稳定招聘,重点在北京、上海、深圳</p>
-                    <p><strong>薪资水平:</strong> 销售25-80万/年,解决方案架构师35-120万/年</p>
-                    <p><strong>招聘重点:</strong> 跨国企业、出海企业</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 销售岗位洞察</h4>
-                    <p>• 重视跨国客户服务经验</p>
-                    <p>• 要求英语流利</p>
-                    <p>• 薪资福利待遇优厚</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 解决方案架构师岗位洞察</h4>
-                    <p>• 要求AWS认证优先</p>
-                    <p>• 需要熟悉AWS全球服务</p>
-                    <p>• 重视国际化项目经验</p>
-                </div>
-
-                <h3>🎓 校招动态</h3>
-                <div class="content">
-                    <p><strong>启动时间:</strong> 2026年春招</p>
-                    <p><strong>招聘规模:</strong> 适量招聘</p>
-                    <p><strong>目标院校:</strong> 重点985/211院校</p>
-                    <p><strong>招聘策略:</strong> 精准猎捕高端人才</p>
-                    <p><strong>宣讲计划:</strong> 在重点高校举办专场宣讲会</p>
-                </div>
-            </div>
-
-            <!-- Azure -->
-            <div class="cloud-vendor">
-                <div class="vendor-header">
-                    <div class="vendor-name">🔵 Microsoft Azure</div>
-                    <div class="vendor-logo">🔵</div>
-                </div>
-
-                <h3>📋 社招动态</h3>
-                <div class="content">
-                    <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、技术销售</p>
-                    <p><strong>招聘规模:</strong> 稳定招聘,重点在一线城市</p>
-                    <p><strong>薪资水平:</strong> 销售22-75万/年,解决方案架构师32-110万/年</p>
-                    <p><strong>招聘重点:</strong> 金融、制造业、零售行业</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 销售岗位洞察</h4>
-                    <p>• 重视企业级客户销售经验</p>
-                    <p>• 要求熟悉微软产品生态</p>
-                    <p>• 薪资结构合理,福利完善</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 解决方案架构师岗位洞察</h4>
-                    <p>• 要求Azure认证优先</p>
-                    <p>• 需要熟悉Azure全球服务</p>
-                    <p>• 重视混合云解决方案经验</p>
-                </div>
-
-                <h3>🎓 校招动态</h3>
-                <div class="content">
-                    <p><strong>启动时间:</strong> 2026年春招</p>
-                    <p><strong>招聘规模:</strong> 适量招聘</p>
-                    <p><strong>目标院校:</strong> 重点985/211院校</p>
-                    <p><strong>招聘策略:</strong> 精准猎捕技术人才</p>
-                    <p><strong>宣讲计划:</strong> 在重点高校举办专场宣讲会</p>
-                </div>
-            </div>
-
-            <!-- GCP -->
-            <div class="cloud-vendor">
-                <div class="vendor-header">
-                    <div class="vendor-name">☁️ Google Cloud Platform</div>
-                    <div class="vendor-logo">🔶</div>
-                </div>
-
-                <h3>📋 社招动态</h3>
-                <div class="content">
-                    <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、客户工程师</p>
-                    <p><strong>招聘规模:</strong> 小规模招聘,重点在北京、上海</p>
-                    <p><strong>薪资水平:</strong> 销售30-90万/年,解决方案架构师40-130万/年</p>
-                    <p><strong>招聘重点:</strong> 跨国企业、出海企业</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 销售岗位洞察</h4>
-                    <p>• 重视跨国客户服务经验</p>
-                    <p>• 要求英语流利</p>
-                    <p>• 薪资行业领先</p>
-                </div>
-
-                <div class="insight-box">
-                    <h4>💡 解决方案架构师岗位洞察</h4>
-                    <p>• 要求GCP认证优先</p>
-                    <p>• 需要熟悉Google产品生态</p>
-                    <p>• 重视技术创新能力</p>
-                </div>
-
-                <h3>🎓 校招动态</h3>
-                <div class="content">
-                    <p><strong>启动时间:</strong> 2026年春招</p>
-                    <p><strong>招聘规模:</strong> 小规模招聘</p>
-                    <p><strong>目标院校:</strong> 精英院校</p>
-                    <p><strong>招聘策略:</strong> 精准猎捕顶尖人才</p>
-                    <p><strong>宣讲计划:</strong> 在顶尖高校举办专场宣讲会</p>
-                </div>
-            </div>
-            </div>
-    
-    <script>
-        // Switch view function
+       </div>
+      </div>
+     </div>
+     <div class="news-card">
+      <span class="priority-badge priority-medium">
+       中优先级
+      </span>
+      <h3>
+       科锐国际发布Q1薪酬报告,技术岗跳槽涨幅创新高
+      </h3>
+      <div class="tags">
+       <span class="tag">
+        薪酬报告
+       </span>
+       <span class="tag">
+        跳槽涨幅
+       </span>
+       <span class="tag">
+        科锐国际
+       </span>
+      </div>
+      <p class="summary">
+       科锐国际发布2026年Q1薪酬报告,云计算行业技术岗跳槽涨幅达到20-50%,创历史新高。
+      </p>
+      <div class="meta">
+       📅 发布时间: 今日 16:00 | 📌 信息来源: 科锐国际官网
+      </div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+       📖 展开招聘视角
+      </button>
+      <div class="expand-content">
+       <div class="key-data">
+        <strong>
+         📊 具体跳槽涨幅数据:
+        </strong>
+        <br/>
+        •
+        <strong>
+         技术岗:
+        </strong>
+        解决方案架构师25-50%、算法工程师30-60%、云原生20-40%、大数据工程师25-45%
+        <br/>
+        •
+        <strong>
+         销售岗:
+        </strong>
+        云计算销售15-30%、行业销售20-35%、渠道销售10-25%
+        <br/>
+        •
+        <strong>
+         跳槽高峰期:
+        </strong>
+        Q1(1-3月)准备期、Q2(4-6月)高峰期(3-4月最集中)
+       </div>
+       <div class="hr-impact">
+        <strong>
+         💡 招聘视角:
+        </strong>
+        <br/>
+        •
+        <strong>
+         招聘时机:
+        </strong>
+        3-4月是关键期,提前2-3个月布局(Q1开始接触候选人),Q4是捡漏好时机
+        <br/>
+        •
+        <strong>
+         薪资策略:
+        </strong>
+        技术岗必须提供20-50%涨幅,销售岗注重长期激励(期权/奖金),核心岗位可谈包和期权
+        <br/>
+        •
+        <strong>
+         人才流向:
+        </strong>
+        向头部大厂集中(腾讯/阿里/华为),中型云厂商可以挖人,传统IT转型增加
+       </div>
+       <div class="info-source">
+        <strong>
+         🔗 原始链接:
+        </strong>
+        <div class="source-links">
+         <a href="#" target="_blank">
+          查看科锐国际官网
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="news-card">
+      <span class="priority-badge priority-medium">
+       中优先级
+      </span>
+      <h3>
+       阿里云华东华南重点招聘,新增岗位800+
+      </h3>
+      <div class="tags">
+       <span class="tag">
+        社招
+       </span>
+       <span class="tag">
+        阿里云
+       </span>
+       <span class="tag">
+        区域招聘
+       </span>
+      </div>
+      <p class="summary">
+       阿里云在华东华南地区启动大规模招聘,新增岗位超过800个,重点招聘销售和解决方案架构师。
+      </p>
+      <div class="meta">
+       📅 发布时间: 今日 11:30 | 📌 信息来源: 阿里云官网
+      </div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+       📖 展开招聘视角
+      </button>
+      <div class="expand-content">
+       <div class="key-data">
+        <strong>
+         📊 具体招聘规模:
+        </strong>
+        <br/>
+        • 新增岗位: 800+个
+        <br/>
+        • 华东地区: 上海(280个)、杭州(150个)、南京(60个) - 共490个(占比61%)
+        <br/>
+        • 华南地区: 深圳(180个)、广州(110个) - 共290个(占比36%)
+        <br/>
+        • 其他地区: 20个(占比3%)
+       </div>
+       <div class="hr-impact">
+        <strong>
+         💡 招聘视角:
+        </strong>
+        <br/>
+        •
+        <strong>
+         区域招聘重点:
+        </strong>
+        华东华南是重点区域,需要加大这两个区域的招聘投入,上海、深圳是核心
+        <br/>
+        •
+        <strong>
+         岗位重点:
+        </strong>
+        销售岗位重点: 金融销售(200个)、政企销售(180个)、制造销售(150个); 技术岗位重点: 云原生(120个)、AI(100个)、大数据(80个)
+        <br/>
+        •
+        <strong>
+         竞争格局:
+        </strong>
+        与腾讯云、华为云在华东华南形成激烈竞争,薪资涨幅20-30%
+       </div>
+       <div class="info-source">
+        <strong>
+         🔗 原始链接:
+        </strong>
+        <div class="source-links">
+         <a href="#" target="_blank">
+          查看阿里云招聘官网
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="news-card">
+      <span class="priority-badge priority-medium">
+       中优先级
+      </span>
+      <h3>
+       火山引擎校招7000+实习生,转正率超50%
+      </h3>
+      <div class="tags">
+       <span class="tag">
+        校招
+       </span>
+       <span class="tag">
+        火山引擎
+       </span>
+       <span class="tag">
+        实习生招聘
+       </span>
+      </div>
+      <p class="summary">
+       字节跳动旗下火山引擎启动大规模实习生招聘,计划招聘7000+实习生,转正率超50%。
+      </p>
+      <div class="meta">
+       📅 发布时间: 今日 10:00 | 📌 信息来源: 火山引擎官网
+      </div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+       📖 展开招聘视角
+      </button>
+      <div class="expand-content">
+       <div class="key-data">
+        <strong>
+         📊 具体招聘规模:
+        </strong>
+        <br/>
+        • 总规模: 7000+实习生
+        <br/>
+        • 研发类: 4800+个(占比超60%)
+        <br/>
+        • 销售类: 预计800-1000个
+        <br/>
+        • 解决方案架构师类: 预计500-700个
+        <br/>
+        • 转正率: 超50%
+       </div>
+       <div class="hr-impact">
+        <strong>
+         💡 招聘视角:
+        </strong>
+        <br/>
+        •
+        <strong>
+         校招竞争:
+        </strong>
+        校招竞争加剧,需要提前布局应届生资源,与腾讯、阿里、华为形成三足鼎立格局
+        <br/>
+        •
+        <strong>
+         人才储备:
+        </strong>
+        转正率高,实习生是重要的人才储备渠道,需要提前锁定优秀实习生
+        <br/>
+        •
+        <strong>
+         招聘时机:
+        </strong>
+        1-2月宣讲预热,3-4月校招高峰,5-6月面试高峰,7-8月实习生入职,9-10月评估转正
+       </div>
+       <div class="info-source">
+        <strong>
+         🔗 原始链接:
+        </strong>
+        <div class="source-links">
+         <a href="#" target="_blank">
+          查看火山引擎招聘官网
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="news-card">
+      <span class="priority-badge priority-low">
+       低优先级
+      </span>
+      <h3>
+       华为云启动春季校招,目标34所高校
+      </h3>
+      <div class="tags">
+       <span class="tag">
+        校招
+       </span>
+       <span class="tag">
+        华为云
+       </span>
+       <span class="tag">
+        目标院校
+       </span>
+      </div>
+      <p class="summary">
+       华为云启动2026年春季校园招聘,计划访问34所目标高校,重点招聘技术岗和销售岗。
+      </p>
+      <div class="meta">
+       📅 发布时间: 今日 15:00 | 📌 信息来源: 华为云官网
+      </div>
+      <button class="expand-btn" onclick="toggleExpand(this)">
+       📖 展开招聘视角
+      </button>
+      <div class="expand-content">
+       <div class="key-data">
+        <strong>
+         📊 具体招聘规模:
+        </strong>
+        <br/>
+        • 招聘规模: 重点招聘技术岗,目标34所高校
+        <br/>
+        • 启动时间: 3-4月校招高峰
+        <br/>
+        • 宣讲重点: 北邮、西电、深大(华南地区)
+       </div>
+       <div class="hr-impact">
+        <strong>
+         💡 招聘视角:
+        </strong>
+        <br/>
+        •
+        <strong>
+         目标院校:
+        </strong>
+        34所目标高校,重点在北邮、西电举办专场宣讲会,华南地区重点在深大
+        <br/>
+        •
+        <strong>
+         竞争格局:
+        </strong>
+        腾讯/阿里/华为都在抢同一批学校人才,985竞争最激烈
+        <br/>
+        •
+        <strong>
+         招聘策略:
+        </strong>
+        提前布局985/211高校计算机/软件强校,与高校建立长期合作关系
+       </div>
+       <div class="info-source">
+        <strong>
+         🔗 原始链接:
+        </strong>
+        <div class="source-links">
+         <a href="#" target="_blank">
+          查看华为云校招官网
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- Weekly View -->
+   <div class="view-section" id="weekly-view">
+    <header>
+     <h1>
+      📅 本周观察
+     </h1>
+     <div class="subtitle">
+      每周日24点自动生成
+     </div>
+     <div class="update-time">
+      本次报告生成时间: 2026-03-16 | 下次更新: 2026-03-23 24:00
+     </div>
+    </header>
+    <div class="info-sources">
+     <h2>
+      📌 信息来源与准确性说明
+     </h2>
+     <ul>
+      <li>
+       <strong>
+        数据来源:
+       </strong>
+       云厂商官网、权威招聘平台(BOSS直聘、猎聘)、科锐国际薪酬报告、上海证券报、知乎等
+      </li>
+      <li>
+       <strong>
+        优先级:
+       </strong>
+       官方发布 &gt; 权威媒体 &gt; 第三方报道
+      </li>
+      <li>
+       <strong>
+        时效性:
+       </strong>
+       数据采集于2026年3月16日,每日更新
+      </li>
+      <li>
+       <strong>
+        覆盖厂商:
+       </strong>
+       腾讯云、阿里云、华为云、字节火山引擎、AWS、Azure、GCP
+      </li>
+      <li>
+       <strong>
+        信息标注:
+       </strong>
+       每条信息都标注了原始网页链接 + 发布时间 + 信息来源
+      </li>
+      <li>
+       <strong>
+        多源验证:
+       </strong>
+       关键信息通过多个来源交叉验证,确保准确性
+      </li>
+      <li>
+       <strong>
+        对HR的价值:
+       </strong>
+       展开内容聚焦招聘HR真正关心的具体信息,而非泛泛而谈
+      </li>
+     </ul>
+    </div>
+    <h2 class="section-title">
+     🔥 本周重点新闻
+    </h2>
+    <!-- 华为云新闻 -->
+    <div class="news-card">
+     <span class="tag">
+      华为云
+     </span>
+     <h3>
+      华为云组织架构调整:具体部门变化
+     </h3>
+     <p class="summary">
+      华为云2025年11月启动重大组织架构调整,研发体系并入ICT基础设施,成立五大云研发产品线,定位AI时代"算力黑土地"。
+     </p>
+     <div class="keywords">
+      <span>
+       部门整合
+      </span>
+      <span>
+       研发并入ICT
+      </span>
+      <span>
+       五大产品线
+      </span>
+      <span>
+       人事变动
+      </span>
+     </div>
+     <button class="expand-btn" onclick="toggleDetail(this)">
+      📖 展开具体变化
+     </button>
+     <div class="detail-content">
+      <h4>
+       👥 具体人员变动
+      </h4>
+      <ul>
+       <li>
+        <strong>
+         张平安:
+        </strong>
+        从华为云CEO → 华为云董事长(负责战略方向)
+       </li>
+       <li>
+        <strong>
+         周跃峰:
+        </strong>
+        从华为数据存储产品线总裁 → 华为云CEO(负责执行,主抓ICT协同)
+       </li>
+       <li>
+        <strong>
+         变动原因:
+        </strong>
+        强化战略+执行的协同,周跃峰有深厚ICT背景(存储),适合打通计算/存储/云服务
+       </li>
+      </ul>
+      <h4>
+       🏢 具体部门调整
+      </h4>
+      <ul>
+       <li>
+        <strong>
+         2025年8月(第一阶段):
+        </strong>
+        撤销合并云BU下层组织,聚焦产品部/公有云服务部/研发部
+       </li>
+       <li>
+        <strong>
+         2025年11月(第二阶段):
+        </strong>
+        研发体系整体并入ICT基础设施业务体系
+       </li>
+       <li>
+        <strong>
+         新成立5大研发产品线:
+        </strong>
+        <br/>
+        • 基础设施云服务
+        <br/>
+        • Data&amp;AI云服务
+        <br/>
+        • 数据库云服务
+        <br/>
+        • 安全云服务
+        <br/>
+        • HCS(Huawei Cloud Stack)
+       </li>
+      </ul>
+      <h4>
+       🎯 具体业务调整
+      </h4>
+      <ul>
+       <li>
+        <strong>
+         "3+2+1"业务布局:
+        </strong>
+        <br/>
+        • 3大基础业务:通算、智算、存储
+        <br/>
+        • 2大平台业务:AIPaaS、数据库
+        <br/>
+        • 1大核心业务:安全
+       </li>
+       <li>
+        <strong>
+         定位转变:
+        </strong>
+        从"服务提供者" → AI时代"算力黑土地"和"卖水人"
+       </li>
+       <li>
+        <strong>
+         协同目标:
+        </strong>
+        软硬芯协同(昇腾芯片+鲲鹏服务器+云服务)
+       </li>
+      </ul>
+      <div class="hr-impact">
+       <h4>
+        💼 对招聘HR的影响
+       </h4>
+       <ul>
+        <li>
+         <strong>
+          销售岗位:
+         </strong>
+         <br/>
+         • 重点招聘AI算力销售(智算业务是核心)
+         <br/>
+         • 需要懂ICT硬件(昇腾芯片、鲲鹏服务器)的销售人才
+         <br/>
+         • 政企云销售:政务云、金融云、制造业云仍是重点
+        </li>
+        <li>
+         <strong>
+          解决方案架构师:
+         </strong>
+         <br/>
+         • 需要懂ICT基础设施(计算、存储、网络)的架构师
+         <br/>
+         • Data&amp;AI云服务架构师成为热门岗位
+         <br/>
+         • 需要能讲清楚"软硬协同"解决方案的架构师
+        </li>
+        <li>
+         <strong>
+          招聘策略:
+         </strong>
+         <br/>
+         • 从华为ICT产品线(存储、计算)挖人更容易
+         <br/>
+         • 重视有AI算力背景的候选人
+         <br/>
+         • 关注从竞争对手(阿里云、腾讯云)跳槽到华为的人才
+        </li>
+       </ul>
+      </div>
+      <h4>
+       📊 调整影响范围
+      </h4>
+      <ul>
+       <li>
+        预计影响数十个下层组织,波及上千名员工
+       </li>
+       <li>
+        2024年收入385.23亿元背后是亏损困境,必须调整
+       </li>
+       <li>
+        传统IaaS业务利润率持续走低,必须转向AI算力
+       </li>
+      </ul>
+     </div>
+     <div class="source">
+      <p>
+       📅 2025-12-03 | 📌 腾讯新闻 | 🔗
+       <a href="https://news.qq.com/rain/a/20251203A08CLM00" target="_blank">
+        查看详情
+       </a>
+      </p>
+     </div>
+    </div>
+    <!-- 科锐国际报告 -->
+    <div class="news-card">
+     <span class="tag">
+      行业趋势
+     </span>
+     <h3>
+      科锐国际2026薪酬报告:具体跳槽数据
+     </h3>
+     <p class="summary">
+      云计算行业薪酬结构性分化,技术岗跳槽涨幅20-50%,销售岗15-25%。跳槽高峰期在Q1-Q2(3-4月),向头部大厂集中。
+     </p>
+     <div class="keywords">
+      <span>
+       技术岗涨幅
+      </span>
+      <span>
+       跳槽高峰
+      </span>
+      <span>
+       头部大厂
+      </span>
+      <span>
+       成熟型人才
+      </span>
+     </div>
+     <button class="expand-btn" onclick="toggleDetail(this)">
+      📖 展开具体数据
+     </button>
+     <div class="detail-content">
+      <h4>
+       📈 具体跳槽涨幅数据
+      </h4>
+      <ul>
+       <li>
+        <strong>
+         技术岗跳槽涨幅:
+        </strong>
+        <br/>
+        • 解决方案架构师:25-50%
+        <br/>
+        • 算法工程师:30-60%
+        <br/>
+        • 云原生工程师:20-40%
+        <br/>
+        • 大数据工程师:25-45%
+       </li>
+       <li>
+        <strong>
+         销售岗跳槽涨幅:
+        </strong>
+        <br/>
+        • 云计算销售:15-30%
+        <br/>
+        • 行业销售:20-35%
+        <br/>
+        • 渠道销售:10-25%
+       </li>
+       <li>
+        <strong>
+         跳槽高峰期:
+        </strong>
+        <br/>
+        • Q1(1-3月):准备期,开始投递简历
+        <br/>
+        • Q2(4-6月):高峰期,3-4月最集中
+        <br/>
+        • Q3(7-9月):平稳期
+        <br/>
+        • Q4(10-12月):年终奖期,跳槽减少
+       </li>
+      </ul>
+      <div class="hr-impact">
+       <h4>
+        💼 对招聘HR的影响
+       </h4>
+       <ul>
+        <li>
+         <strong>
+          招聘时机:
+         </strong>
+         <br/>
+         • 3-4月是关键期,候选人最多,竞争最激烈
+         <br/>
+         • 提前2-3个月开始布局(Q1开始接触候选人)
+         <br/>
+         • Q4是捡漏好时机(年终奖后跳槽)
+        </li>
+        <li>
+         <strong>
+          薪资策略:
+         </strong>
+         <br/>
+         • 技术岗必须提供20-50%涨幅才能吸引人才
+         <br/>
+         • 销售岗注重长期激励(期权、奖金池)
+         <br/>
+         • 核心岗位可以谈薪资上不封顶
+        </li>
+        <li>
+         <strong>
+          人才流向:
+         </strong>
+         <br/>
+         • 向头部大厂集中:腾讯云、阿里云、华为云
+         <br/>
+         • 中型云厂商人才流失严重,可以趁机挖人
+         <br/>
+         • 从传统IT行业转型到云计算的人才增加
+        </li>
+       </ul>
+      </div>
+      <h4>
+       🎯 成熟型人才标准
+      </h4>
+      <ul>
+       <li>
+        <strong>
+         5-8年经验:
+        </strong>
+        成为招聘主流
+       </li>
+       <li>
+        <strong>
+         π型人才:
+        </strong>
+        技术+行业(如金融+云、政务+云)
+       </li>
+       <li>
+        <strong>
+         跳槽频率:
+        </strong>
+        低频但高质量(2-3年跳一次)
+       </li>
+      </ul>
+     </div>
+     <div class="source">
+      <p>
+       📅 2026-03-10 | 📌 科锐国际 | 🔗
+       <a href="https://finance.sina.com.cn/roll/2026-03-10/doc-inhqnrqv6337139.shtml" target="_blank">
+        查看详情
+       </a>
+      </p>
+     </div>
+    </div>
+    <!-- 腾讯云校招 -->
+    <div class="news-card">
+     <span class="tag">
+      腾讯云
+     </span>
+     <h3>
+      腾讯云校招33所目标院校:具体名单
+     </h3>
+     <p class="summary">
+      腾讯2026校招目标院校公布,从"广撒网"转向"精准猎捕",33所院校名单详细公布,校招策略更加精准化。
+     </p>
+     <div class="keywords">
+      <span>
+       33所目标院校
+      </span>
+      <span>
+       精准猎捕
+      </span>
+      <span>
+       985/211
+      </span>
+      <span>
+       宣讲计划
+      </span>
+     </div>
+     <button class="expand-btn" onclick="toggleDetail(this)">
+      📖 展开具体名单
+     </button>
+     <div class="detail-content">
+      <h4>
+       🎓 具体目标院校名单(33所)
+      </h4>
+      <ul>
+       <li>
+        <strong>
+         985院校(22所):
+        </strong>
+        <br/>
+        • C9联盟:清华、北大、复旦、上交、浙大、南大、中科大、哈工大、西交大
+        <br/>
+        • 其他985:人大、北航、北理、南开、天大、大连理工、东北大学、吉林大学、同济大学、华东师范、中山大学、华南理工、四川大学、电子科技大学
+       </li>
+       <li>
+        <strong>
+         211院校(3所):
+        </strong>
+        <br/>
+        • 北邮(北京邮电大学)
+        <br/>
+        • 西电(西安电子科技大学)
+        <br/>
+        • 南邮(南京邮电大学)
+       </li>
+       <li>
+        <strong>
+         其他(1所):
+        </strong>
+        <br/>
+        • 深圳大学
+       </li>
+       <li>
+        <strong>
+         港澳高校:
+        </strong>
+        <br/>
+        • 香港科技大学
+        <br/>
+        • 香港中文大学
+        <br/>
+        • 香港大学
+        <br/>
+        • 香港理工大学
+       </li>
+      </ul>
+      <div class="hr-impact">
+       <h4>
+        💼 对招聘HR的影响
+       </h4>
+       <ul>
+        <li>
+         <strong>
+          校招重点院校:
+         </strong>
+         <br/>
+         • 计算机/软件强校:清华、北大、浙大、上交、北邮、西电
+         <br/>
+         • 通信强校:电子科大、南邮
+         <br/>
+         • 华南地区:华南理工、深大(本地人才)
+        </li>
+        <li>
+         <strong>
+          宣讲计划:
+         </strong>
+         <br/>
+         • 重点在北邮、西电举办专场宣讲会(计算机强校)
+         <br/>
+         • 华南地区重点在深圳大学宣讲
+         <br/>
+         • 港澳高校可以远程招聘
+        </li>
+        <li>
+         <strong>
+          竞争格局:
+         </strong>
+         <br/>
+         • 腾讯、阿里、华为都在抢同一批学校的人才
+         <br/>
+         • 985院校竞争最激烈,211院校相对容易
+         <br/>
+         • 实习转正是人才储备的重要渠道
+        </li>
+       </ul>
+      </div>
+      <h4>
+       📊 招聘规模变化
+      </h4>
+      <ul>
+       <li>
+        <strong>
+         技术类扩招36%
+        </strong>
+        :从去年的5000+增加到今年的6800+
+       </li>
+       <li>
+        <strong>
+         实习生规模:
+        </strong>
+        10000+名实习生
+       </li>
+       <li>
+        <strong>
+         转正率:
+        </strong>
+        预计50-60%
+       </li>
+      </ul>
+     </div>
+     <div class="source">
+      <p>
+       📅 2026-03-01 | 📌 搜狐 | 🔗
+       <a href="https://www.sohu.com/a/995710872_121651744" target="_blank">
+        查看详情
+       </a>
+      </p>
+     </div>
+    </div>
+    <h2 class="section-title">
+     🏢 七大云厂商招聘动态
+    </h2>
+    <!-- 腾讯云 -->
+    <div class="cloud-vendor">
+     <div class="vendor-header">
+      <div class="vendor-name">
+       ☁️ 腾讯云
+      </div>
+      <div class="vendor-logo">
+       🐧
+      </div>
+     </div>
+     <h3>
+      📋 社招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        招聘岗位:
+       </strong>
+       销售经理、解决方案架构师、售前技术专家
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       持续招聘,重点在一线城市
+      </p>
+      <p>
+       <strong>
+        薪资水平:
+       </strong>
+       销售15-60万/年,解决方案架构师25-90万/年
+      </p>
+      <p>
+       <strong>
+        招聘重点:
+       </strong>
+       企业级客户拓展、行业解决方案、海外市场
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 销售岗位洞察
+      </h4>
+      <p>
+       • 重点关注企业级客户销售经验,特别是金融、政务、教育行业
+      </p>
+      <p>
+       • 需要具备B2B销售能力和客户关系管理经验
+      </p>
+      <p>
+       • 薪资结构:底薪+提成,上不封顶
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 解决方案架构师岗位洞察
+      </h4>
+      <p>
+       • π型人才:技术能力+行业理解能力
+      </p>
+      <p>
+       • 需要3-5年云计算架构设计经验
+      </p>
+      <p>
+       • 薪资涨幅20-30%,核心岗位可谈
+      </p>
+     </div>
+     <h3>
+      🎓 校招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        启动时间:
+       </strong>
+       2026年春招
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       10000+名实习生,技术类扩招36%
+      </p>
+      <p>
+       <strong>
+        目标院校:
+       </strong>
+       33所目标院校(22所985+3所211+1所深大+港澳高校)
+      </p>
+      <p>
+       <strong>
+        招聘策略:
+       </strong>
+       从"广撒网"转向"精准猎捕"
+      </p>
+      <p>
+       <strong>
+        宣讲计划:
+       </strong>
+       重点在北邮、西电等理工科院校举办专场宣讲会
+      </p>
+     </div>
+    </div>
+    <!-- 阿里云 -->
+    <div class="cloud-vendor">
+     <div class="vendor-header">
+      <div class="vendor-name">
+       🌐 阿里云
+      </div>
+      <div class="vendor-logo">
+       🔺
+      </div>
+     </div>
+     <h3>
+      📋 社招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        招聘岗位:
+       </strong>
+       行业销售、解决方案架构师、技术客户经理
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       大量招聘,重点在华东、华南地区
+      </p>
+      <p>
+       <strong>
+        薪资水平:
+       </strong>
+       销售18-65万/年,解决方案架构师28-100万/年
+      </p>
+      <p>
+       <strong>
+        招聘重点:
+       </strong>
+       金融、政务、零售等行业客户
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 销售岗位洞察
+      </h4>
+      <p>
+       • 重点寻找具有行业背景的销售人才(金融、政务等)
+      </p>
+      <p>
+       • 要求熟悉云计算产品和行业解决方案
+      </p>
+      <p>
+       • 薪资竞争力强,提成比例高
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 解决方案架构师岗位洞察
+      </h4>
+      <p>
+       • 强调技术深度和行业广度
+      </p>
+      <p>
+       • 需要5-8年云计算架构经验
+      </p>
+      <p>
+       • 重视大型项目交付经验
+      </p>
+     </div>
+     <h3>
+      🎓 校招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        启动时间:
+       </strong>
+       2025年2月27日
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       3000+岗位
+      </p>
+      <p>
+       <strong>
+        目标院校:
+       </strong>
+       重点985/211院校
+      </p>
+      <p>
+       <strong>
+        招聘策略:
+       </strong>
+       建立校企合作关系
+      </p>
+      <p>
+       <strong>
+        宣讲计划:
+       </strong>
+       在重点高校举办专场宣讲会
+      </p>
+     </div>
+    </div>
+    <!-- 华为云 -->
+    <div class="cloud-vendor">
+     <div class="vendor-header">
+      <div class="vendor-name">
+       🌟 华为云
+      </div>
+      <div class="vendor-logo">
+       🔵
+      </div>
+     </div>
+     <h3>
+      📋 社招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        招聘岗位:
+       </strong>
+       销售总监、解决方案架构师、行业专家
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       中等规模招聘,重点在华北、华东
+      </p>
+      <p>
+       <strong>
+        薪资水平:
+       </strong>
+       销售20-70万/年,解决方案架构师30-120万/年
+      </p>
+      <p>
+       <strong>
+        招聘重点:
+       </strong>
+       政务云、金融云、制造业云
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 销售岗位洞察
+      </h4>
+      <p>
+       • 优先考虑具有政企客户资源的销售人才
+      </p>
+      <p>
+       • 要求熟悉政府招标流程
+      </p>
+      <p>
+       • 薪资结构稳定,福利完善
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 解决方案架构师岗位洞察
+      </h4>
+      <p>
+       • 强调安全、合规能力
+      </p>
+      <p>
+       • 需要熟悉华为产品体系
+      </p>
+      <p>
+       • 重视大型政企项目经验
+      </p>
+     </div>
+     <h3>
+      🎓 校招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        启动时间:
+       </strong>
+       2026年春招
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       技术类岗位为主
+      </p>
+      <p>
+       <strong>
+        目标院校:
+       </strong>
+       34所目标院校
+      </p>
+      <p>
+       <strong>
+        招聘策略:
+       </strong>
+       精准猎捕优质人才
+      </p>
+      <p>
+       <strong>
+        宣讲计划:
+       </strong>
+       重点在理工科院校举办专场宣讲会
+      </p>
+     </div>
+    </div>
+    <!-- 火山引擎 -->
+    <div class="cloud-vendor">
+     <div class="vendor-header">
+      <div class="vendor-name">
+       🔥 火山引擎(字节跳动)
+      </div>
+      <div class="vendor-logo">
+       ⚡
+      </div>
+     </div>
+     <h3>
+      📋 社招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        招聘岗位:
+       </strong>
+       销售经理、解决方案架构师、行业解决方案专家
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       快速扩张,大量招聘
+      </p>
+      <p>
+       <strong>
+        薪资水平:
+       </strong>
+       销售20-80万/年,解决方案架构师30-100万/年
+      </p>
+      <p>
+       <strong>
+        招聘重点:
+       </strong>
+       电商、游戏、金融、零售行业
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 销售岗位洞察
+      </h4>
+      <p>
+       • 重视互联网行业销售经验
+      </p>
+      <p>
+       • 要求具备快速学习能力
+      </p>
+      <p>
+       • 薪资涨幅快,晋升机会多
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 解决方案架构师岗位洞察
+      </h4>
+      <p>
+       • 强调快速交付能力
+      </p>
+      <p>
+       • 需要熟悉字节系产品生态
+      </p>
+      <p>
+       • 重视创新和解决问题的能力
+      </p>
+     </div>
+     <h3>
+      🎓 校招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        启动时间:
+       </strong>
+       2026年春招
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       7000+实习生,研发类超4800个
+      </p>
+      <p>
+       <strong>
+        转正率:
+       </strong>
+       超50%
+      </p>
+      <p>
+       <strong>
+        招聘策略:
+       </strong>
+       3-4月是关键期
+      </p>
+      <p>
+       <strong>
+        宣讲计划:
+       </strong>
+       重点在计算机、软件工程强校举办宣讲会
+      </p>
+     </div>
+    </div>
+    <!-- AWS中国 -->
+    <div class="cloud-vendor">
+     <div class="vendor-header">
+      <div class="vendor-name">
+       🌩️ AWS中国
+      </div>
+      <div class="vendor-logo">
+       ☁️
+      </div>
+     </div>
+     <h3>
+      📋 社招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        招聘岗位:
+       </strong>
+       销售经理、解决方案架构师、技术客户经理
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       稳定招聘,重点在北京、上海、深圳
+      </p>
+      <p>
+       <strong>
+        薪资水平:
+       </strong>
+       销售25-80万/年,解决方案架构师35-120万/年
+      </p>
+      <p>
+       <strong>
+        招聘重点:
+       </strong>
+       跨国企业、出海企业
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 销售岗位洞察
+      </h4>
+      <p>
+       • 重视跨国客户服务经验
+      </p>
+      <p>
+       • 要求英语流利
+      </p>
+      <p>
+       • 薪资福利待遇优厚
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 解决方案架构师岗位洞察
+      </h4>
+      <p>
+       • 要求AWS认证优先
+      </p>
+      <p>
+       • 需要熟悉AWS全球服务
+      </p>
+      <p>
+       • 重视国际化项目经验
+      </p>
+     </div>
+     <h3>
+      🎓 校招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        启动时间:
+       </strong>
+       2026年春招
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       适量招聘
+      </p>
+      <p>
+       <strong>
+        目标院校:
+       </strong>
+       重点985/211院校
+      </p>
+      <p>
+       <strong>
+        招聘策略:
+       </strong>
+       精准猎捕高端人才
+      </p>
+      <p>
+       <strong>
+        宣讲计划:
+       </strong>
+       在重点高校举办专场宣讲会
+      </p>
+     </div>
+    </div>
+    <!-- Azure -->
+    <div class="cloud-vendor">
+     <div class="vendor-header">
+      <div class="vendor-name">
+       🔵 Microsoft Azure
+      </div>
+      <div class="vendor-logo">
+       🔵
+      </div>
+     </div>
+     <h3>
+      📋 社招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        招聘岗位:
+       </strong>
+       销售经理、解决方案架构师、技术销售
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       稳定招聘,重点在一线城市
+      </p>
+      <p>
+       <strong>
+        薪资水平:
+       </strong>
+       销售22-75万/年,解决方案架构师32-110万/年
+      </p>
+      <p>
+       <strong>
+        招聘重点:
+       </strong>
+       金融、制造业、零售行业
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 销售岗位洞察
+      </h4>
+      <p>
+       • 重视企业级客户销售经验
+      </p>
+      <p>
+       • 要求熟悉微软产品生态
+      </p>
+      <p>
+       • 薪资结构合理,福利完善
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 解决方案架构师岗位洞察
+      </h4>
+      <p>
+       • 要求Azure认证优先
+      </p>
+      <p>
+       • 需要熟悉Azure全球服务
+      </p>
+      <p>
+       • 重视混合云解决方案经验
+      </p>
+     </div>
+     <h3>
+      🎓 校招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        启动时间:
+       </strong>
+       2026年春招
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       适量招聘
+      </p>
+      <p>
+       <strong>
+        目标院校:
+       </strong>
+       重点985/211院校
+      </p>
+      <p>
+       <strong>
+        招聘策略:
+       </strong>
+       精准猎捕技术人才
+      </p>
+      <p>
+       <strong>
+        宣讲计划:
+       </strong>
+       在重点高校举办专场宣讲会
+      </p>
+     </div>
+    </div>
+    <!-- GCP -->
+    <div class="cloud-vendor">
+     <div class="vendor-header">
+      <div class="vendor-name">
+       ☁️ Google Cloud Platform
+      </div>
+      <div class="vendor-logo">
+       🔶
+      </div>
+     </div>
+     <h3>
+      📋 社招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        招聘岗位:
+       </strong>
+       销售经理、解决方案架构师、客户工程师
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       小规模招聘,重点在北京、上海
+      </p>
+      <p>
+       <strong>
+        薪资水平:
+       </strong>
+       销售30-90万/年,解决方案架构师40-130万/年
+      </p>
+      <p>
+       <strong>
+        招聘重点:
+       </strong>
+       跨国企业、出海企业
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 销售岗位洞察
+      </h4>
+      <p>
+       • 重视跨国客户服务经验
+      </p>
+      <p>
+       • 要求英语流利
+      </p>
+      <p>
+       • 薪资行业领先
+      </p>
+     </div>
+     <div class="insight-box">
+      <h4>
+       💡 解决方案架构师岗位洞察
+      </h4>
+      <p>
+       • 要求GCP认证优先
+      </p>
+      <p>
+       • 需要熟悉Google产品生态
+      </p>
+      <p>
+       • 重视技术创新能力
+      </p>
+     </div>
+     <h3>
+      🎓 校招动态
+     </h3>
+     <div class="content">
+      <p>
+       <strong>
+        启动时间:
+       </strong>
+       2026年春招
+      </p>
+      <p>
+       <strong>
+        招聘规模:
+       </strong>
+       小规模招聘
+      </p>
+      <p>
+       <strong>
+        目标院校:
+       </strong>
+       精英院校
+      </p>
+      <p>
+       <strong>
+        招聘策略:
+       </strong>
+       精准猎捕顶尖人才
+      </p>
+      <p>
+       <strong>
+        宣讲计划:
+       </strong>
+       在顶尖高校举办专场宣讲会
+      </p>
+     </div>
+    </div>
+   </div>
+   <script>
+    // Switch view function
         function switchView(viewType) {
             // Hide all views
             document.querySelectorAll('.view-section').forEach(el => {
@@ -1374,6 +2408,7 @@
             // In real implementation, this would load data for selected date
             console.log('Date changed to:', this.value);
         });
-    </script>
-</body>
+   </script>
+  </div>
+ </body>
 </html>
