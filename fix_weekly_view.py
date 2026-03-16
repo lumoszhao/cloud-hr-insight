@@ -90,7 +90,7 @@ def create_news_card(news):
     all_tags = news['tags'] + [f"📅 {news['date']}"]
     tags_html = "\n                        ".join([f'<span class="tag">{tag}</span>' for tag in all_tags])
 
-    html = f'''                <div class="news-card">
+    html = f'''<div class="news-card">
                     <span class="priority-badge {priority_class}">{priority_text}</span>
                     <h3>{news['title']}</h3>
                     <div class="tags">
@@ -139,38 +139,32 @@ def main():
     weekly_section.clear()
 
     # 创建 header
-    header = soup.new_tag('header')
-    h1 = soup.new_tag('h1')
-    h1.string = f"📅 {WEEK_START} ~ {WEEK_END} 周观察记录"
-    header.append(h1)
-
-    subtitle = soup.new_tag('div', **{'class': 'subtitle'})
-    subtitle.string = "云行业HR每周洞察 - 上周新闻汇总与趋势分析"
-    header.append(subtitle)
-
-    update_time = soup.new_tag('div', **{'class': 'update-time'})
     from datetime import datetime
     now = datetime.now()
-    update_time.string = f"更新时间: {now.strftime('%Y-%m-%d %H:%M')}"
-    header.append(update_time)
-
-    weekly_section.append(header)
+    header_html = f'''<header>
+    <h1>📅 {WEEK_START} ~ {WEEK_END} 周观察记录</h1>
+    <div class="subtitle">云行业HR每周洞察 - 上周新闻汇总与趋势分析</div>
+    <div class="update-time">更新时间: {now.strftime('%Y-%m-%d %H:%M')}</div>
+</header>
+'''
+    weekly_section.append(BeautifulSoup(header_html, 'html.parser'))
 
     # 创建标题
-    title_comment = soup.new_string('<!-- Weekly News -->')
-    weekly_section.append(title_comment)
-
-    section_title = soup.new_tag('h2', **{'class': 'section-title', 'style': 'color: white; margin-top: 40px;'})
-    section_title.string = f"🔥 上周重点新闻 ({WEEK_START}) (招聘视角)"
-    weekly_section.append(section_title)
+    section_title_html = f'''
+<!-- Weekly News -->
+<h2 class="section-title" style="color: white; margin-top: 40px;">
+    🔥 上周重点新闻 ({WEEK_START}) (招聘视角)
+</h2>
+'''
+    weekly_section.append(BeautifulSoup(section_title_html, 'html.parser'))
 
     # 创建新闻网格
     news_grid = soup.new_tag('div', **{'class': 'news-grid'})
 
     # 插入新闻
     for news in WEEKLY_NEWS:
-        news_card = BeautifulSoup(create_news_card(news), 'html.parser')
-        news_grid.append(news_card)
+        news_card_html = create_news_card(news)
+        news_grid.append(BeautifulSoup(news_card_html, 'html.parser'))
 
     weekly_section.append(news_grid)
 
