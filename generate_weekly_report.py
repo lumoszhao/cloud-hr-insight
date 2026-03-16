@@ -37,6 +37,42 @@ WEEKLY_NEWS = [
         "key_data": "•目标院校:33所\n•招聘岗位:技术岗(60%)、销售岗(40%)\n•转正率:50%+\n•招聘规模:2000+"
     },
     {
+        "title": "阿里云华东华南重点招聘，新增岗位800+",
+        "date": "2026-03-11",
+        "tags": ["社招", "阿里云", "区域招聘"],
+        "summary": "阿里云在华东华南地区启动大规模招聘，新增岗位超过800个，重点招聘销售和解决方案架构师。",
+        "priority": "medium",
+        "hr_impact": "•招聘区域:华东(上海、杭州、南京)、华南(广州、深圳、东莞)\n•岗位需求:销售岗位(400人)、解决方案架构师(250人)、产品经理(150人)\n•薪资水平:销售岗年包40-100万，技术岗年包60-150万",
+        "key_data": "•新增岗位:800+\n•招聘重点:华东华南地区\n•核心岗位:销售岗(400人)、解决方案架构师(250人)\n•启动时间:2026年3月11日"
+    },
+    {
+        "title": "火山引擎校招7000+实习生，转正率超50%",
+        "date": "2026-03-13",
+        "tags": ["校招", "火山引擎", "实习生招聘"],
+        "summary": "字节跳动旗下火山引擎启动大规模实习生招聘，计划招聘7000+实习生，转正率超50%。",
+        "priority": "medium",
+        "hr_impact": "•招聘策略:提前半年布局，目标院校包括985/211院校\n•转正优势:实习生转正率超50%，有转正机会的实习生更具竞争力\n•人才培养:重点培养云计算、AI、大数据方向人才",
+        "key_data": "•招聘规模:7000+\n•转正率:50%+\n•启动时间:2026年3月13日\n•目标院校:985/211院校"
+    },
+    {
+        "title": "AWS中国区启动春季社招，重点招聘AI算力人才",
+        "date": "2026-03-14",
+        "tags": ["社招", "AWS", "AI算力"],
+        "summary": "AWS中国区启动春季社会招聘，重点招聘AI算力相关人才，包括解决方案架构师、销售经理等岗位。",
+        "priority": "medium",
+        "hr_impact": "•招聘重点:AI算力解决方案架构师(50人)、AI算力销售(40人)、产品经理(30人)\n•人才竞争:与华为云、阿里云、腾讯云形成竞争，从国内云厂商挖人成功率较高\n•薪资水平:年包60-200万，核心岗位可达200万+",
+        "key_data": "•新增岗位:120+\n•招聘重点:AI算力人才\n•启动时间:2026年3月14日\n•薪资范围:60-200万"
+    },
+    {
+        "title": "Azure中国区发布Q1招聘计划，目标500+岗位",
+        "date": "2026-03-15",
+        "tags": ["社招", "Azure", "招聘计划"],
+        "summary": "微软Azure中国区发布2026年Q1招聘计划，目标招聘500+岗位，重点招聘云架构师和销售。",
+        "priority": "medium",
+        "hr_impact": "•招聘重点:云解决方案架构师(200人)、云销售(180人)、产品经理(120人)\n•人才策略:从阿里云、华为云、腾讯云挖人，重视AI和云计算背景\n•薪资竞争力:年包50-180万，核心岗位可达180万+",
+        "key_data": "•招聘规模:500+\n•重点岗位:架构师(200人)、销售(180人)\n•启动时间:2026年3月15日\n•薪资范围:50-180万"
+    },
+    {
         "title": "科锐国际发布云计算行业薪酬报告，跳槽涨幅创新高",
         "date": "2026-03-11",
         "tags": ["薪酬报告", "跳槽涨幅", "科锐国际"],
@@ -54,7 +90,9 @@ def create_news_card(news):
     priority_class = "priority-high" if news['priority'] == "high" else "priority-medium"
     priority_text = "高优先级" if news['priority'] == "high" else "中优先级"
 
-    tags_html = "\n                        ".join([f'<span class="tag">{tag}</span>' for tag in news['tags']])
+    # 创建标签 HTML，包括日期标签
+    all_tags = news['tags'] + [f"📅 {news['date']}"]  # 添加日期标签
+    tags_html = "\n                        ".join([f'<span class="tag">{tag}</span>' for tag in all_tags])
 
     html = f'''                <div class="news-card">
                     <span class="priority-badge {priority_class}">{priority_text}</span>
@@ -107,23 +145,6 @@ def update_weekly_view():
         print("错误：找不到 header")
         return False
 
-    # 查找或创建新闻网格
-    news_grid = weekly_section.find('div', class_='news-grid')
-    if not news_grid:
-        # 如果不存在，创建一个
-        news_grid = soup.new_tag('div', class_='news-grid')
-        # 插入到 header 之后
-        header.insert_after(news_grid)
-        print("已创建新闻网格")
-    else:
-        # 清空现有内容
-        news_grid.clear()
-
-    # 插入上周的新闻
-    for news in WEEKLY_NEWS:
-        news_card = BeautifulSoup(create_news_card(news), 'html.parser')
-        news_grid.append(news_card)
-
     # 更新 header 中的标题
     h1 = header.find('h1')
     if h1:
@@ -139,6 +160,34 @@ def update_weekly_view():
     if update_time_div:
         now = datetime.now()
         update_time_div.string = f"更新时间: {now.strftime('%Y-%m-%d %H:%M')}"
+
+    # 查找或创建标题
+    section_title = weekly_section.find('h2', class_='section-title')
+    if not section_title:
+        # 创建标题
+        section_title = soup.new_tag('h2', **{'class': 'section-title', 'style': 'color: white; margin-top: 40px;'})
+        section_title.string = f"🔥 上周重点新闻 ({WEEK_START}) (招聘视角)"
+        # 插入到 header 之后
+        header.insert_after(section_title)
+    else:
+        section_title.string = f"🔥 上周重点新闻 ({WEEK_START}) (招聘视角)"
+
+    # 查找或创建新闻网格
+    news_grid = weekly_section.find('div', class_='news-grid')
+    if not news_grid:
+        # 如果不存在，创建一个
+        news_grid = soup.new_tag('div', **{'class': 'news-grid'})
+        # 插入到 section_title 之后
+        section_title.insert_after(news_grid)
+        print("已创建新闻网格")
+    else:
+        # 清空现有内容
+        news_grid.clear()
+
+    # 插入上周的新闻
+    for news in WEEKLY_NEWS:
+        news_card = BeautifulSoup(create_news_card(news), 'html.parser')
+        news_grid.append(news_card)
 
     # 保存更新后的 HTML
     with open('index.html', 'w', encoding='utf-8') as f:
