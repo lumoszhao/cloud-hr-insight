@@ -1,0 +1,4 @@
+            <button class="quick-nav-btn" onclick="quickNav('week')">📌 本周观察</button>
+        </div>
+        
+        <!-- Daily View -->
