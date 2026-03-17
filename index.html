@@ -1920,20 +1920,69 @@
             const dateSelect = document.getElementById('dateSelect');
             const selectedDate = dateSelect.value;
 
-            // 根据选择的日期加载不同的新闻内容
             console.log('加载日期:', selectedDate);
 
             const today = getTodayDate();
             const yesterday = getYesterdayDate();
             const dayBeforeYesterday = getDayBeforeYesterdayDate();
 
+            let targetDate = '';
             if (selectedDate === 'today') {
-                alert(`显示今日新闻 (${today})`);
+                targetDate = today;
             } else if (selectedDate === 'yesterday') {
-                alert(`显示昨日新闻 (${yesterday})`);
+                targetDate = yesterday;
             } else if (selectedDate === 'daybefore') {
-                alert(`显示前日新闻 (${dayBeforeYesterday})`);
+                targetDate = dayBeforeYesterday;
             }
+
+            // 从 daily_news.json 加载数据
+            fetch('daily_news.json')
+                .then(response => response.json())
+                .then(data => {
+                    displayNews(data, targetDate);
+                })
+                .catch(error => {
+                    console.error('加载新闻数据失败:', error);
+                    alert(`加载新闻数据失败: ${error.message}`);
+                });
+        }
+
+        function displayNews(data, targetDate) {
+            const newsContainer = document.querySelector('#daily .news-grid');
+            if (!newsContainer) {
+                console.error('找不到新闻容器');
+                return;
+            }
+
+            // 清空现有内容
+            newsContainer.innerHTML = '';
+
+            // 查找匹配日期的新闻
+            let newsList = [];
+            if (data.news && Array.isArray(data.news)) {
+                newsList = data.news;
+            }
+
+            if (newsList.length === 0) {
+                newsContainer.innerHTML = '<div class="no-news">暂无新闻数据</div>';
+                return;
+            }
+
+            // 显示新闻卡片
+            newsList.forEach(news => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                newsCard.innerHTML = `
+                    <span class="tag">${news.company}</span>
+                    <h3>${news.title}</h3>
+                    <p class="summary">${news.summary}</p>
+                    <div class="keywords">
+                        ${news.tags ? news.tags.map(tag => `<span>${tag}</span>`).join('') : ''}
+                    </div>
+                    <a href="${news.link}" target="_blank" class="read-more">查看详情 →</a>
+                `;
+                newsContainer.appendChild(newsCard);
+            });
         }
 
         function loadWeek() {
