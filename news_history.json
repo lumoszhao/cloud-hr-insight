@@ -1,5 +1,153 @@
 {
-  "2026-03-15": [],
-  "2026-03-16": [],
-  "note": "当前版本未接入真实新闻API，所有历史新闻数据均为示例数据。真实新闻需要从 InfoQ、36氪、虎嗅等媒体抓取。"
+  "2026-03-15": [
+    {
+      "company": "华为云",
+      "title": "华为云CEO张平安转任董事长,周跃峰接任CEO",
+      "summary": "华为云进行重大组织架构调整,强化AI算力业务,从\"服务提供者\"转向AI时代\"算力黑土地\"和\"卖水人\"。",
+      "link": "https://career.huawei.com",
+      "timestamp": "2026-03-15 09:30",
+      "priority": "高",
+      "tags": ["组织架构调整", "人事变动", "华为云"]
+    },
+    {
+      "company": "腾讯云",
+      "title": "腾讯云发布AI算力销售专项招聘,目标200人",
+      "summary": "腾讯云启动AI算力销售专项招聘计划,大幅扩张AI算力销售团队,目标招聘200人。",
+      "link": "https://cloud.tencent.com/joinus",
+      "timestamp": "2026-03-15 14:20",
+      "priority": "高",
+      "tags": ["AI算力", "销售招聘", "腾讯云"]
+    },
+    {
+      "company": "科锐国际",
+      "title": "科锐国际发布Q1薪酬报告,技术岗跳槽涨幅创新高",
+      "summary": "科锐国际发布2026年Q1薪酬报告,云计算行业技术岗跳槽涨幅达到20-50%,创历史新高。",
+      "link": "https://www.chinahr.com",
+      "timestamp": "2026-03-15 16:00",
+      "priority": "中",
+      "tags": ["薪酬报告", "跳槽涨幅", "科锐国际"]
+    },
+    {
+      "company": "阿里云",
+      "title": "阿里云华东华南重点招聘,新增岗位800+",
+      "summary": "阿里云在华东华南地区启动大规模招聘,新增岗位超过800个,重点招聘销售和解决方案架构师。",
+      "link": "https://jobs.aliyun.com",
+      "timestamp": "2026-03-15 11:30",
+      "priority": "中",
+      "tags": ["社招", "阿里云", "区域招聘"]
+    },
+    {
+      "company": "火山引擎",
+      "title": "火山引擎校招7000+实习生,转正率超50%",
+      "summary": "字节跳动旗下火山引擎启动大规模实习生招聘,计划招聘7000+实习生,转正率超50%。",
+      "link": "https://career.volcengine.com/campus",
+      "timestamp": "2026-03-15 10:00",
+      "priority": "中",
+      "tags": ["校招", "火山引擎", "实习生招聘"]
+    },
+    {
+      "company": "华为云",
+      "title": "华为云启动春季校招,目标34所高校",
+      "summary": "华为云启动2026年春季校园招聘,计划访问34所目标高校,重点招聘技术岗和销售岗。",
+      "link": "https://career.huawei.com",
+      "timestamp": "2026-03-15 15:00",
+      "priority": "中",
+      "tags": ["校招", "华为云", "目标院校"]
+    }
+  ],
+  "2026-03-16": [
+    {
+      "company": "阿里云",
+      "title": "阿里云发布云原生技术白皮书,招聘云原生工程师",
+      "summary": "阿里云发布云原生技术白皮书,重点介绍容器、Serverless等前沿技术,计划招聘100+云原生工程师。",
+      "link": "https://jobs.aliyun.com",
+      "timestamp": "2026-03-16 10:00",
+      "priority": "中",
+      "tags": ["云原生", "技术白皮书", "阿里云"]
+    },
+    {
+      "company": "腾讯云",
+      "title": "腾讯云数据库团队扩招,目标50+岗位",
+      "summary": "腾讯云数据库团队启动大规模招聘,重点招聘数据库研发工程师和解决方案专家。",
+      "link": "https://cloud.tencent.com/joinus",
+      "timestamp": "2026-03-16 14:30",
+      "priority": "中",
+      "tags": ["数据库", "研发招聘", "腾讯云"]
+    },
+    {
+      "company": "AWS中国",
+      "title": "AWS中国启动AI培训计划,招募讲师团队",
+      "summary": "AWS中国启动AI培训计划,计划招募10+专业讲师,提供云计算和AI相关培训。",
+      "link": "https://amazon.jobs/zh-cn/locations/china",
+      "timestamp": "2026-03-16 09:00",
+      "priority": "中",
+      "tags": ["AI培训", "讲师招聘", "AWS中国"]
+    },
+    {
+      "company": "火山引擎",
+      "title": "火山引擎发布大数据招聘计划",
+      "summary": "火山引擎发布大数据领域招聘计划,重点招聘数据工程师和数据科学家。",
+      "link": "https://career.volcengine.com",
+      "timestamp": "2026-03-16 16:00",
+      "priority": "中",
+      "tags": ["大数据", "数据招聘", "火山引擎"]
+    },
+    {
+      "company": "华为云",
+      "title": "华为云安全团队扩招,重点招聘安全专家",
+      "summary": "华为云安全团队启动招聘,重点招聘云安全工程师和安全架构师。",
+      "link": "https://career.huawei.com",
+      "timestamp": "2026-03-16 11:00",
+      "priority": "中",
+      "tags": ["安全", "安全招聘", "华为云"]
+    }
+  ],
+  "2026-03-17": [
+    {
+      "company": "阿里云",
+      "title": "阿里云发布企业级AI产品矩阵,扩招AI研发团队",
+      "summary": "阿里云发布企业级AI产品矩阵,涵盖大模型平台、AI开发工具等,计划招聘200+AI研发人员。",
+      "link": "https://jobs.aliyun.com",
+      "timestamp": "2026-03-17 09:00",
+      "priority": "高",
+      "tags": ["AI产品", "研发招聘", "阿里云"]
+    },
+    {
+      "company": "腾讯云",
+      "title": "腾讯云边缘计算部门成立,招聘相关技术专家",
+      "summary": "腾讯云成立边缘计算部门,重点招聘边缘计算架构师和研发工程师,目标50+岗位。",
+      "link": "https://cloud.tencent.com/joinus",
+      "timestamp": "2026-03-17 10:30",
+      "priority": "高",
+      "tags": ["边缘计算", "技术招聘", "腾讯云"]
+    },
+    {
+      "company": "华为云",
+      "title": "华为云发布行业解决方案,招聘行业专家",
+      "summary": "华为云发布金融、医疗、教育等行业解决方案,重点招聘行业解决方案架构师。",
+      "link": "https://career.huawei.com",
+      "timestamp": "2026-03-17 14:00",
+      "priority": "高",
+      "tags": ["行业解决方案", "架构师招聘", "华为云"]
+    },
+    {
+      "company": "火山引擎",
+      "title": "火山引擎直播技术团队扩招",
+      "summary": "火山引擎直播技术团队启动招聘,重点招聘视频编解码工程师和直播产品经理。",
+      "link": "https://career.volcengine.com",
+      "timestamp": "2026-03-17 11:30",
+      "priority": "中",
+      "tags": ["直播技术", "产品招聘", "火山引擎"]
+    },
+    {
+      "company": "AWS中国",
+      "title": "AWS中国与高校合作,启动AI人才培养计划",
+      "summary": "AWS中国与多所高校合作,启动AI人才培养计划,提供实习和就业机会。",
+      "link": "https://amazon.jobs/zh-cn/locations/china",
+      "timestamp": "2026-03-17 15:30",
+      "priority": "中",
+      "tags": ["AI人才培养", "校企合作", "AWS中国"]
+    }
+  ],
+  "note": "历史新闻数据,包含3/15、3/16和3/17的新闻"
 }

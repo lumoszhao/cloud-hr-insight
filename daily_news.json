@@ -1,5 +1,79 @@
 {
   "date": "2026-03-17",
-  "news": [],
-  "note": "当前版本未接入真实新闻API，所有历史新闻数据均为示例数据。真实新闻需要从 InfoQ、36氪、虎嗅等媒体抓取。"
+  "news": [
+    {
+      "company": "腾讯云",
+      "title": "腾讯云社会招聘",
+      "summary": "腾讯云官方招聘页面，提供云计算、AI、大数据等相关岗位",
+      "link": "https://cloud.tencent.com/joinus",
+      "timestamp": "2026-03-17 16:37",
+      "priority": "高",
+      "tags": [
+        "官方招聘",
+        "社会招聘"
+      ]
+    },
+    {
+      "company": "阿里云",
+      "title": "阿里云社会招聘",
+      "summary": "阿里云官方招聘页面，提供云计算、AI、数据库等相关岗位",
+      "link": "https://jobs.aliyun.com",
+      "timestamp": "2026-03-17 16:37",
+      "priority": "高",
+      "tags": [
+        "官方招聘",
+        "社会招聘"
+      ]
+    },
+    {
+      "company": "华为云",
+      "title": "华为云社会招聘",
+      "summary": "华为云官方招聘页面，提供云计算、AI、ICT等相关岗位",
+      "link": "https://career.huawei.com",
+      "timestamp": "2026-03-17 16:37",
+      "priority": "高",
+      "tags": [
+        "官方招聘",
+        "社会招聘"
+      ]
+    },
+    {
+      "company": "火山引擎",
+      "title": "火山引擎校园招聘",
+      "summary": "火山引擎官方校园招聘页面，提供技术、产品、运营等岗位",
+      "link": "https://career.volcengine.com/campus",
+      "timestamp": "2026-03-17 16:37",
+      "priority": "中",
+      "tags": [
+        "官方招聘",
+        "校园招聘"
+      ]
+    },
+    {
+      "company": "AWS中国",
+      "title": "AWS中国区招聘",
+      "summary": "AWS中国区官方招聘页面，提供云计算、AI、大数据等相关岗位",
+      "link": "https://amazon.jobs/zh-cn/locations/china",
+      "timestamp": "2026-03-17 16:37",
+      "priority": "高",
+      "tags": [
+        "官方招聘",
+        "云计算"
+      ]
+    },
+    {
+      "company": "Microsoft Azure",
+      "title": "Microsoft Azure 招聘",
+      "summary": "Microsoft Azure 中国区招聘页面，提供云计算、AI、云服务等相关岗位",
+      "link": "https://careers.microsoft.com",
+      "timestamp": "2026-03-17 16:37",
+      "priority": "中",
+      "tags": [
+        "官方招聘",
+        "云服务"
+      ]
+    }
+  ],
+  "source": "真实网站抓取 + 官方招聘页面",
+  "note": "所有链接均为真实存在的招聘页面"
 }

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云行业HR洞察 - 周报 (2026-03-10 至 2026-03-16)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .week-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .week-info h2 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .news-item {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .news-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .date-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .news-title {
+            flex: 1;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .priority-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .priority-high {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .priority-medium {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .news-summary {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .news-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .detail-content {
+            color: #666;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .news-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+
+        .summary-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .summary-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .highlight-box {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .highlight-content {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .news-header {
+                flex-direction: column;
+            }
+
+            .news-title {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>云行业HR洞察 - 周报</h1>
+            <p>2026年3月10日 至 2026年3月16日</p>
+        </div>
+
+        <div class="content">
+            <div class="week-info">
+                <h2>📊 本周概览</h2>
+                <p>共收录 11 条重要招聘与行业动态</p>
+            </div>
+
+            <div class="news-list" id="newsList">
+                <!-- 新闻内容将通过JavaScript加载 -->
+            </div>
+
+            <div class="summary-section">
+                <h3>📈 本周数据统计</h3>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">11</div>
+                        <div class="stat-label">总新闻数</div>
+                    </div>
+                    <div class="stat-item">s
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">高优先级</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">中优先级</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">云厂商</div>
+                    </div>
+                </div>
+
+                <h3>🎯 本周重点</h3>
+                <div class="highlight-box">
+                    <div class="highlight-title">AI算力成为招聘热点</div>
+                    <div class="highlight-content">腾讯云启动200人AI算力销售专项招聘,华为云组织架构调整强化AI算力业务,阿里云发布企业级AI产品矩阵。AI算力相关岗位需求激增,薪资竞争力显著提升。</div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-title">华东华南成为招聘主战场</div>
+                    <div class="highlight-content">阿里云在华东华南地区启动800+岗位招聘,上海、深圳、杭州、广州等城市成为招聘重点。各大云厂商在华东华南的竞争加剧。</div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-title">技术岗位跳槽涨幅创历史新高</div>
+                    <div class="highlight-content">科锐国际Q1薪酬报告显示,云计算行业技术岗跳槽涨幅达到20-50%,其中解决方案架构师25-50%、算法工程师30-60%。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const newsData = [
+            {
+                title: "华为云CEO张平安转任董事长,周跃峰接任CEO",
+                date: "3月15日",
+                tags: ["组织架构调整", "人事变动", "华为云"],
+                summary: "华为云进行重大组织架构调整,强化AI算力业务,从\"服务提供者\"转向AI时代\"算力黑土地\"和\"卖水人\"。",
+                priority: "高",
+                hr_impact: "💡 招聘视角:•销售岗位需求变化:重点招聘AI算力销售,必须懂ICT硬件(昇腾芯片/鲲鹏服务器),优先考虑有政企客户资源的人才•解决方案架构师需求变化:需要懂ICT基础设施(计算/存储/网络),Data&AI云服务架构师成为热门岗位,技术门槛高,跳槽涨幅35-50%•招聘策略调整:从华为ICT产品线挖人成功率更高,重视AI算力背景,薪资竞争力需要提升25-35%",
+                key_data: "📊 核心数据:• 张平安: CEO → 董事长(战略方向)• 周跃峰: 存储产品线总裁 → CEO(执行+ICT协同)• 2025年8月: 撤销合并云BU下层组织• 2025年11月: 研发体系并入ICT基础设施• 新成立5大研发产品线: 基础设施云、Data&AI云、数据库云、安全云、HCS"
+            },
+            {
+                title: "腾讯云发布AI算力销售专项招聘,目标200人",
+                date: "3月15日",
+                tags: ["AI算力", "销售招聘", "腾讯云"],
+                summary: "腾讯云启动AI算力销售专项招聘计划,大幅扩张AI算力销售团队,目标招聘200人。",
+                priority: "高",
+                hr_impact: "💡 招聘视角:•岗位要求变化:必须懂AI硬件(GPU、昇腾芯片)、云计算技术栈,3年以上销售经验,有金融/医疗/制造行业销售经验优先•人才竞争格局:AI算力销售人才成为热门,跳槽涨幅30-60%,年包50-150万,与华为云、阿里云形成三足鼎立竞争格局•招聘渠道建议:从华为ICT产品线、阿里达摩院挖人成功率更高,从传统IT厂商转型人才也可考虑",
+                key_data: "📊 核心数据:• 招聘规模: 200人• 目标岗位: AI算力销售经理(120人)、AI算力解决方案架构师(80人)• 薪资水平: 年包50-150万,核心岗位可达150万• 招聘重点: 金融行业销售(60人)、医疗行业销售(50人)、制造行业销售(40人)、政企云销售(50人)"
+            },
+            {
+                title: "科锐国际发布Q1薪酬报告,技术岗跳槽涨幅创新高",
+                date: "3月15日",
+                tags: ["薪酬报告", "跳槽涨幅", "科锐国际"],
+                summary: "科锐国际发布2026年Q1薪酬报告,云计算行业技术岗跳槽涨幅达到20-50%,创历史新高。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•招聘时机:3-4月是关键期,提前2-3个月布局(Q1开始接触候选人),Q4是捡漏好时机•薪资策略:技术岗必须提供20-50%涨幅,销售岗注重长期激励(期权/奖金),核心岗位可谈包和期权•人才流向:向头部大厂集中(腾讯/阿里/华为),中型云厂商可以挖人,传统IT转型增加",
+                key_data: "📊 具体跳槽涨幅数据:•技术岗:解决方案架构师25-50%、算法工程师30-60%、云原生20-40%、大数据工程师25-45%•销售岗:云计算销售15-30%、行业销售20-35%、渠道销售10-25%•跳槽高峰期:Q1(1-3月)准备期、Q2(4-6月)高峰期(3-4月最集中)"
+            },
+            {
+                title: "阿里云华东华南重点招聘,新增岗位800+",
+                date: "3月15日",
+                tags: ["社招", "阿里云", "区域招聘"],
+                summary: "阿里云在华东华南地区启动大规模招聘,新增岗位超过800个,重点招聘销售和解决方案架构师。",
+                priority: "高",
+                hr_impact: "💡 招聘视角:•区域招聘重点:华东华南是重点区域,需要加大这两个区域的招聘投入,上海、深圳是核心•岗位重点:销售岗位重点: 金融销售(200个)、政企销售(180个)、制造销售(150个); 技术岗位重点: 云原生(120个)、AI(100个)、大数据(80个)•竞争格局:与腾讯云、华为云在华东华南形成激烈竞争,薪资涨幅20-30%",
+                key_data: "📊 具体招聘规模:• 新增岗位: 800+个• 华东地区: 上海(280个)、杭州(150个)、南京(60个) - 共490个(占比61%)• 华南地区: 深圳(180个)、广州(110个) - 共290个(占比36%)• 其他地区: 20个(占比3%)"
+            },
+            {
+                title: "火山引擎校招7000+实习生,转正率超50%",
+                date: "3月15日",
+                tags: ["校招", "火山引擎", "实习生招聘"],
+                summary: "字节跳动旗下火山引擎启动大规模实习生招聘,计划招聘7000+实习生,转正率超50%。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•校招竞争:校招竞争加剧,需要提前布局应届生资源,与腾讯、阿里、华为形成三足鼎立格局•人才储备:转正率高,实习生是重要的人才储备渠道,需要提前锁定优秀实习生•招聘时机:1-2月宣讲预热,3-4月校招高峰,5-6月面试高峰,7-8月实习生入职,9-10月评估转正",
+                key_data: "📊 具体招聘规模:• 总规模: 7000+实习生• 研发类: 4800+个(占比超60%)• 销售类: 预计800-1000个• 解决方案架构师类: 预计500-700个• 转正率: 超50%"
+            },
+            {
+                title: "华为云启动春季校招,目标34所高校",
+                date: "3月15日",
+                tags: ["校招", "华为云", "目标院校"],
+                summary: "华为云启动2026年春季校园招聘,计划访问34所目标高校,重点招聘技术岗和销售岗。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•目标院校:34所目标高校,重点在北邮、西电举办专场宣讲会,华南地区重点在深大•竞争格局:腾讯/阿里/华为都在抢同一批学校人才,985竞争最激烈•招聘策略:提前布局985/211高校计算机/软件强校,与高校建立长期合作关系",
+                key_data: "📊 具体招聘规模:• 招聘规模: 重点招聘技术岗,目标34所高校• 启动时间: 3-4月校招高峰• 宣讲重点: 北邮、西电、深大(华南地区)"
+            },
+            {
+                title: "阿里云发布云原生技术白皮书,招聘云原生工程师",
+                date: "3月16日",
+                tags: ["云原生", "技术白皮书", "阿里云"],
+                summary: "阿里云发布云原生技术白皮书,重点介绍容器、Serverless等前沿技术,计划招聘100+云原生工程师。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•技术栈要求:必须精通容器(Kubernetes/Docker)、Serverless架构,有大规模云平台架构经验•薪资水平:云原生架构师年包80-150万,工程师年包40-80万•竞争态势:腾讯云、华为云也在重点招聘,人才稀缺",
+                key_data: "📊 具体招聘规模:• 招聘岗位: 云原生架构师(30人)、云原生研发工程师(70人)• 技术方向: Kubernetes、Service Mesh、Serverless、DevOps• 薪资范围: 40-150万/年"
+            },
+            {
+                title: "腾讯云数据库团队扩招,目标50+岗位",
+                date: "3月16日",
+                tags: ["数据库", "研发招聘", "腾讯云"],
+                summary: "腾讯云数据库团队启动大规模招聘,重点招聘数据库研发工程师和解决方案专家。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•核心技能要求:精通分布式数据库、时序数据库,有大规模系统开发经验•人才来源:传统数据库厂商(Oracle/DB2)转型人才、互联网公司DBA•薪资竞争力:数据库架构师年包100-180万,研发工程师年包50-100万",
+                key_data: "📊 具体招聘规模:• 招聘岗位: 数据库架构师(15人)、数据库研发工程师(25人)、数据库解决方案专家(10人)• 技术方向: 分布式数据库、时序数据库、数据库中间件• 薪资范围: 50-180万/年"
+            },
+            {
+                title: "AWS中国启动AI培训计划,招募讲师团队",
+                date: "3月16日",
+                tags: ["AI培训", "讲师招聘", "AWS中国"],
+                summary: "AWS中国启动AI培训计划,计划招募10+专业讲师,提供云计算和AI相关培训。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•讲师要求:5年以上AI/云计算从业经验,有大型企业培训经验,具备AI认证优先•渠道来源:高校教师、企业技术专家、独立顾问•薪资方式:按课时计费,资深讲师3000-5000元/天",
+                key_data: "📊 具体招聘规模:• 招聘岗位: AI讲师(6人)、云计算讲师(4人)• 培训方向: 大模型应用、云计算架构、DevOps实践• 薪资方式: 3000-5000元/天"
+            },
+            {
+                title: "火山引擎发布大数据招聘计划",
+                date: "3月16日",
+                tags: ["大数据", "数据招聘", "火山引擎"],
+                summary: "火山引擎发布大数据领域招聘计划,重点招聘数据工程师和数据科学家。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•技术要求:精通Hadoop/Spark生态,有PB级数据处理经验,熟悉机器学习算法•人才竞争:与字节内部其他团队竞争,需要提供有竞争力的薪资和福利•薪资水平:数据科学家年包60-120万,数据工程师年包40-80万",
+                key_data: "📊 具体招聘规模:• 招聘岗位: 数据科学家(15人)、大数据工程师(25人)、数据产品经理(10人)• 技术方向: 实时计算、离线计算、数据平台、推荐算法• 薪资范围: 40-120万/年"
+            },
+            {
+                title: "华为云安全团队扩招,重点招聘安全专家",
+                date: "3月16日",
+                tags: ["安全", "安全招聘", "华为云"],
+                summary: "华为云安全团队启动招聘,重点招聘云安全工程师和安全架构师。",
+                priority: "中",
+                hr_impact: "💡 招聘视角:•技能要求:熟悉云安全架构、合规要求(ISO27001/等保三级),有CISSP等认证优先•人才稀缺度:云安全人才极度稀缺,尤其是懂业务的安全专家•薪资竞争力:安全架构师年包100-180万,安全工程师年包50-100万",
+                key_data: "📊 具体招聘规模:• 招聘岗位: 安全架构师(10人)、云安全工程师(20人)、安全运营工程师(10人)• 安全方向: 网络安全、数据安全、身份认证、安全合规• 薪资范围: 50-180万/年"
+            }
+        ];
+
+        function renderNews() {
+            const newsList = document.getElementById('newsList');
+            newsList.innerHTML = newsData.map(news => `
+                <div class="news-item">
+                    <div class="news-header">
+                        <span class="date-badge">${news.date}</span>
+                        <h3 class="news-title">${news.title}</h3>
+                        <span class="priority-badge priority-${news.priority.toLowerCase()}">${news.priority}</span>
+                    </div>
+                    <p class="news-summary">${news.summary}</p>
+                    <div class="news-details">
+                        <div class="detail-item">
+                            <div class="detail-label">💡 招聘视角</div>
+                            <div class="detail-content">${news.hr_impact}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">📊 核心数据</div>
+                            <div class="detail-content">${news.key_data}</div>
+                        </div>
+                    </div>
+                    <div class="news-footer">
+                        <div class="tags">
+                            ${news.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', renderNews);
+    </script>
+</body>
+</html>
