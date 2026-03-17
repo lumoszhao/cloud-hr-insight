@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻加载测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        .news-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .news-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .news-card .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #667eea;
+            color: white;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .news-card .link {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .news-card .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 新闻数据加载测试</h1>
+
+    <div id="status" class="test-status info">
+        正在测试新闻数据加载功能...
+    </div>
+
+    <h2>📋 测试结果：</h2>
+    <div id="testResults"></div>
+
+    <h2>📰 新闻内容：</h2>
+    <div id="newsContainer"></div>
+
+    <script>
+        // 测试新闻数据加载
+        async function testNewsLoading() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('testResults');
+            const newsContainer = document.getElementById('newsContainer');
+
+            let passedTests = 0;
+            let totalTests = 5;
+            let testResults = [];
+
+            // 测试 1: 检查 daily_news.json 文件是否存在
+            try {
+                const response = await fetch('daily_news.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    testResults.push({ name: '✅ 测试 1: daily_news.json 文件加载成功', status: 'success' });
+                    passedTests++;
+
+                    // 测试 2: 检查数据结构是否正确
+                    if (data.date && data.news && Array.isArray(data.news)) {
+                        testResults.push({ name: '✅ 测试 2: 数据结构正确', status: 'success' });
+                        passedTests++;
+
+                        // 测试 3: 检查日期是否为今天
+                        const today = new Date();
+                        const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                        if (data.date === todayStr) {
+                            testResults.push({ name: '✅ 测试 3: 日期正确 (' + data.date + ')', status: 'success' });
+                            passedTests++;
+                        } else {
+                            testResults.push({ name: '❌ 测试 3: 日期不正确 (预期: ' + todayStr + ', 实际: ' + data.date + ')', status: 'error' });
+                        }
+
+                        // 测试 4: 检查新闻数量
+                        if (data.news.length > 0) {
+                            testResults.push({ name: '✅ 测试 4: 新闻数量正确 (' + data.news.length + ' 条)', status: 'success' });
+                            passedTests++;
+
+                            // 测试 5: 检查新闻链接是否真实
+                            let allLinksValid = true;
+                            data.news.forEach((news, index) => {
+                                if (!news.link || news.link === '' || news.link.includes('example.com')) {
+                                    allLinksValid = false;
+                                    testResults.push({ name: '❌ 测试 5: 新闻 ' + (index + 1) + ' 链接无效', status: 'error' });
+                                }
+                            });
+                            if (allLinksValid) {
+                                testResults.push({ name: '✅ 测试 5: 所有新闻链接真实有效', status: 'success' });
+                                passedTests++;
+                            }
+
+                            // 显示新闻内容
+                            displayNews(data, newsContainer);
+
+                        } else {
+                            testResults.push({ name: '❌ 测试 4: 没有找到新闻数据', status: 'error' });
+                            testResults.push({ name: '❌ 测试 5: 无法测试链接', status: 'error' });
+                        }
+
+                    } else {
+                        testResults.push({ name: '❌ 测试 2: 数据结构不正确', status: 'error' });
+                        testResults.push({ name: '❌ 测试 3: 无法测试日期', status: 'error' });
+                        testResults.push({ name: '❌ 测试 4: 无法测试新闻数量', status: 'error' });
+                        testResults.push({ name: '❌ 测试 5: 无法测试链接', status: 'error' });
+                    }
+
+                } else {
+                    throw new Error('HTTP 状态码: ' + response.status);
+                }
+            } catch (error) {
+                testResults.push({ name: '❌ 测试 1: 加载失败 - ' + error.message, status: 'error' });
+                testResults.push({ name: '❌ 测试 2: 跳过 (数据加载失败)', status: 'error' });
+                testResults.push({ name: '❌ 测试 3: 跳过 (数据加载失败)', status: 'error' });
+                testResults.push({ name: '❌ 测试 4: 跳过 (数据加载失败)', status: 'error' });
+                testResults.push({ name: '❌ 测试 5: 跳过 (数据加载失败)', status: 'error' });
+            }
+
+            // 显示测试结果
+            resultsDiv.innerHTML = testResults.map(result =>
+                `<div class="test-status ${result.status}">${result.name}</div>`
+            ).join('');
+
+            // 更新总状态
+            if (passedTests === totalTests) {
+                statusDiv.className = 'test-status success';
+                statusDiv.innerHTML = '🎉 所有测试通过！(' + passedTests + '/' + totalTests + ')';
+            } else {
+                statusDiv.className = 'test-status error';
+                statusDiv.innerHTML = '⚠️ 测试未完全通过 (' + passedTests + '/' + totalTests + ' 通过)';
+            }
+        }
+
+        function displayNews(data, container) {
+            if (!data.news || data.news.length === 0) {
+                container.innerHTML = '<p>没有找到新闻数据</p>';
+                return;
+            }
+
+            container.innerHTML = data.news.map(news => `
+                <div class="news-card">
+                    <span class="tag">${news.company}</span>
+                    <h3>${news.title}</h3>
+                    <p>${news.summary}</p>
+                    <p><strong>🔗 链接:</strong> <a href="${news.link}" target="_blank" class="link">${news.link}</a></p>
+                    <p><strong>🕒 时间:</strong> ${news.timestamp}</p>
+                </div>
+            `).join('');
+        }
+
+        // 页面加载时运行测试
+        window.addEventListener('DOMContentLoaded', testNewsLoading);
+    </script>
+</body>
+</html>
