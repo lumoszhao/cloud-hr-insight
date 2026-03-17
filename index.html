@@ -743,9 +743,9 @@
                 <div class="date-selector">
                     <label>📅 选择日期:</label>
                     <select id="dateSelect" onchange="loadDate()">
-                        <option value="today">今日 (2025-03-16)</option>
-                        <option value="yesterday">昨日 (2025-03-15)</option>
-                        <option value="daybefore">前日 (2025-03-14)</option>
+                        <option value="today">今日 (2025-03-17)</option>
+                        <option value="yesterday">昨日 (2025-03-16)</option>
+                        <option value="daybefore">前日 (2025-03-15)</option>
                     </select>
                 </div>
 
@@ -1008,8 +1008,8 @@
                 <div class="date-selector">
                     <label>📅 选择周次:</label>
                     <select id="weekSelect" onchange="loadWeek()">
-                        <option value="lastweek">上周 (2026-03-09 ~ 2026-03-15)</option>
-                        <option value="thisweek">本周 (2026-03-16 ~ 2026-03-22)</option>
+                        <option value="lastweek">上周 (2026-03-10 ~ 2026-03-16)</option>
+                        <option value="thisweek">本周 (2026-03-17 ~ 2026-03-23)</option>
                     </select>
                 </div>
 
@@ -1027,7 +1027,7 @@
                         <p><strong>准确性说明：</strong>所有信息均来自公开渠道，经过交叉验证，确保真实可靠。报告中的招聘数据和趋势分析基于多源数据综合评估，供招聘决策参考。</p>
                     </div>
 
-                    <div class="section-title">🔥 上周重点新闻 (2026-03-09 ~ 2026-03-15)</div>
+                    <div class="section-title">🔥 上周重点新闻 (2026-03-10 ~ 2026-03-16)</div>
                     
                     <div class="news-grid">
                         <div class="news-card">
@@ -1803,11 +1803,11 @@
             console.log('加载日期:', selectedDate);
             
             if (selectedDate === 'today') {
-                alert('显示今日新闻 (2025-03-16)');
+                alert('显示今日新闻 (2025-03-17)');
             } else if (selectedDate === 'yesterday') {
-                alert('显示昨日新闻 (2025-03-15)');
+                alert('显示昨日新闻 (2025-03-16)');
             } else if (selectedDate === 'daybefore') {
-                alert('显示前日新闻 (2025-03-14)');
+                alert('显示前日新闻 (2025-03-15)');
             }
         }
 
@@ -1826,12 +1826,12 @@
                 document.getElementById('weeklyContent').innerHTML = `
                     <div class="weekly-report">
                         <h2>📅 本周观察</h2>
-                        <p>本周报告将在2026-03-22（周日）24:00自动生成</p>
-                        <p>当前时间：2026-03-16，报告生成还需等待6天</p>
+                        <p>本周报告将在2026-03-23（周日）24:00自动生成</p>
+                        <p>当前时间：2026-03-17，报告生成还需等待6天</p>
                         
                         <div class="report-info">
                             <p>📅 <strong>报告生成时间:</strong> 每周日24:00</p>
-                            <p>📅 <strong>下次生成时间:</strong> 2026-03-22 24:00</p>
+                            <p>📅 <strong>下次生成时间:</strong> 2026-03-23 24:00</p>
                             <p>🔄 <strong>更新频率:</strong> 每周日24:00自动生成</p>
                             <p>📋 <strong>报告内容:</strong> 重点新闻 + 七大云厂商招聘动态</p>
                         </div>
