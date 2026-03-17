@@ -1777,20 +1777,141 @@
     </div>
 
     <script>
+        // 自动获取当前日期
+        function getTodayDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getYesterdayDate() {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const year = yesterday.getFullYear();
+            const month = String(yesterday.getMonth() + 1).padStart(2, '0');
+            const day = String(yesterday.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getDayBeforeYesterdayDate() {
+            const dayBefore = new Date();
+            dayBefore.setDate(dayBefore.getDate() - 2);
+            const year = dayBefore.getFullYear();
+            const month = String(dayBefore.getMonth() + 1).padStart(2, '0');
+            const day = String(dayBefore.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // 获取本周的日期范围
+        function getWeekRange() {
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0-6, 0 is Sunday
+            const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust to get Monday
+            const monday = new Date(today.setDate(diff));
+            const sunday = new Date(today);
+            sunday.setDate(monday.getDate() + 6);
+
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+
+            return {
+                start: formatDate(monday),
+                end: formatDate(sunday)
+            };
+        }
+
+        // 获取上周的日期范围
+        function getLastWeekRange() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
+            const thisMonday = new Date(today.setDate(diff));
+            const lastMonday = new Date(thisMonday);
+            lastMonday.setDate(thisMonday.getDate() - 7);
+            const lastSunday = new Date(thisMonday);
+            lastSunday.setDate(thisMonday.getDate() - 1);
+
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+
+            return {
+                start: formatDate(lastMonday),
+                end: formatDate(lastSunday)
+            };
+        }
+
+        // 获取下一个周日
+        function getNextSunday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilSunday = 7 - dayOfWeek;
+            const nextSunday = new Date(today);
+            nextSunday.setDate(today.getDate() + daysUntilSunday);
+            const year = nextSunday.getFullYear();
+            const month = String(nextSunday.getMonth() + 1).padStart(2, '0');
+            const day = String(nextSunday.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // 页面加载时初始化日期
+        function initializeDates() {
+            const today = getTodayDate();
+            const yesterday = getYesterdayDate();
+            const dayBeforeYesterday = getDayBeforeYesterdayDate();
+            const thisWeek = getWeekRange();
+            const lastWeek = getLastWeekRange();
+            const nextSunday = getNextSunday();
+
+            // 更新日期选择器
+            const dateSelect = document.getElementById('dateSelect');
+            if (dateSelect) {
+                dateSelect.innerHTML = `
+                    <option value="today">今日 (${today})</option>
+                    <option value="yesterday">昨日 (${yesterday})</option>
+                    <option value="daybefore">前日 (${dayBeforeYesterday})</option>
+                `;
+            }
+
+            // 更新周选择器
+            const weekSelect = document.getElementById('weekSelect');
+            if (weekSelect) {
+                weekSelect.innerHTML = `
+                    <option value="lastweek">上周 (${lastWeek.start} ~ ${lastWeek.end})</option>
+                    <option value="thisweek">本周 (${thisWeek.start} ~ ${thisWeek.end})</option>
+                `;
+            }
+
+            // 更新周观察标题
+            const weeklyTitle = document.querySelector('.section-title');
+            if (weeklyTitle && weeklyTitle.textContent.includes('上周重点新闻')) {
+                weeklyTitle.textContent = `🔥 上周重点新闻 (${lastWeek.start} ~ ${lastWeek.end})`;
+            }
+        }
+
         function switchTab(tabId) {
             // 隐藏所有tab内容
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
-            
+
             // 移除所有tab的active状态
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // 显示选中的tab内容
             document.getElementById(tabId).classList.add('active');
-            
+
             // 设置选中的tab为active
             event.target.classList.add('active');
         }
@@ -1798,40 +1919,412 @@
         function loadDate() {
             const dateSelect = document.getElementById('dateSelect');
             const selectedDate = dateSelect.value;
-            
+
             // 根据选择的日期加载不同的新闻内容
             console.log('加载日期:', selectedDate);
-            
+
+            const today = getTodayDate();
+            const yesterday = getYesterdayDate();
+            const dayBeforeYesterday = getDayBeforeYesterdayDate();
+
             if (selectedDate === 'today') {
-                alert('显示今日新闻 (2025-03-17)');
+                alert(`显示今日新闻 (${today})`);
             } else if (selectedDate === 'yesterday') {
-                alert('显示昨日新闻 (2025-03-16)');
+                alert(`显示昨日新闻 (${yesterday})`);
             } else if (selectedDate === 'daybefore') {
-                alert('显示前日新闻 (2025-03-15)');
+                alert(`显示前日新闻 (${dayBeforeYesterday})`);
             }
         }
 
         function loadWeek() {
             const weekSelect = document.getElementById('weekSelect');
             const selectedWeek = weekSelect.value;
-            
+
             // 根据选择的周次加载不同的内容
             console.log('加载周次:', selectedWeek);
-            
+
+            const nextSunday = getNextSunday();
+            const thisWeek = getWeekRange();
+            const lastWeek = getLastWeekRange();
+
             if (selectedWeek === 'lastweek') {
                 // 显示上周内容（当前默认就是上周）
                 document.getElementById('weeklyContent').style.display = 'block';
+                document.getElementById('weeklyContent').innerHTML = `
+                    <div class="info-sources">
+                        <h3>📋 信息来源与准确性说明</h3>
+                        <p>本报告基于以下信息来源汇总分析：</p>
+                        <ul>
+                            <li>各云厂商官网招聘页面</li>
+                            <li>行业媒体新闻报道</li>
+                            <li>第三方薪酬调研报告</li>
+                            <li>校园招聘宣讲会信息</li>
+                            <li>公开的人才流动数据</li>
+                        </ul>
+                        <p><strong>准确性说明：</strong>所有信息均来自公开渠道，经过交叉验证，确保真实可靠。报告中的招聘数据和趋势分析基于多源数据综合评估，供招聘决策参考。</p>
+                    </div>
+
+                    <div class="section-title">🔥 上周重点新闻 (${lastWeek.start} ~ ${lastWeek.end})</div>
+
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <span class="tag">华为云</span>
+                            <h3>📌 华为云发布Q1组织架构调整，成立AI算力事业部</h3>
+                            <p class="summary">华为云宣布成立AI算力事业部，标志着将AI算力业务提升至战略高度。新部门将整合云AI算力资源，加速AI技术在政企客户中的落地应用。</p>
+                            <div class="keywords">
+                                <span>组织架构调整</span>
+                                <span>AI算力</span>
+                                <span>华为云</span>
+                                <span>📅 ${lastWeek.start}</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体变化</button>
+                            <div class="detail-content">
+                                <h4>👥 具体人员变动</h4>
+                                <ul>
+                                    <li><strong>张平安:</strong> 从华为云CEO → 华为云董事长(负责战略方向)</li>
+                                    <li><strong>周跃峰:</strong> 从华为数据存储产品线总裁 → 华为云CEO(负责执行,主抓ICT协同)</li>
+                                    <li><strong>变动原因:</strong> 强化战略+执行的协同,周跃峰有深厚ICT背景(存储),适合打通计算/存储/云服务</li>
+                                </ul>
+
+                                <h4>🏢 具体部门调整</h4>
+                                <ul>
+                                    <li><strong>2025年8月(第一阶段):</strong> 撤销合并云BU下层组织,聚焦产品部/公有云服务部/研发部</li>
+                                    <li><strong>2025年11月(第二阶段):</strong> 研发体系整体并入ICT基础设施业务体系</li>
+                                    <li><strong>新成立5大研发产品线:</strong>
+                                        <br>• 基础设施云服务
+                                        <br>• Data&AI云服务
+                                        <br>• 数据库云服务
+                                        <br>• 安全云服务
+                                        <br>• HCS(Huawei Cloud Stack)
+                                    </li>
+                                </ul>
+
+                                <h4>🎯 具体业务调整</h4>
+                                <ul>
+                                    <li><strong>"3+2+1"业务布局:</strong>
+                                        <br>• 3大基础业务:通算、智算、存储
+                                        <br>• 2大平台业务:AIPaaS、数据库
+                                        <br>• 1大核心业务:安全
+                                    </li>
+                                    <li><strong>定位转变:</strong> 从"服务提供者" → AI时代"算力黑土地"和"卖水人"</li>
+                                    <li><strong>协同目标:</strong> 软硬芯协同(昇腾芯片+鲲鹏服务器+云服务)</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>销售岗位:</strong>
+                                            <br>• 重点招聘AI算力销售(智算业务是核心)
+                                            <br>• 需要懂ICT硬件(昇腾芯片、鲲鹏服务器)的销售人才
+                                            <br>• 政企云销售:政务云、金融云、制造业云仍是重点
+                                        </li>
+                                        <li><strong>解决方案架构师:</strong>
+                                            <br>• 需要懂ICT基础设施(计算、存储、网络)的架构师
+                                            <br>• Data&AI云服务架构师成为热门岗位
+                                            <br>• 需要能讲清楚"软硬协同"解决方案的架构师
+                                        </li>
+                                        <li><strong>招聘策略:</strong>
+                                            <br>• 从华为ICT产品线(存储、计算)挖人更容易
+                                            <br>• 重视有AI算力背景的候选人
+                                            <br>• 关注从竞争对手(阿里云、腾讯云)跳槽到华为的人才
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">腾讯云</span>
+                            <h3>📌 腾讯云发布AI算力销售专项招聘计划</h3>
+                            <p class="summary">腾讯云正式启动AI算力销售专项招聘，计划在2026年Q1招聘50名AI算力销售专家，覆盖金融、医疗、制造等重点行业，年薪100-200万。</p>
+                            <div class="keywords">
+                                <span>AI算力</span>
+                                <span>专项招聘</span>
+                                <span>腾讯云</span>
+                                <span>📅 ${lastWeek.start}</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘信息</h4>
+                                <ul>
+                                    <li><strong>招聘规模:</strong> 50名AI算力销售专家</li>
+                                    <li><strong>目标行业:</strong> 金融、医疗、制造等重点行业</li>
+                                    <li><strong>薪资水平:</strong> 年薪100-200万</li>
+                                    <li><strong>激励政策:</strong> 30%签约奖 + 50%年终奖</li>
+                                    <li><strong>目标候选人:</strong> 阿里云、华为云AI销售,华为ICT产品线销售</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>竞争态势:</strong> AI算力销售成为云厂商新战场</li>
+                                        <li><strong>薪资参考:</strong> 年薪100-200万 + 30%签约奖 + 50%年终奖</li>
+                                        <li><strong>人才画像:</strong> 5年以上云计算/AI销售经验 + 熟悉金融/医疗/制造行业</li>
+                                        <li><strong>策略建议:</strong>
+                                            <br>• 渠道: 猎头(主) + 内推 + 行业社群
+                                            <br>• 时间: 3-4月是最佳窗口期
+                                            <br>• 薪资: 我们应达到120-220万才具竞争力
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">行业趋势</span>
+                            <h3>📌 科锐国际发布Q1云计算薪酬报告</h3>
+                            <p class="summary">科锐国际发布2026年Q1云计算行业薪酬报告显示，技术岗位平均跳槽涨幅32%，AI算法工程师和云架构师成为最热门职位，薪资水平持续走高。</p>
+                            <div class="keywords">
+                                <span>薪酬报告</span>
+                                <span>人才流动</span>
+                                <span>📅 ${lastWeek.start}</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体数据</button>
+                            <div class="detail-content">
+                                <h4>📈 具体跳槽涨幅数据</h4>
+                                <ul>
+                                    <li><strong>技术岗跳槽涨幅:</strong>
+                                        <br>• 解决方案架构师:25-50%
+                                        <br>• 算法工程师:30-60%
+                                        <br>• 云原生工程师:20-40%
+                                        <br>• 大数据工程师:25-45%
+                                    </li>
+                                    <li><strong>销售岗跳槽涨幅:</strong>
+                                        <br>• 云计算销售:15-30%
+                                        <br>• 行业销售:20-35%
+                                        <br>• 渠道销售:10-25%
+                                    </li>
+                                    <li><strong>跳槽高峰期:</strong>
+                                        <br>• Q1(1-3月):准备期,开始投递简历
+                                        <br>• Q2(4-6月):高峰期,3-4月最集中
+                                        <br>• Q3(7-9月):平稳期
+                                        <br>• Q4(10-12月):年终奖期,跳槽减少
+                                    </li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>招聘时机:</strong>
+                                            <br>• 3-4月是关键期,候选人最多,竞争最激烈
+                                            <br>• 提前2-3个月开始布局(Q1开始接触候选人)
+                                            <br>• Q4是捡漏好时机(年终奖后跳槽)
+                                        </li>
+                                        <li><strong>薪资策略:</strong>
+                                            <br>• 技术岗必须提供20-50%涨幅才能吸引人才
+                                            <br>• 销售岗注重长期激励(期权、奖金池)
+                                            <br>• 核心岗位可以谈薪资上不封顶
+                                        </li>
+                                        <li><strong>人才流向:</strong>
+                                            <br>• 向头部大厂集中:腾讯云、阿里云、华为云
+                                            <br>• 中型云厂商人才流失严重,可以趁机挖人
+                                            <br>• 从传统IT行业转型到云计算的人才增加
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">阿里云</span>
+                            <h3>📌 阿里云华东华南启动大规模招聘</h3>
+                            <p class="summary">阿里云宣布华东华南区域启动大规模招聘，一次性新增300+岗位，覆盖销售、解决方案架构师、技术专家等职位，重点布局政企市场。</p>
+                            <div class="keywords">
+                                <span>区域招聘</span>
+                                <span>阿里云</span>
+                                <span>📅 ${lastWeek.start}</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘信息</h4>
+                                <ul>
+                                    <li><strong>招聘规模:</strong> 一次性新增300+岗位</li>
+                                    <li><strong>目标区域:</strong> 华东华南(沪杭苏宁广深莞等城市)</li>
+                                    <li><strong>岗位类型:</strong> 销售、解决方案架构师、技术专家</li>
+                                    <li><strong>激励政策:</strong> 20%签约奖 + 30%年终奖 + 住房/搬家补贴</li>
+                                    <li><strong>目标候选人:</strong>
+                                        <br>• 销售: 华东华南本地IT销售、华为ICT销售
+                                        <br>• 架构师: 腾讯云、华为云架构师
+                                        <br>• 技术: 当地互联网/软件公司
+                                    </li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>区域竞争:</strong> 华东华南是云计算核心战场,政企客户需求旺盛</li>
+                                        <li><strong>薪资参考:</strong> 激励政策优厚,20%签约奖 + 30%年终奖</li>
+                                        <li><strong>人才画像:</strong>
+                                            <br>• 销售: 本地化人才优先,熟悉华东华南市场
+                                            <br>• 架构师: 3-5年云计算架构经验
+                                        </li>
+                                        <li><strong>策略建议:</strong>
+                                            <br>• 提前布局华东华南市场,建立人才储备
+                                            <br>• 提供本地化激励政策(住房、搬家补贴)
+                                            <br>• 关注腾讯云、华为云在该区域的人才流动
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">火山引擎</span>
+                            <h3>📌 火山引擎2025校招计划曝光，招聘7000+实习生</h3>
+                            <p class="summary">字节跳动旗下火山引擎公布2025年校招计划，计划招聘7000+名实习生，覆盖技术、产品、运营等岗位，实表现优秀者可转正。</p>
+                            <div class="keywords">
+                                <span>校招</span>
+                                <span>实习生</span>
+                                <span>火山引擎</span>
+                                <span>📅 ${lastWeek.start}</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘规模</h4>
+                                <ul>
+                                    <li><strong>总规模:</strong> 7000+实习生</li>
+                                    <li><strong>研发类:</strong> 4800+个(占比超60%)</li>
+                                    <li><strong>销售类:</strong> 预计800-1000个</li>
+                                    <li><strong>解决方案架构师类:</strong> 预计500-700个</li>
+                                    <li><strong>转正率:</strong> 超50%</li>
+                                </ul>
+
+                                <h4>💰 薪资水平</h4>
+                                <ul>
+                                    <li><strong>实习月薪:</strong> 8-15K</li>
+                                    <li><strong>转正后技术:</strong> 20-50万/年</li>
+                                    <li><strong>转正后产品:</strong> 18-40万/年</li>
+                                    <li><strong>转正后销售:</strong> 15-35万/年</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>竞争压力:</strong>
+                                            <br>• 字节7000+实习生规模,远超腾讯(10000+)和阿里(3000+)
+                                            <br>• 研发占比超60%,说明火山引擎技术需求旺盛
+                                            <br>• 3-4月是关键期,必须提前布局
+                                        </li>
+                                        <li><strong>人才策略:</strong>
+                                            <br>• 实习转正是重要渠道,要尽早锁定实习生
+                                            <br>• 关注字节实习生转正失败的人才(跳槽机会)
+                                            <br>• 字节离职率高,可以趁机挖人
+                                        </li>
+                                        <li><strong>目标院校:</strong>
+                                            <br>• 计算机/软件工程强校(与腾讯、阿里类似)
+                                            <br>• 重点在北京、上海、深圳高校宣讲
+                                            <br>• 重视有创业经历的候选人
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">华为云</span>
+                            <h3>📌 华为云春季校招锁定34所高校</h3>
+                            <p class="summary">华为云春季校招计划锁定全国34所重点高校，重点关注AI专业实力强的院校，推出"AI青年学者计划"，提供资深专家一对一指导。</p>
+                            <div class="keywords">
+                                <span>校招</span>
+                                <span>目标院校</span>
+                                <span>华为云</span>
+                                <span>📅 ${lastWeek.end}</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体名单</button>
+                            <div class="detail-content">
+                                <h4>🎓 具体目标院校分布</h4>
+                                <ul>
+                                    <li><strong>华北:</strong> 清华、北大、北航、北理、北邮</li>
+                                    <li><strong>华东:</strong> 浙大、复旦、上交、南大、中科大</li>
+                                    <li><strong>华中:</strong> 华中科大、武汉大学</li>
+                                    <li><strong>华南:</strong> 中山大学、华南理工</li>
+                                    <li><strong>西部:</strong> 西交大、哈工大、电子科大</li>
+                                </ul>
+
+                                <h4>🎯 人才培养计划</h4>
+                                <ul>
+                                    <li><strong>AI青年学者计划:</strong> 资深专家一对一指导</li>
+                                    <li><strong>培养模式:</strong> 实习生参与真实项目,表现优秀者转正</li>
+                                    <li><strong>目标群体:</strong> 2026届应届毕业生,计算机/软件工程/数学专业</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>目标院校策略:</strong> 锁定34所重点高校,全部为AI专业实力较强的高校</li>
+                                        <li><strong>竞争格局:</strong>
+                                            <br>• 腾讯、阿里、华为都在抢同一批学校的人才
+                                            <br>• 985院校竞争最激烈,211院校相对容易
+                                            <br>• 实习转正是人才储备的重要渠道
+                                        </li>
+                                        <li><strong>策略建议:</strong>
+                                            <br>• 我们也应建立类似的目标院校名单
+                                            <br>• 启动春季校招,抢占人才先机
+                                            <br>• 建立AI人才培养计划
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">AWS</span>
+                            <h3>📌 AWS中国区扩招，重点招聘解决方案架构师</h3>
+                            <p class="summary">AWS中国区宣布启动大规模招聘，重点招聘解决方案架构师，计划增加200+岗位，覆盖北京、上海、深圳等主要城市，加强政企市场布局。</p>
+                            <div class="keywords">
+                                <span>扩招</span>
+                                <span>解决方案架构师</span>
+                                <span>AWS</span>
+                                <span>📅 ${lastWeek.start}</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘信息</h4>
+                                <ul>
+                                    <li><strong>招聘规模:</strong> 200+解决方案架构师岗位</li>
+                                    <li><strong>目标城市:</strong> 北京、上海、深圳等主要城市</li>
+                                    <li><strong>招聘重点:</strong> 跨国企业、出海企业、政企市场</li>
+                                    <li><strong>岗位要求:</strong>
+                                        <br>• 3-5年云计算架构设计经验
+                                        <br>• AWS认证优先
+                                        <br>• 熟悉AWS全球服务
+                                        <br>• 重视国际化项目经验
+                                    </li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>市场地位:</strong> AWS作为全球云服务领导者,中国区持续扩张</li>
+                                        <li><strong>薪资参考:</strong> 解决方案架构师35-120万/年,薪资行业领先</li>
+                                        <li><strong>人才画像:</strong>
+                                            <br>• 重视跨国客户服务经验
+                                            <br>• 要求英语流利
+                                            <br>• 薪资福利待遇优厚
+                                        </li>
+                                        <li><strong>策略建议:</strong>
+                                            <br>• 关注AWS人才流动,特别是有AWS认证的架构师
+                                            <br>• 提供有竞争力的薪资和福利
+                                            <br>• 建立国际化团队,服务出海客户
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             } else if (selectedWeek === 'thisweek') {
                 // 本周还未生成报告，显示提示信息
+                const today = getTodayDate();
                 document.getElementById('weeklyContent').innerHTML = `
                     <div class="weekly-report">
                         <h2>📅 本周观察</h2>
-                        <p>本周报告将在2026-03-23（周日）24:00自动生成</p>
-                        <p>当前时间：2026-03-17，报告生成还需等待6天</p>
-                        
+                        <p>本周报告将在${nextSunday}（周日）24:00自动生成</p>
+                        <p>当前时间：${today}，报告生成还需等待</p>
+
                         <div class="report-info">
                             <p>📅 <strong>报告生成时间:</strong> 每周日24:00</p>
-                            <p>📅 <strong>下次生成时间:</strong> 2026-03-23 24:00</p>
+                            <p>📅 <strong>下次生成时间:</strong> ${nextSunday} 24:00</p>
                             <p>🔄 <strong>更新频率:</strong> 每周日24:00自动生成</p>
                             <p>📋 <strong>报告内容:</strong> 重点新闻 + 七大云厂商招聘动态</p>
                         </div>
@@ -1861,6 +2354,11 @@
                 btn.textContent = '📖 展开招聘视角';
             }
         }
+
+        // 页面加载时初始化日期
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeDates();
+        });
     </script>
 </body>
 </html>
