@@ -1892,15 +1892,40 @@
                 targetDate = dayBeforeYesterday;
             }
 
-            // 从 daily_news.json 加载数据
-            fetch('daily_news.json')
-                .then(response => response.json())
-                .then(data => {
-                    displayNews(data, targetDate);
+            // 先尝试从新闻历史文件加载
+            fetch('news_history.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('news_history.json not found');
+                    return response.json();
+                })
+                .then(historyData => {
+                    // 查找目标日期的新闻
+                    let newsList = [];
+                    if (historyData[targetDate] && Array.isArray(historyData[targetDate])) {
+                        newsList = historyData[targetDate];
+                    }
+                    displayNewsList(newsList, targetDate);
                 })
                 .catch(error => {
-                    console.error('加载新闻数据失败:', error);
-                    alert(`加载新闻数据失败: ${error.message}`);
+                    // 如果历史文件不存在，尝试从 daily_news.json 加载今日新闻
+                    console.warn('加载历史新闻失败，尝试加载今日新闻:', error);
+                    if (selectedDate === 'today') {
+                        fetch('daily_news.json')
+                            .then(response => response.json())
+                            .then(data => {
+                                let newsList = [];
+                                if (data.news && Array.isArray(data.news)) {
+                                    newsList = data.news;
+                                }
+                                displayNewsList(newsList, targetDate);
+                            })
+                            .catch(err => {
+                                console.error('加载新闻数据失败:', err);
+                                displayNewsList([], targetDate);
+                            });
+                    } else {
+                        displayNewsList([], targetDate);
+                    }
                 });
         }
 
@@ -1920,11 +1945,24 @@
                 newsList = data.news;
             }
 
+            displayNewsList(newsList, targetDate);
+        }
+
+        function displayNewsList(newsList, targetDate) {
+            const newsContainer = document.getElementById('dailyNewsGrid');
+            if (!newsContainer) {
+                console.error('找不到新闻容器');
+                return;
+            }
+
+            // 清空现有内容
+            newsContainer.innerHTML = '';
+
             if (newsList.length === 0) {
                 newsContainer.innerHTML = `
                     <div class="no-news" style="text-align: center; padding: 40px; color: #666;">
                         <div style="font-size: 48px; margin-bottom: 20px;">📰</div>
-                        <h3 style="margin-bottom: 10px;">今日暂无相关新闻</h3>
+                        <h3 style="margin-bottom: 10px;">${targetDate} 暂无相关新闻</h3>
                         <p>我们正在持续抓取云行业的真实新闻...</p>
                         <p style="font-size: 14px; color: #999; margin-top: 10px;">
                             真实新闻来源：InfoQ、36氪、虎嗅、云厂商官方新闻中心

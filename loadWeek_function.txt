@@ -1,0 +1,119 @@
+        function loadWeek() {
+            const weekSelect = document.getElementById('weekSelect');
+            const selectedWeek = weekSelect.value;
+
+            console.log('加载周次:', selectedWeek);
+
+            const thisWeek = getWeekRange();
+            const lastWeek = getLastWeekRange();
+
+            // 确定目标周次
+            let targetWeekRange = '';
+            if (selectedWeek === 'lastweek') {
+                targetWeekRange = `${lastWeek.start}~${lastWeek.end}`;
+            } else if (selectedWeek === 'thisweek') {
+                targetWeekRange = `${thisWeek.start}~${thisWeek.end}`;
+            }
+
+            // 从周报数据文件加载
+            fetch('weekly_report.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('weekly_report.json not found');
+                    return response.json();
+                })
+                .then(weeklyData => {
+                    const weekData = weeklyData[targetWeekRange];
+                    displayWeeklyNews(weekData, selectedWeek);
+                })
+                .catch(error => {
+                    console.error('加载周报数据失败:', error);
+                    displayWeeklyNews(null, selectedWeek);
+                });
+        }
+
+        function displayWeeklyNews(weekData, selectedWeek) {
+            const weeklyContent = document.getElementById('weeklyContent');
+            if (!weeklyContent) {
+                console.error('找不到周观察容器');
+                return;
+            }
+
+            const thisWeek = getWeekRange();
+            const lastWeek = getLastWeekRange();
+            
+            let weekTitle = '';
+            let weekRange = '';
+            if (selectedWeek === 'lastweek') {
+                weekTitle = '上周重点新闻';
+                weekRange = `${lastWeek.start} ~ ${lastWeek.end}`;
+            } else if (selectedWeek === 'thisweek') {
+                weekTitle = '本周重点新闻';
+                weekRange = `${thisWeek.start} ~ ${thisWeek.end}`;
+            }
+
+            if (!weekData || !weekData.news || weekData.news.length === 0) {
+                weeklyContent.innerHTML = `
+                    <div class="info-sources">
+                        <h3>📋 信息来源与准确性说明</h3>
+                        <p>本报告基于以下信息来源汇总分析：</p>
+                        <ul>
+                            <li>各云厂商官网招聘页面</li>
+                            <li>行业媒体新闻报道</li>
+                            <li>第三方薪酬调研报告</li>
+                            <li>校园招聘宣讲会信息</li>
+                            <li>公开的人才流动数据</li>
+                        </ul>
+                        <p><strong>准确性说明：</strong>所有信息均来自公开渠道，经过交叉验证，确保真实可靠。报告中的招聘数据和趋势分析基于多源数据综合评估，供招聘决策参考。</p>
+                    </div>
+
+                    <div class="section-title">🔥 ${weekTitle} (${weekRange})</div>
+                    
+                    <div style="text-align: center; padding: 40px; color: #666; margin: 20px 0;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">📰</div>
+                        <h3 style="margin-bottom: 10px;">${weekRange} 暂无相关新闻</h3>
+                        <p>我们正在持续抓取云行业的真实新闻...</p>
+                        <p style="font-size: 14px; color: #999; margin-top: 10px;">
+                            真实新闻来源：InfoQ、36氪、虎嗅、云厂商官方新闻中心
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 显示新闻卡片
+            const newsHTML = weekData.news.map(news => `
+                <div class="news-card">
+                    <span class="tag">${news.company}</span>
+                    <h3>${news.title}</h3>
+                    <p class="summary">${news.summary}</p>
+                    <div class="keywords">
+                        ${news.tags ? news.tags.map(tag => `<span>${tag}</span>`).join('') : ''}
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                        <span>🕒 ${news.timestamp}</span>
+                        <a href="${news.link}" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                    </div>
+                </div>
+            `).join('');
+
+            weeklyContent.innerHTML = `
+                <div class="info-sources">
+                    <h3>📋 信息来源与准确性说明</h3>
+                    <p>本报告基于以下信息来源汇总分析：</p>
+                    <ul>
+                        <li>各云厂商官网招聘页面</li>
+                        <li>行业媒体新闻报道</li>
+                        <li>第三方薪酬调研报告</li>
+                        <li>校园招聘宣讲会信息</li>
+                        <li>公开的人才流动数据</li>
+                    </ul>
+                    <p><strong>准确性说明：</strong>所有信息均来自公开渠道，经过交叉验证，确保真实可靠。报告中的招聘数据和趋势分析基于多源数据综合评估，供招聘决策参考。</p>
+                </div>
+
+                <div class="section-title">🔥 ${weekTitle} (${weekRange})</div>
+                
+                <div class="news-grid">
+                    ${newsHTML}
+                </div>
+            `;
+        }
