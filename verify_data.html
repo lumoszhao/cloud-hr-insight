@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据验证页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 数据验证页面</h1>
+
+    <div class="section">
+        <h2>📅 当前日期</h2>
+        <div id="currentDate" class="status info">正在获取日期...</div>
+    </div>
+
+    <div class="section">
+        <h2>📰 每日新闻数据 (daily_news.json)</h2>
+        <div id="dailyNewsStatus" class="status info">正在加载...</div>
+        <pre id="dailyNewsContent"></pre>
+    </div>
+
+    <div class="section">
+        <h2>📜 历史新闻数据 (news_history.json)</h2>
+        <div id="historyNewsStatus" class="status info">正在加载...</div>
+        <pre id="historyNewsContent"></pre>
+    </div>
+
+    <div class="section">
+        <h2>📊 周报数据 (weekly_report.json)</h2>
+        <div id="weeklyReportStatus" class="status info">正在加载...</div>
+        <pre id="weeklyReportContent"></pre>
+    </div>
+
+    <script>
+        // 显示当前日期
+        const today = new Date();
+        document.getElementById('currentDate').textContent = `今日：${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+        // 验证每日新闻数据
+        fetch('daily_news.json')
+            .then(response => response.json())
+            .then(data => {
+                const newsCount = data.news ? data.news.length : 0;
+                document.getElementById('dailyNewsStatus').innerHTML = `
+                    <strong>状态：</strong>加载成功<br>
+                    <strong>新闻数量：</strong>${newsCount} 条<br>
+                    <strong>日期：</strong>${data.date}
+                `;
+                if (data.note) {
+                    document.getElementById('dailyNewsStatus').innerHTML += `<br><strong>备注：</strong>${data.note}`;
+                }
+                document.getElementById('dailyNewsContent').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('dailyNewsStatus').className = 'status error';
+                document.getElementById('dailyNewsStatus').textContent = `加载失败：${error.message}`;
+            });
+
+        // 验证历史新闻数据
+        fetch('news_history.json')
+            .then(response => response.json())
+            .then(data => {
+                const dates = Object.keys(data).filter(key => key.match(/^\d{4}-\d{2}-\d{2}$/));
+                let totalNews = 0;
+                dates.forEach(date => {
+                    if (Array.isArray(data[date])) {
+                        totalNews += data[date].length;
+                    }
+                });
+                document.getElementById('historyNewsStatus').innerHTML = `
+                    <strong>状态：</strong>加载成功<br>
+                    <strong>日期数量：</strong>${dates.length} 个<br>
+                    <strong>新闻总数：</strong>${totalNews} 条<br>
+                    <strong>日期列表：</strong>${dates.join(', ')}
+                `;
+                if (data.note) {
+                    document.getElementById('historyNewsStatus').innerHTML += `<br><strong>备注：</strong>${data.note}`;
+                }
+                document.getElementById('historyNewsContent').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('historyNewsStatus').className = 'status error';
+                document.getElementById('historyNewsStatus').textContent = `加载失败：${error.message}`;
+            });
+
+        // 验证周报数据
+        fetch('weekly_report.json')
+            .then(response => response.json())
+            .then(data => {
+                const weeks = Object.keys(data);
+                let totalNews = 0;
+                weeks.forEach(week => {
+                    if (data[week] && data[week].news) {
+                        totalNews += data[week].news.length;
+                    }
+                });
+                document.getElementById('weeklyReportStatus').innerHTML = `
+                    <strong>状态：</strong>加载成功<br>
+                    <strong>周数：</strong>${weeks.length} 个<br>
+                    <strong>新闻总数：</strong>${totalNews} 条<br>
+                    <strong>周次列表：</strong>${weeks.join(', ')}
+                `;
+                document.getElementById('weeklyReportContent').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('weeklyReportStatus').className = 'status error';
+                document.getElementById('weeklyReportStatus').textContent = `加载失败：${error.message}`;
+            });
+    </script>
+</body>
+</html>
