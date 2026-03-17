@@ -749,53 +749,10 @@
                     </select>
                 </div>
 
-                <div class="news-grid">
-                    <!-- 新闻1 -->
-                    <div class="news-card">
-                        <span class="tag">华为云</span>
-                        <h3>华为云CEO张平安转任董事长,徐直军分管云业务</h3>
-                        <p class="summary">华为云宣布重大人事调整，张平安转任董事长，周跃峰接任CEO，徐直军直接分管云业务，强化ICT协同战略，预计带来大量新部门招聘需求。</p>
-                        <div class="keywords">
-                            <span>组织架构调整</span>
-                            <span>人员变动</span>
-                            <span>高优先级</span>
-                        </div>
-                        <button class="expand-btn" onclick="toggleDailyDetail(this)">📖 展开招聘视角</button>
-                        <div class="detail-content">
-                            <div class="core-data">
-                                <h4>📊 核心数据</h4>
-                                <ul>
-                                    <li><strong>短期影响</strong>: 部分管理岗暂停招聘,等待新领导到位</li>
-                                    <li><strong>中长期机会</strong>: Cloud AI、Cloud PaaS、Cloud SaaS等15个新部门将出现大量招聘需求</li>
-                                    <li><strong>竞争态势</strong>: 腾讯云、阿里云可能挖角核心人才,华为云可能涨薪10-15%稳住军心</li>
-                                </ul>
-                            </div>
-                            <div class="hr-impact">
-                                <h4>💼 招聘视角</h4>
-                                <ul>
-                                    <li><strong>策略建议</strong>:
-                                        <ul>
-                                            <li>本周内: 建立华为云核心人才名单</li>
-                                            <li>下周内: 制定新部门专项招聘方案</li>
-                                            <li>4月底前: 完成新部门人才画像</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
-                            <span>🕒 2025-03-15 09:30</span>
-                            <a href="https://www.huaweicloud.com/zh-cn/about/press-center/20250315.html" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
-                        </div>
-                    </div>
-
-                    <!-- 新闻2 -->
-                    <div class="news-card">
-                        <span class="tag">腾讯云</span>
-                        <h3>腾讯云启动AI算力销售专项招聘,年薪百万+</h3>
-                        <p class="summary">腾讯云正式启动AI算力销售专项招聘，计划招聘50名销售专家，覆盖金融、医疗、制造等重点行业，提供百万年薪+高奖金激励。</p>
-                        <div class="keywords">
-                            <span>AI算力</span>
+                <div class="news-grid" id="dailyNewsGrid">
+                    <!-- 新闻内容将通过 JavaScript 动态加载 -->
+                    <div class="loading">正在加载新闻数据...</div>
+                </div>
                             <span>专项招聘</span>
                             <span>高优先级</span>
                         </div>
@@ -1948,7 +1905,7 @@
         }
 
         function displayNews(data, targetDate) {
-            const newsContainer = document.querySelector('#daily .news-grid');
+            const newsContainer = document.getElementById('dailyNewsGrid');
             if (!newsContainer) {
                 console.error('找不到新闻容器');
                 return;
@@ -1979,7 +1936,10 @@
                     <div class="keywords">
                         ${news.tags ? news.tags.map(tag => `<span>${tag}</span>`).join('') : ''}
                     </div>
-                    <a href="${news.link}" target="_blank" class="read-more">查看详情 →</a>
+                    <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                        <span>🕒 ${news.timestamp || targetDate}</span>
+                        <a href="${news.link}" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                    </div>
                 `;
                 newsContainer.appendChild(newsCard);
             });
@@ -2404,9 +2364,10 @@
             }
         }
 
-        // 页面加载时初始化日期
+        // 页面加载时初始化日期和加载新闻
         window.addEventListener('DOMContentLoaded', function() {
             initializeDates();
+            loadDate(); // 自动加载今日新闻
         });
     </script>
 </body>
