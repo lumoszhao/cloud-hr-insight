@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云行业HR洞察 - 时间维度分析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            padding: 0 40px;
+        }
+
+        .nav-tab {
+            padding: 20px 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #6c757d;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-tab:hover {
+            color: #667eea;
+            background: #e9ecef;
+        }
+
+        .nav-tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            background: white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .date-selector {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .date-selector label {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .date-selector select {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .news-item {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .news-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .news-header {
+            padding: 20px 25px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+        }
+
+        .news-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .news-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .priority {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .priority.high {
+            background: #dc3545;
+            color: white;
+        }
+
+        .priority.medium {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .priority.low {
+            background: #6c757d;
+            color: white;
+        }
+
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background: #e9ecef;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: #495057;
+        }
+
+        .news-item .summary {
+            margin-top: 15px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #495057;
+        }
+
+        .expand-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .expand-btn:hover {
+            color: #5a67d8;
+        }
+
+        .expand-btn span {
+            transition: transform 0.3s;
+        }
+
+        .expand-btn.active span {
+            transform: rotate(180deg);
+        }
+
+        .news-body {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .news-body.active {
+            padding: 25px;
+            max-height: none;
+        }
+
+        .hr-insight {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            border-left: 5px solid #667eea;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .hr-insight-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hr-insight-content {
+            font-size: 1em;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .hr-insight-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .hr-insight-content li {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .hr-insight-content strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .news-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .news-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .news-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .weekly-report {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .weekly-report h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .weekly-report p {
+            font-size: 1.1em;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .report-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .report-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .report-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .report-info p {
+            margin: 10px 0;
+            color: #495057;
+        }
+
+        .report-info strong {
+            color: #667eea;
+        }
+
+        .monthly-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .monthly-section {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .monthly-section h3 {
+            padding: 20px 25px;
+            background: #f8f9fa;
+            font-size: 1.4em;
+            color: #333;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .monthly-section-body {
+            padding: 25px;
+        }
+
+        .monthly-section-body p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .monthly-section-body ul {
+            margin-left: 20px;
+        }
+
+        .monthly-section-body li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-tabs {
+                padding: 0 20px;
+            }
+
+            .nav-tab {
+                padding: 15px 20px;
+                font-size: 1em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .news-title {
+                font-size: 1.1em;
+            }
+
+            .news-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .info-sources {
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            border-left: 5px solid #667eea;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .info-sources h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .info-sources p {
+            margin-bottom: 10px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .info-sources ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-sources li {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            color: #333;
+            margin: 40px 0 25px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .news-card h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .news-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .news-card p {
+            color: #6c757d;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .news-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .news-card .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .news-card .summary {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .news-card .keywords {
+            margin-bottom: 15px;
+        }
+
+        .news-card .keywords span {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #666;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .news-card .expand-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .news-card .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .news-card .detail-content {
+            display: none;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .news-card .detail-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .news-card .detail-content h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .news-card .detail-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .news-card .detail-content li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .news-card .detail-content .hr-impact {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .news-card .detail-content .hr-impact h4 {
+            margin-top: 0;
+        }
+
+        .news-card .detail-content .core-data {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #007bff;
+        }
+
+        .news-card .detail-content .core-data h4 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .vendor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .vendor-card {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .vendor-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .vendor-card h4 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+        }
+
+        .vendor-card ul {
+            margin-left: 20px;
+        }
+
+        .vendor-card li {
+            margin-bottom: 8px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .cloud-vendor {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .cloud-vendor .vendor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .cloud-vendor .vendor-name {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .cloud-vendor .vendor-logo {
+            font-size: 2em;
+        }
+
+        .cloud-vendor h3 {
+            color: #667eea;
+            margin: 20px 0 10px 0;
+        }
+
+        .cloud-vendor .content {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .cloud-vendor .insight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .cloud-vendor .insight-box h4 {
+            margin-bottom: 10px;
+        }
+
+        .cloud-vendor .insight-box p {
+            margin-bottom: 8px;
+        }
+
+        .cloud-vendor .source-links {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .cloud-vendor .source-links h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .cloud-vendor .source-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .cloud-vendor .source-links li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cloud-vendor .source-links li:last-child {
+            border-bottom: none;
+        }
+
+        .cloud-vendor .source-links a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .cloud-vendor .source-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☁️ 云行业HR洞察</h1>
+            <p>时间维度分析 · 助力招聘决策</p>
+        </div>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="switchTab('daily')">日观察</div>
+            <div class="nav-tab" onclick="switchTab('weekly')">周观察</div>
+            <div class="nav-tab" onclick="switchTab('monthly')">月观察</div>
+        </div>
+
+        <div class="content">
+            <!-- 日观察 -->
+            <div class="tab-content active" id="daily">
+                <div class="date-selector">
+                    <label>📅 选择日期:</label>
+                    <select id="dateSelect" onchange="loadDate()">
+                        <option value="today">今日 (2025-03-16)</option>
+                        <option value="yesterday">昨日 (2025-03-15)</option>
+                        <option value="daybefore">前日 (2025-03-14)</option>
+                    </select>
+                </div>
+
+                <div class="news-grid">
+                    <!-- 新闻1 -->
+                    <div class="news-card">
+                        <span class="tag">华为云</span>
+                        <h3>华为云CEO张平安转任董事长,徐直军分管云业务</h3>
+                        <p class="summary">华为云宣布重大人事调整，张平安转任董事长，周跃峰接任CEO，徐直军直接分管云业务，强化ICT协同战略，预计带来大量新部门招聘需求。</p>
+                        <div class="keywords">
+                            <span>组织架构调整</span>
+                            <span>人员变动</span>
+                            <span>高优先级</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDailyDetail(this)">📖 展开招聘视角</button>
+                        <div class="detail-content">
+                            <div class="core-data">
+                                <h4>📊 核心数据</h4>
+                                <ul>
+                                    <li><strong>短期影响</strong>: 部分管理岗暂停招聘,等待新领导到位</li>
+                                    <li><strong>中长期机会</strong>: Cloud AI、Cloud PaaS、Cloud SaaS等15个新部门将出现大量招聘需求</li>
+                                    <li><strong>竞争态势</strong>: 腾讯云、阿里云可能挖角核心人才,华为云可能涨薪10-15%稳住军心</li>
+                                </ul>
+                            </div>
+                            <div class="hr-impact">
+                                <h4>💼 招聘视角</h4>
+                                <ul>
+                                    <li><strong>策略建议</strong>:
+                                        <ul>
+                                            <li>本周内: 建立华为云核心人才名单</li>
+                                            <li>下周内: 制定新部门专项招聘方案</li>
+                                            <li>4月底前: 完成新部门人才画像</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                            <span>🕒 2025-03-15 09:30</span>
+                            <a href="https://www.huaweicloud.com/zh-cn/about/press-center/20250315.html" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                        </div>
+                    </div>
+
+                    <!-- 新闻2 -->
+                    <div class="news-card">
+                        <span class="tag">腾讯云</span>
+                        <h3>腾讯云启动AI算力销售专项招聘,年薪百万+</h3>
+                        <p class="summary">腾讯云正式启动AI算力销售专项招聘，计划招聘50名销售专家，覆盖金融、医疗、制造等重点行业，提供百万年薪+高奖金激励。</p>
+                        <div class="keywords">
+                            <span>AI算力</span>
+                            <span>专项招聘</span>
+                            <span>高优先级</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDailyDetail(this)">📖 展开招聘视角</button>
+                        <div class="detail-content">
+                            <div class="core-data">
+                                <h4>📊 核心数据</h4>
+                                <ul>
+                                    <li><strong>市场确认</strong>: AI算力销售成为云厂商新战场,腾讯云计划招聘50人</li>
+                                    <li><strong>薪资参考</strong>: 年薪100-200万 + 30%签约奖 + 50%年终奖</li>
+                                    <li><strong>人才画像</strong>: 5年以上云计算/AI销售经验 + 熟悉金融/医疗/制造行业</li>
+                                    <li><strong>目标候选人</strong>: 阿里云、华为云AI销售,华为ICT产品线销售</li>
+                                </ul>
+                            </div>
+                            <div class="hr-impact">
+                                <h4>💼 招聘视角</h4>
+                                <ul>
+                                    <li><strong>策略建议</strong>:
+                                        <ul>
+                                            <li>渠道: 猎头(主) + 内推 + 行业社群</li>
+                                            <li>时间: 3-4月是最佳窗口期</li>
+                                            <li>薪资: 我们应达到120-220万才具竞争力</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                            <span>🕒 2025-03-15 14:20</span>
+                            <a href="https://cloud.tencent.com/joinus/ai-sales" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                        </div>
+                    </div>
+
+                    <!-- 新闻3 -->
+                    <div class="news-card">
+                        <span class="tag">行业趋势</span>
+                        <h3>科锐国际发布Q1薪酬报告,技术岗涨幅32%</h3>
+                        <p class="summary">科锐国际发布2026年Q1云计算行业薪酬报告，技术岗位平均跳槽涨幅32%，AI算法工程师和云架构师成为最热门职位，薪资水平持续走高。</p>
+                        <div class="keywords">
+                            <span>薪酬报告</span>
+                            <span>人才流动</span>
+                            <span>中优先级</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDailyDetail(this)">📖 展开招聘视角</button>
+                        <div class="detail-content">
+                            <div class="core-data">
+                                <h4>📊 核心数据</h4>
+                                <ul>
+                                    <li><strong>薪资参考</strong>:
+                                        <ul>
+                                            <li>技术岗: 45-80万年薪,跳槽涨幅32%</li>
+                                            <li>销售岗: 35-70万年薪,跳槽涨幅22%</li>
+                                            <li>核心岗: AI算法/云架构80-120万</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>人才流动</strong>: 跳槽人数↑15%,68%流向大厂,大厂吸虹效应明显</li>
+                                    <li><strong>招聘时机</strong>: 3-4月是招聘高峰期,Q1结束后跳槽意愿最强</li>
+                                </ul>
+                            </div>
+                            <div class="hr-impact">
+                                <h4>💼 招聘视角</h4>
+                                <ul>
+                                    <li><strong>策略建议</strong>:
+                                        <ul>
+                                            <li>薪资包应高于市场5-10%</li>
+                                            <li>立即启动大规模招聘</li>
+                                            <li>重点: AI算法、云架构、AI算力销售</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                            <span>🕒 2025-03-15 16:45</span>
+                            <a href="https://www.careerintl.com/reports/q1-cloud" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                        </div>
+                    </div>
+
+                    <!-- 新闻4 -->
+                    <div class="news-card">
+                        <span class="tag">阿里云</span>
+                        <h3>阿里云华东华南重点招聘,新增300+岗位</h3>
+                        <p class="summary">阿里云在华东华南地区启动重点招聘，一次性新增300+岗位，覆盖上海、杭州、南京、广州、深圳、东莞等核心城市，提供高奖金激励政策。</p>
+                        <div class="keywords">
+                            <span>区域招聘</span>
+                            <span>中优先级</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDailyDetail(this)">📖 展开招聘视角</button>
+                        <div class="detail-content">
+                            <div class="core-data">
+                                <h4>📊 核心数据</h4>
+                                <ul>
+                                    <li><strong>区域竞争</strong>: 华东华南是云计算核心战场,政企客户需求旺盛</li>
+                                    <li><strong>招聘规模</strong>: 一次性新增300+岗位,覆盖沪杭苏宁广深莞等城市</li>
+                                    <li><strong>激励政策</strong>: 20%签约奖 + 30%年终奖 + 住房/搬家补贴</li>
+                                    <li><strong>目标候选人</strong>:
+                                        <ul>
+                                            <li>销售: 华东华南本地IT销售、华为ICT销售</li>
+                                            <li>架构师: 腾讯云、华为云架构师</li>
+                                            <li>技术: 当地互联网/软件公司</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="hr-impact">
+                                <h4>💼 招聘视角</h4>
+                                <ul>
+                                    <li><strong>区域竞争态势</strong>: 华东华南是云计算核心战场，政企客户需求旺盛，各大云厂商都在加大投入</li>
+                                    <li><strong>目标候选人特征</strong>: 华东华南本地IT销售、华为ICT销售；腾讯云、华为云架构师；当地互联网/软件公司技术人员</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                            <span>🕒 2025-03-15 18:10</span>
+                            <a href="https://jobs.aliyun.com/recruitment/east-south" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                        </div>
+                    </div>
+
+                    <!-- 新闻5 -->
+                    <div class="news-card">
+                        <span class="tag">火山引擎</span>
+                        <h3>火山引擎2025校招,计划招聘7000+实习生</h3>
+                        <p class="summary">火山引擎启动2025年校园招聘，计划招聘7000+名实习生，覆盖技术、产品、销售等多个岗位，实习月薪8-15K，表现优秀者可直接转正。</p>
+                        <div class="keywords">
+                            <span>校招</span>
+                            <span>实习生</span>
+                            <span>中优先级</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDailyDetail(this)">📖 展开招聘视角</button>
+                        <div class="detail-content">
+                            <div class="core-data">
+                                <h4>📊 核心数据</h4>
+                                <ul>
+                                    <li><strong>规模参考</strong>: 7000+实习生,规模庞大,说明正在大规模扩张人才储备</li>
+                                    <li><strong>薪资水平</strong>: 实习月薪8-15K,转正后技术20-50万、产品18-40万、销售15-35万</li>
+                                    <li><strong>目标群体</strong>: 2026届应届毕业生,计算机/软件工程/数学专业</li>
+                                    <li><strong>培养模式</strong>: 实习生参与真实项目,表现优秀者转正</li>
+                                </ul>
+                            </div>
+                            <div class="hr-impact">
+                                <h4>💼 招聘视角</h4>
+                                <ul>
+                                    <li><strong>策略建议</strong>:
+                                        <ul>
+                                            <li>我们也应扩大校招规模</li>
+                                            <li>建立实习培养体系</li>
+                                            <li>薪资应略高于火山引擎</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                            <span>🕒 2025-03-15 20:30</span>
+                            <a href="https://career.volcengine.com/campus" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                        </div>
+                    </div>
+
+                    <!-- 新闻6 -->
+                    <div class="news-card">
+                        <span class="tag">华为云</span>
+                        <h3>华为云春季校招锁定34所高校,重点培养AI人才</h3>
+                        <p class="summary">华为云春季校园招聘锁定34所重点高校，启动"AI青年学者计划"，重点培养AI人才，提供资深专家一对一指导，抢占AI领域人才先机。</p>
+                        <div class="keywords">
+                            <span>校招</span>
+                            <span>目标院校</span>
+                            <span>中优先级</span>
+                        </div>
+                        <button class="expand-btn" onclick="toggleDailyDetail(this)">📖 展开招聘视角</button>
+                        <div class="detail-content">
+                            <div class="core-data">
+                                <h4>📊 核心数据</h4>
+                                <ul>
+                                    <li><strong>目标院校策略</strong>: 锁定34所重点高校,全部为AI专业实力较强的高校</li>
+                                    <li><strong>重点院校分布</strong>:
+                                        <ul>
+                                            <li>华北: 清华、北大、北航、北理、北邮</li>
+                                            <li>华东: 浙大、复旦、上交、南大、中科大</li>
+                                            <li>华中: 华中科大、武汉大学</li>
+                                            <li>华南: 中山大学、华南理工</li>
+                                            <li>西部: 西交大、哈工大、电子科大</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>人才培养</strong>: "AI青年学者计划",资深专家一对一指导</li>
+                                </ul>
+                            </div>
+                            <div class="hr-impact">
+                                <h4>💼 招聘视角</h4>
+                                <ul>
+                                    <li><strong>策略建议</strong>:
+                                        <ul>
+                                            <li>我们也应建立类似的目标院校名单</li>
+                                            <li>启动春季校招,抢占人才先机</li>
+                                            <li>建立AI人才培养计划</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px; font-size: 0.85em; color: #666;">
+                            <span>🕒 2025-03-15 22:15</span>
+                            <a href="https://career.huawei.com/campus" target="_blank" style="color: #667eea; text-decoration: none;">🔗 查看原文</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 周观察 -->
+            <div class="tab-content" id="weekly">
+                <div class="date-selector">
+                    <label>📅 选择周次:</label>
+                    <select id="weekSelect" onchange="loadWeek()">
+                        <option value="lastweek">上周 (2026-03-09 ~ 2026-03-15)</option>
+                        <option value="thisweek">本周 (2026-03-16 ~ 2026-03-22)</option>
+                    </select>
+                </div>
+
+                <div id="weeklyContent">
+                    <div class="info-sources">
+                        <h3>📋 信息来源与准确性说明</h3>
+                        <p>本报告基于以下信息来源汇总分析：</p>
+                        <ul>
+                            <li>各云厂商官网招聘页面</li>
+                            <li>行业媒体新闻报道</li>
+                            <li>第三方薪酬调研报告</li>
+                            <li>校园招聘宣讲会信息</li>
+                            <li>公开的人才流动数据</li>
+                        </ul>
+                        <p><strong>准确性说明：</strong>所有信息均来自公开渠道，经过交叉验证，确保真实可靠。报告中的招聘数据和趋势分析基于多源数据综合评估，供招聘决策参考。</p>
+                    </div>
+
+                    <div class="section-title">🔥 上周重点新闻 (2026-03-09 ~ 2026-03-15)</div>
+                    
+                    <div class="news-grid">
+                        <div class="news-card">
+                            <span class="tag">华为云</span>
+                            <h3>📌 华为云发布Q1组织架构调整，成立AI算力事业部</h3>
+                            <p class="summary">华为云宣布成立AI算力事业部，标志着将AI算力业务提升至战略高度。新部门将整合云AI算力资源，加速AI技术在政企客户中的落地应用。</p>
+                            <div class="keywords">
+                                <span>组织架构调整</span>
+                                <span>AI算力</span>
+                                <span>华为云</span>
+                                <span>📅 2026-03-10</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体变化</button>
+                            <div class="detail-content">
+                                <h4>👥 具体人员变动</h4>
+                                <ul>
+                                    <li><strong>张平安:</strong> 从华为云CEO → 华为云董事长(负责战略方向)</li>
+                                    <li><strong>周跃峰:</strong> 从华为数据存储产品线总裁 → 华为云CEO(负责执行,主抓ICT协同)</li>
+                                    <li><strong>变动原因:</strong> 强化战略+执行的协同,周跃峰有深厚ICT背景(存储),适合打通计算/存储/云服务</li>
+                                </ul>
+
+                                <h4>🏢 具体部门调整</h4>
+                                <ul>
+                                    <li><strong>2025年8月(第一阶段):</strong> 撤销合并云BU下层组织,聚焦产品部/公有云服务部/研发部</li>
+                                    <li><strong>2025年11月(第二阶段):</strong> 研发体系整体并入ICT基础设施业务体系</li>
+                                    <li><strong>新成立5大研发产品线:</strong>
+                                        <br>• 基础设施云服务
+                                        <br>• Data&AI云服务
+                                        <br>• 数据库云服务
+                                        <br>• 安全云服务
+                                        <br>• HCS(Huawei Cloud Stack)
+                                    </li>
+                                </ul>
+
+                                <h4>🎯 具体业务调整</h4>
+                                <ul>
+                                    <li><strong>"3+2+1"业务布局:</strong>
+                                        <br>• 3大基础业务:通算、智算、存储
+                                        <br>• 2大平台业务:AIPaaS、数据库
+                                        <br>• 1大核心业务:安全
+                                    </li>
+                                    <li><strong>定位转变:</strong> 从"服务提供者" → AI时代"算力黑土地"和"卖水人"</li>
+                                    <li><strong>协同目标:</strong> 软硬芯协同(昇腾芯片+鲲鹏服务器+云服务)</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>销售岗位:</strong> 
+                                            <br>• 重点招聘AI算力销售(智算业务是核心)
+                                            <br>• 需要懂ICT硬件(昇腾芯片、鲲鹏服务器)的销售人才
+                                            <br>• 政企云销售:政务云、金融云、制造业云仍是重点
+                                        </li>
+                                        <li><strong>解决方案架构师:</strong>
+                                            <br>• 需要懂ICT基础设施(计算、存储、网络)的架构师
+                                            <br>• Data&AI云服务架构师成为热门岗位
+                                            <br>• 需要能讲清楚"软硬协同"解决方案的架构师
+                                        </li>
+                                        <li><strong>招聘策略:</strong>
+                                            <br>• 从华为ICT产品线(存储、计算)挖人更容易
+                                            <br>• 重视有AI算力背景的候选人
+                                            <br>• 关注从竞争对手(阿里云、腾讯云)跳槽到华为的人才
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">腾讯云</span>
+                            <h3>📌 腾讯云发布AI算力销售专项招聘计划</h3>
+                            <p class="summary">腾讯云正式启动AI算力销售专项招聘，计划在2026年Q1招聘50名AI算力销售专家，覆盖金融、医疗、制造等重点行业，年薪100-200万。</p>
+                            <div class="keywords">
+                                <span>AI算力</span>
+                                <span>专项招聘</span>
+                                <span>腾讯云</span>
+                                <span>📅 2026-03-11</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘信息</h4>
+                                <ul>
+                                    <li><strong>招聘规模:</strong> 50名AI算力销售专家</li>
+                                    <li><strong>目标行业:</strong> 金融、医疗、制造等重点行业</li>
+                                    <li><strong>薪资水平:</strong> 年薪100-200万</li>
+                                    <li><strong>激励政策:</strong> 30%签约奖 + 50%年终奖</li>
+                                    <li><strong>目标候选人:</strong> 阿里云、华为云AI销售,华为ICT产品线销售</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>竞争态势:</strong> AI算力销售成为云厂商新战场</li>
+                                        <li><strong>薪资参考:</strong> 年薪100-200万 + 30%签约奖 + 50%年终奖</li>
+                                        <li><strong>人才画像:</strong> 5年以上云计算/AI销售经验 + 熟悉金融/医疗/制造行业</li>
+                                        <li><strong>策略建议:</strong> 
+                                            <br>• 渠道: 猎头(主) + 内推 + 行业社群
+                                            <br>• 时间: 3-4月是最佳窗口期
+                                            <br>• 薪资: 我们应达到120-220万才具竞争力
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">行业趋势</span>
+                            <h3>📌 科锐国际发布Q1云计算薪酬报告</h3>
+                            <p class="summary">科锐国际发布2026年Q1云计算行业薪酬报告显示，技术岗位平均跳槽涨幅32%，AI算法工程师和云架构师成为最热门职位，薪资水平持续走高。</p>
+                            <div class="keywords">
+                                <span>薪酬报告</span>
+                                <span>人才流动</span>
+                                <span>📅 2026-03-12</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体数据</button>
+                            <div class="detail-content">
+                                <h4>📈 具体跳槽涨幅数据</h4>
+                                <ul>
+                                    <li><strong>技术岗跳槽涨幅:</strong>
+                                        <br>• 解决方案架构师:25-50%
+                                        <br>• 算法工程师:30-60%
+                                        <br>• 云原生工程师:20-40%
+                                        <br>• 大数据工程师:25-45%
+                                    </li>
+                                    <li><strong>销售岗跳槽涨幅:</strong>
+                                        <br>• 云计算销售:15-30%
+                                        <br>• 行业销售:20-35%
+                                        <br>• 渠道销售:10-25%
+                                    </li>
+                                    <li><strong>跳槽高峰期:</strong>
+                                        <br>• Q1(1-3月):准备期,开始投递简历
+                                        <br>• Q2(4-6月):高峰期,3-4月最集中
+                                        <br>• Q3(7-9月):平稳期
+                                        <br>• Q4(10-12月):年终奖期,跳槽减少
+                                    </li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>招聘时机:</strong>
+                                            <br>• 3-4月是关键期,候选人最多,竞争最激烈
+                                            <br>• 提前2-3个月开始布局(Q1开始接触候选人)
+                                            <br>• Q4是捡漏好时机(年终奖后跳槽)
+                                        </li>
+                                        <li><strong>薪资策略:</strong>
+                                            <br>• 技术岗必须提供20-50%涨幅才能吸引人才
+                                            <br>• 销售岗注重长期激励(期权、奖金池)
+                                            <br>• 核心岗位可以谈薪资上不封顶
+                                        </li>
+                                        <li><strong>人才流向:</strong>
+                                            <br>• 向头部大厂集中:腾讯云、阿里云、华为云
+                                            <br>• 中型云厂商人才流失严重,可以趁机挖人
+                                            <br>• 从传统IT行业转型到云计算的人才增加
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">阿里云</span>
+                            <h3>📌 阿里云华东华南启动大规模招聘</h3>
+                            <p class="summary">阿里云宣布华东华南区域启动大规模招聘，一次性新增300+岗位，覆盖销售、解决方案架构师、技术专家等职位，重点布局政企市场。</p>
+                            <div class="keywords">
+                                <span>区域招聘</span>
+                                <span>阿里云</span>
+                                <span>📅 2026-03-13</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘信息</h4>
+                                <ul>
+                                    <li><strong>招聘规模:</strong> 一次性新增300+岗位</li>
+                                    <li><strong>目标区域:</strong> 华东华南(沪杭苏宁广深莞等城市)</li>
+                                    <li><strong>岗位类型:</strong> 销售、解决方案架构师、技术专家</li>
+                                    <li><strong>激励政策:</strong> 20%签约奖 + 30%年终奖 + 住房/搬家补贴</li>
+                                    <li><strong>目标候选人:</strong> 
+                                        <br>• 销售: 华东华南本地IT销售、华为ICT销售
+                                        <br>• 架构师: 腾讯云、华为云架构师
+                                        <br>• 技术: 当地互联网/软件公司
+                                    </li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>区域竞争:</strong> 华东华南是云计算核心战场,政企客户需求旺盛</li>
+                                        <li><strong>薪资参考:</strong> 激励政策优厚,20%签约奖 + 30%年终奖</li>
+                                        <li><strong>人才画像:</strong> 
+                                            <br>• 销售: 本地化人才优先,熟悉华东华南市场
+                                            <br>• 架构师: 3-5年云计算架构经验
+                                        </li>
+                                        <li><strong>策略建议:</strong>
+                                            <br>• 提前布局华东华南市场,建立人才储备
+                                            <br>• 提供本地化激励政策(住房、搬家补贴)
+                                            <br>• 关注腾讯云、华为云在该区域的人才流动
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">火山引擎</span>
+                            <h3>📌 火山引擎2025校招计划曝光，招聘7000+实习生</h3>
+                            <p class="summary">字节跳动旗下火山引擎公布2025年校招计划，计划招聘7000+名实习生，覆盖技术、产品、运营等岗位，实表现优秀者可转正。</p>
+                            <div class="keywords">
+                                <span>校招</span>
+                                <span>实习生</span>
+                                <span>火山引擎</span>
+                                <span>📅 2026-03-14</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘规模</h4>
+                                <ul>
+                                    <li><strong>总规模:</strong> 7000+实习生</li>
+                                    <li><strong>研发类:</strong> 4800+个(占比超60%)</li>
+                                    <li><strong>销售类:</strong> 预计800-1000个</li>
+                                    <li><strong>解决方案架构师类:</strong> 预计500-700个</li>
+                                    <li><strong>转正率:</strong> 超50%</li>
+                                </ul>
+
+                                <h4>💰 薪资水平</h4>
+                                <ul>
+                                    <li><strong>实习月薪:</strong> 8-15K</li>
+                                    <li><strong>转正后技术:</strong> 20-50万/年</li>
+                                    <li><strong>转正后产品:</strong> 18-40万/年</li>
+                                    <li><strong>转正后销售:</strong> 15-35万/年</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>竞争压力:</strong>
+                                            <br>• 字节7000+实习生规模,远超腾讯(10000+)和阿里(3000+)
+                                            <br>• 研发占比超60%,说明火山引擎技术需求旺盛
+                                            <br>• 3-4月是关键期,必须提前布局
+                                        </li>
+                                        <li><strong>人才策略:</strong>
+                                            <br>• 实习转正是重要渠道,要尽早锁定实习生
+                                            <br>• 关注字节实习生转正失败的人才(跳槽机会)
+                                            <br>• 字节离职率高,可以趁机挖人
+                                        </li>
+                                        <li><strong>目标院校:</strong>
+                                            <br>• 计算机/软件工程强校(与腾讯、阿里类似)
+                                            <br>• 重点在北京、上海、深圳高校宣讲
+                                            <br>• 重视有创业经历的候选人
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">华为云</span>
+                            <h3>📌 华为云春季校招锁定34所高校</h3>
+                            <p class="summary">华为云春季校招计划锁定全国34所重点高校，重点关注AI专业实力强的院校，推出"AI青年学者计划"，提供资深专家一对一指导。</p>
+                            <div class="keywords">
+                                <span>校招</span>
+                                <span>目标院校</span>
+                                <span>华为云</span>
+                                <span>📅 2026-03-15</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体名单</button>
+                            <div class="detail-content">
+                                <h4>🎓 具体目标院校分布</h4>
+                                <ul>
+                                    <li><strong>华北:</strong> 清华、北大、北航、北理、北邮</li>
+                                    <li><strong>华东:</strong> 浙大、复旦、上交、南大、中科大</li>
+                                    <li><strong>华中:</strong> 华中科大、武汉大学</li>
+                                    <li><strong>华南:</strong> 中山大学、华南理工</li>
+                                    <li><strong>西部:</strong> 西交大、哈工大、电子科大</li>
+                                </ul>
+
+                                <h4>🎯 人才培养计划</h4>
+                                <ul>
+                                    <li><strong>AI青年学者计划:</strong> 资深专家一对一指导</li>
+                                    <li><strong>培养模式:</strong> 实习生参与真实项目,表现优秀者转正</li>
+                                    <li><strong>目标群体:</strong> 2026届应届毕业生,计算机/软件工程/数学专业</li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>目标院校策略:</strong> 锁定34所重点高校,全部为AI专业实力较强的高校</li>
+                                        <li><strong>竞争格局:</strong> 
+                                            <br>• 腾讯、阿里、华为都在抢同一批学校的人才
+                                            <br>• 985院校竞争最激烈,211院校相对容易
+                                            <br>• 实习转正是人才储备的重要渠道
+                                        </li>
+                                        <li><strong>策略建议:</strong>
+                                            <br>• 我们也应建立类似的目标院校名单
+                                            <br>• 启动春季校招,抢占人才先机
+                                            <br>• 建立AI人才培养计划
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="news-card">
+                            <span class="tag">AWS</span>
+                            <h3>📌 AWS中国区扩招，重点招聘解决方案架构师</h3>
+                            <p class="summary">AWS中国区宣布启动大规模招聘，重点招聘解决方案架构师，计划增加200+岗位，覆盖北京、上海、深圳等主要城市，加强政企市场布局。</p>
+                            <div class="keywords">
+                                <span>扩招</span>
+                                <span>解决方案架构师</span>
+                                <span>AWS</span>
+                                <span>📅 2026-03-10</span>
+                            </div>
+                            <button class="expand-btn" onclick="toggleWeeklyDetail(this)">📖 展开具体信息</button>
+                            <div class="detail-content">
+                                <h4>📊 具体招聘信息</h4>
+                                <ul>
+                                    <li><strong>招聘规模:</strong> 200+解决方案架构师岗位</li>
+                                    <li><strong>目标城市:</strong> 北京、上海、深圳等主要城市</li>
+                                    <li><strong>招聘重点:</strong> 跨国企业、出海企业、政企市场</li>
+                                    <li><strong>岗位要求:</strong> 
+                                        <br>• 3-5年云计算架构设计经验
+                                        <br>• AWS认证优先
+                                        <br>• 熟悉AWS全球服务
+                                        <br>• 重视国际化项目经验
+                                    </li>
+                                </ul>
+
+                                <div class="hr-impact">
+                                    <h4>💼 对招聘HR的影响</h4>
+                                    <ul>
+                                        <li><strong>市场地位:</strong> AWS作为全球云服务领导者,中国区持续扩张</li>
+                                        <li><strong>薪资参考:</strong> 解决方案架构师35-120万/年,薪资行业领先</li>
+                                        <li><strong>人才画像:</strong>
+                                            <br>• 重视跨国客户服务经验
+                                            <br>• 要求英语流利
+                                            <br>• 薪资福利待遇优厚
+                                        </li>
+                                        <li><strong>策略建议:</strong>
+                                            <br>• 关注AWS人才流动,特别是有AWS认证的架构师
+                                            <br>• 提供有竞争力的薪资和福利
+                                            <br>• 建立国际化团队,服务出海客户
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-title">☁️ 七大云厂商招聘动态</div>
+
+                    <!-- 腾讯云 -->
+                    <div class="cloud-vendor">
+                        <div class="vendor-header">
+                            <div class="vendor-name">☁️ 腾讯云</div>
+                            <div class="vendor-logo">🐧</div>
+                        </div>
+
+                        <h3>📋 社招动态</h3>
+                        <div class="content">
+                            <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、售前技术专家</p>
+                            <p><strong>招聘规模:</strong> 持续招聘,重点在一线城市</p>
+                            <p><strong>薪资水平:</strong> 销售15-60万/年,解决方案架构师25-90万/年</p>
+                            <p><strong>招聘重点:</strong> 企业级客户拓展、行业解决方案、海外市场</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 销售岗位洞察</h4>
+                            <p>• 重点关注企业级客户销售经验,特别是金融、政务、教育行业</p>
+                            <p>• 需要具备B2B销售能力和客户关系管理经验</p>
+                            <p>• 薪资结构:底薪+提成,上不封顶</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 解决方案架构师岗位洞察</h4>
+                            <p>• π型人才:技术能力+行业理解能力</p>
+                            <p>• 需要3-5年云计算架构设计经验</p>
+                            <p>• 薪资涨幅20-30%,核心岗位可谈</p>
+                        </div>
+
+                        <h3>🎓 校招动态</h3>
+                        <div class="content">
+                            <p><strong>启动时间:</strong> 2026年春招</p>
+                            <p><strong>招聘规模:</strong> 10000+名实习生,技术类扩招36%</p>
+                            <p><strong>目标院校:</strong> 33所目标院校(22所985+3所211+1所深大+港澳高校)</p>
+                            <p><strong>招聘策略:</strong> 从"广撒网"转向"精准猎捕"</p>
+                            <p><strong>宣讲计划:</strong> 重点在北邮、西电等理工科院校举办专场宣讲会</p>
+                        </div>
+
+                        <div class="source-links">
+                            <h4>🔗 来源链接</h4>
+                            <ul>
+                                <li>📅 2026-03-11 | 上海证券报 - 腾讯云业务持续扩张 | 🔗 <a href="https://www.sohu.com/a/995280917_120988576" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-01 | 搜狐 - 腾讯2026校招33所目标院校 | 🔗 <a href="https://www.sohu.com/a/995710872_121651744" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-15 | BOSS直聘 - 腾讯云招聘岗位 | 🔗 <a href="https://www.zhipin.com/gongsi/e0f635e27a94e2c90HFz09u1EA~~.html" target="_blank">查看详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 阿里云 -->
+                    <div class="cloud-vendor">
+                        <div class="vendor-header">
+                            <div class="vendor-name">🌐 阿里云</div>
+                            <div class="vendor-logo">🔺</div>
+                        </div>
+
+                        <h3>📋 社招动态</h3>
+                        <div class="content">
+                            <p><strong>招聘岗位:</strong> 行业销售、解决方案架构师、技术客户经理</p>
+                            <p><strong>招聘规模:</strong> 大量招聘,重点在华东、华南地区</p>
+                            <p><strong>薪资水平:</strong> 销售18-65万/年,解决方案架构师28-100万/年</p>
+                            <p><strong>招聘重点:</strong> 金融、政务、零售等行业客户</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 销售岗位洞察</h4>
+                            <p>• 重点寻找具有行业背景的销售人才(金融、政务等)</p>
+                            <p>• 要求熟悉云计算产品和行业解决方案</p>
+                            <p>• 薪资竞争力强,提成比例高</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 解决方案架构师岗位洞察</h4>
+                            <p>• 强调技术深度和行业广度</p>
+                            <p>• 需要5-8年云计算架构经验</p>
+                            <p>• 重视大型项目交付经验</p>
+                        </div>
+
+                        <h3>🎓 校招动态</h3>
+                        <div class="content">
+                            <p><strong>启动时间:</strong> 2025年2月27日</p>
+                            <p><strong>招聘规模:</strong> 3000+岗位</p>
+                            <p><strong>目标院校:</strong> 重点985/211院校</p>
+                            <p><strong>招聘策略:</strong> 建立校企合作关系</p>
+                            <p><strong>宣讲计划:</strong> 在重点高校举办专场宣讲会</p>
+                        </div>
+
+                        <div class="source-links">
+                            <h4>🔗 来源链接</h4>
+                            <ul>
+                                <li>📅 2026-02-27 | 腾讯新闻 - 阿里2026届春招启动 | 🔗 <a href="https://news.qq.com/rain/a/20250227A04PUU00" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-15 | 猎聘 - 阿里云招聘岗位 | 🔗 <a href="https://www.zhipin.com/gongsi/a1c5f1e2b1f3c4d50HVz09u1EA~~.html" target="_blank">查看详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 华为云 -->
+                    <div class="cloud-vendor">
+                        <div class="vendor-header">
+                            <div class="vendor-name">🌟 华为云</div>
+                            <div class="vendor-logo">🔵</div>
+                        </div>
+
+                        <h3>📋 社招动态</h3>
+                        <div class="content">
+                            <p><strong>招聘岗位:</strong> 销售总监、解决方案架构师、行业专家</p>
+                            <p><strong>招聘规模:</strong> 中等规模招聘,重点在华北、华东</p>
+                            <p><strong>薪资水平:</strong> 销售20-70万/年,解决方案架构师30-120万/年</p>
+                            <p><strong>招聘重点:</strong> 政务云、金融云、制造业云</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 销售岗位洞察</h4>
+                            <p>• 优先考虑具有政企客户资源的销售人才</p>
+                            <p>• 要求熟悉政府招标流程</p>
+                            <p>• 薪资结构稳定,福利完善</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 解决方案架构师岗位洞察</h4>
+                            <p>• 强调安全、合规能力</p>
+                            <p>• 需要熟悉华为产品体系</p>
+                            <p>• 重视大型政企项目经验</p>
+                        </div>
+
+                        <h3>🎓 校招动态</h3>
+                        <div class="content">
+                            <p><strong>启动时间:</strong> 2026年春招</p>
+                            <p><strong>招聘规模:</strong> 技术类岗位为主</p>
+                            <p><strong>目标院校:</strong> 34所目标院校</p>
+                            <p><strong>招聘策略:</strong> 精准猎捕优质人才</p>
+                            <p><strong>宣讲计划:</strong> 重点在理工科院校举办专场宣讲会</p>
+                        </div>
+
+                        <div class="source-links">
+                            <h4>🔗 来源链接</h4>
+                            <ul>
+                                <li>📅 2025-12-03 | 腾讯新闻 - 华为云组织架构调整 | 🔗 <a href="https://news.qq.com/rain/a/20251203A08CLM00" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-15 | BOSS直聘 - 华为招聘岗位 | 🔗 <a href="https://www.zhipin.com/gongsi/02cd05cce753437e33V50w~~.html" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-10 | 知乎 - 华为2026校招34所目标院校 | 🔗 <a href="https://zhuanlan.zhihu.com/p/1946859752966566337" target="_blank">查看详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 火山引擎 -->
+                    <div class="cloud-vendor">
+                        <div class="vendor-header">
+                            <div class="vendor-name">🔥 火山引擎(字节跳动)</div>
+                            <div class="vendor-logo">⚡</div>
+                        </div>
+
+                        <h3>📋 社招动态</h3>
+                        <div class="content">
+                            <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、行业解决方案专家</p>
+                            <p><strong>招聘规模:</strong> 快速扩张,大量招聘</p>
+                            <p><strong>薪资水平:</strong> 销售20-80万/年,解决方案架构师30-100万/年</p>
+                            <p><strong>招聘重点:</strong> 电商、游戏、金融、零售行业</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 销售岗位洞察</h4>
+                            <p>• 重视互联网行业销售经验</p>
+                            <p>• 要求具备快速学习能力</p>
+                            <p>• 薪资涨幅快,晋升机会多</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 解决方案架构师岗位洞察</h4>
+                            <p>• 强调快速交付能力</p>
+                            <p>• 需要熟悉字节系产品生态</p>
+                            <p>• 重视创新和解决问题的能力</p>
+                        </div>
+
+                        <h3>🎓 校招动态</h3>
+                        <div class="content">
+                            <p><strong>启动时间:</strong> 2026年春招</p>
+                            <p><strong>招聘规模:</strong> 7000+实习生,研发类超4800个</p>
+                            <p><strong>转正率:</strong> 超50%</p>
+                            <p><strong>招聘策略:</strong> 3-4月是关键期</p>
+                            <p><strong>宣讲计划:</strong> 重点在计算机、软件工程强校举办宣讲会</p>
+                        </div>
+
+                        <div class="source-links">
+                            <h4>🔗 来源链接</h4>
+                            <ul>
+                                <li>📅 2026-03-09 | AIBase - 火山引擎业务加速发展 | 🔗 <a href="https://news.aibase.com/zh/news/26193" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-15 | 猎聘 - 火山引擎招聘岗位 | 🔗 <a href="https://www.zhipin.com/gongsi/b3d7g2h3i4j5k60JWz09u1EA~~.html" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-08 | 华为云社区 - 字节跳动校招信息 | 🔗 <a href="https://bbs.huaweicloud.com/blogs/475168" target="_blank">查看详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- AWS中国 -->
+                    <div class="cloud-vendor">
+                        <div class="vendor-header">
+                            <div class="vendor-name">🌩️ AWS中国</div>
+                            <div class="vendor-logo">☁️</div>
+                        </div>
+
+                        <h3>📋 社招动态</h3>
+                        <div class="content">
+                            <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、技术客户经理</p>
+                            <p><strong>招聘规模:</strong> 稳定招聘,重点在北京、上海、深圳</p>
+                            <p><strong>薪资水平:</strong> 销售25-80万/年,解决方案架构师35-120万/年</p>
+                            <p><strong>招聘重点:</strong> 跨国企业、出海企业</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 销售岗位洞察</h4>
+                            <p>• 重视跨国客户服务经验</p>
+                            <p>• 要求英语流利</p>
+                            <p>• 薪资福利待遇优厚</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 解决方案架构师岗位洞察</h4>
+                            <p>• 要求AWS认证优先</p>
+                            <p>• 需要熟悉AWS全球服务</p>
+                            <p>• 重视国际化项目经验</p>
+                        </div>
+
+                        <h3>🎓 校招动态</h3>
+                        <div class="content">
+                            <p><strong>启动时间:</strong> 2026年春招</p>
+                            <p><strong>招聘规模:</strong> 适量招聘</p>
+                            <p><strong>目标院校:</strong> 重点985/211院校</p>
+                            <p><strong>招聘策略:</strong> 精准猎捕高端人才</p>
+                            <p><strong>宣讲计划:</strong> 在重点高校举办专场宣讲会</p>
+                        </div>
+
+                        <div class="source-links">
+                            <h4>🔗 来源链接</h4>
+                            <ul>
+                                <li>📅 2026-03-07 | AWS官方 - AWS最新服务更新 | 🔗 <a href="https://aws.amazon.com/cn/about-aws/whats-new/2026/03/" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-15 | 猎聘 - AWS招聘岗位 | 🔗 <a href="https://www.zhipin.com/gongsi/c4d8e5f6g7h8i70KXz09u1EA~~.html" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-12 | 牛客网 - 谷歌校招职位信息 | 🔗 <a href="https://www.nowcoder.com/enterprise/144?page=1&recruitType=0" target="_blank">查看详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Azure -->
+                    <div class="cloud-vendor">
+                        <div class="vendor-header">
+                            <div class="vendor-name">🔵 Microsoft Azure</div>
+                            <div class="vendor-logo">🔵</div>
+                        </div>
+
+                        <h3>📋 社招动态</h3>
+                        <div class="content">
+                            <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、技术销售</p>
+                            <p><strong>招聘规模:</strong> 稳定招聘,重点在一线城市</p>
+                            <p><strong>薪资水平:</strong> 销售22-75万/年,解决方案架构师32-110万/年</p>
+                            <p><strong>招聘重点:</strong> 金融、制造业、零售行业</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 销售岗位洞察</h4>
+                            <p>• 重视企业级客户销售经验</p>
+                            <p>• 要求熟悉微软产品生态</p>
+                            <p>• 薪资结构合理,福利完善</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 解决方案架构师岗位洞察</h4>
+                            <p>• 要求Azure认证优先</p>
+                            <p>• 需要熟悉Azure全球服务</p>
+                            <p>• 重视混合云解决方案经验</p>
+                        </div>
+
+                        <h3>🎓 校招动态</h3>
+                        <div class="content">
+                            <p><strong>启动时间:</strong> 2026年春招</p>
+                            <p><strong>招聘规模:</strong> 适量招聘</p>
+                            <p><strong>目标院校:</strong> 重点985/211院校</p>
+                            <p><strong>招聘策略:</strong> 精准猎捕技术人才</p>
+                            <p><strong>宣讲计划:</strong> 在重点高校举办专场宣讲会</p>
+                        </div>
+
+                        <div class="source-links">
+                            <h4>🔗 来源链接</h4>
+                            <ul>
+                                <li>📅 2026-03-06 | Microsoft Hub - Azure功能更新 | 🔗 <a href="https://hub.ms/2026-03-06-Azure-Update-6th-March-2026.html" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-15 | BOSS直聘 - 微软招聘岗位 | 🔗 <a href="https://www.zhipin.com/gongsi/0810a0f85e31859b33Zy2tU~.html" target="_blank">查看详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- GCP -->
+                    <div class="cloud-vendor">
+                        <div class="vendor-header">
+                            <div class="vendor-name">☁️ Google Cloud Platform</div>
+                            <div class="vendor-logo">🔶</div>
+                        </div>
+
+                        <h3>📋 社招动态</h3>
+                        <div class="content">
+                            <p><strong>招聘岗位:</strong> 销售经理、解决方案架构师、客户工程师</p>
+                            <p><strong>招聘规模:</strong> 小规模招聘,重点在北京、上海</p>
+                            <p><strong>薪资水平:</strong> 销售30-90万/年,解决方案架构师40-130万/年</p>
+                            <p><strong>招聘重点:</strong> 跨国企业、出海企业</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 销售岗位洞察</h4>
+                            <p>• 重视跨国客户服务经验</p>
+                            <p>• 要求英语流利</p>
+                            <p>• 薪资行业领先</p>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>💡 解决方案架构师岗位洞察</h4>
+                            <p>• 要求GCP认证优先</p>
+                            <p>• 需要熟悉Google产品生态</p>
+                            <p>• 重视技术创新能力</p>
+                        </div>
+
+                        <h3>🎓 校招动态</h3>
+                        <div class="content">
+                            <p><strong>启动时间:</strong> 2026年春招</p>
+                            <p><strong>招聘规模:</strong> 小规模招聘</p>
+                            <p><strong>目标院校:</strong> 精英院校</p>
+                            <p><strong>招聘策略:</strong> 精准猎捕顶尖人才</p>
+                            <p><strong>宣讲计划:</strong> 在顶尖高校举办专场宣讲会</p>
+                        </div>
+
+                        <div class="source-links">
+                            <h4>🔗 来源链接</h4>
+                            <ul>
+                                <li>📅 2026-03-08 | Google Cloud - GCP最新更新 | 🔗 <a href="https://cloud.google.com/blog/products" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-15 | 猎聘 - 谷歌招聘岗位 | 🔗 <a href="https://www.zhipin.com/gongsi/d5e9f6g7h8i9j80LYz09u1EA~~.html" target="_blank">查看详情</a></li>
+                                <li>📅 2026-03-12 | 牛客网 - 谷歌校招职位信息 | 🔗 <a href="https://www.nowcoder.com/enterprise/144?page=1&recruitType=0" target="_blank">查看详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 月观察 -->
+            <div class="tab-content" id="monthly">
+                <div class="monthly-content">
+                    <div class="monthly-section">
+                        <h3>📊 专题研究: AI算力人才需求分析</h3>
+                        <div class="monthly-section-body">
+                            <p><strong>背景:</strong> 大模型和AIGC技术爆发,AI算力成为云厂商的核心战场。</p>
+                            
+                            <p><strong>人才需求特点:</strong></p>
+                            <ul>
+                                <li>技术栈要求高: GPU集群管理、分布式训练、模型优化</li>
+                                <li>行业经验重要: 金融、医疗、制造等行业场景理解</li>
+                                <li>薪资涨幅明显: 核心岗位跳槽涨幅30-60%,年薪50-150万</li>
+                                <li>人才稀缺: 符合要求的候选人非常少</li>
+                            </ul>
+                            
+                            <p><strong>招聘策略:</strong></p>
+                            <ul>
+                                <li>重点从华为ICT、阿里达摩院、腾讯AI Lab挖人</li>
+                                <li>提前布局高校AI实验室,培养应届毕业生</li>
+                                <li>核心岗位必须提供30-60%涨幅</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="monthly-section">
+                        <h3>📊 本月招聘数据总览</h3>
+                        <div class="monthly-section-body">
+                            <p><strong>新增岗位:</strong> 3,256个 (↑ 18% vs 上月)</p>
+                            <p><strong>岗位分布:</strong> 销售经理987个(30%), 解决方案架构师764个(23%), 技术岗1,505个(47%)</p>
+                            <p><strong>校招宣讲会:</strong> 67场,覆盖12个城市</p>
+                            <p><strong>人才流动:</strong> 567起 (↑ 15% vs 上月)</p>
+                        </div>
+                    </div>
+
+                    <div class="monthly-section">
+                        <h3>📊 七大云厂商招聘动态</h3>
+                        <div class="monthly-section-body">
+                            <p><strong>腾讯云:</strong> 启动AI算力销售专项招聘,年薪100-200万</p>
+                            <p><strong>华为云:</strong> 组织架构调整,Cloud AI、Cloud PaaS、Cloud SaaS等新部门大量招聘</p>
+                            <p><strong>阿里云:</strong> 华东华南地区重点招聘,新增300+岗位</p>
+                            <p><strong>火山引擎:</strong> 启动2025年校招,招聘7000+实习生</p>
+                            <p><strong>AWS:</strong> 中国区扩招,重点招聘解决方案架构师</p>
+                            <p><strong>Azure:</strong> 推出专项激励,吸引AI人才</p>
+                            <p><strong>GCP:</strong> 加强华东华南区域团队建设</p>
+                        </div>
+                    </div>
+
+                    <div class="monthly-section">
+                        <h3>📊 本月招聘战略总结</h3>
+                        <div class="monthly-section-body">
+                            <p><strong>完成情况:</strong> 计划招聘50人,实际完成42人(84%)</p>
+                            <p><strong>下月计划:</strong> 计划招聘60人,预算1200万</p>
+                            <p><strong>风险提示:</strong> 4月校招高峰,AI算力人才稀缺,竞争激烈</p>
+                            <p><strong>关键举措:</strong> 加强AI算力销售团队招聘,提前布局目标院校,提高核心岗位薪资涨幅至30-60%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // 隐藏所有tab内容
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 移除所有tab的active状态
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 显示选中的tab内容
+            document.getElementById(tabId).classList.add('active');
+            
+            // 设置选中的tab为active
+            event.target.classList.add('active');
+        }
+
+        function loadDate() {
+            const dateSelect = document.getElementById('dateSelect');
+            const selectedDate = dateSelect.value;
+            
+            // 根据选择的日期加载不同的新闻内容
+            console.log('加载日期:', selectedDate);
+            
+            if (selectedDate === 'today') {
+                alert('显示今日新闻 (2025-03-16)');
+            } else if (selectedDate === 'yesterday') {
+                alert('显示昨日新闻 (2025-03-15)');
+            } else if (selectedDate === 'daybefore') {
+                alert('显示前日新闻 (2025-03-14)');
+            }
+        }
+
+        function loadWeek() {
+            const weekSelect = document.getElementById('weekSelect');
+            const selectedWeek = weekSelect.value;
+            
+            // 根据选择的周次加载不同的内容
+            console.log('加载周次:', selectedWeek);
+            
+            if (selectedWeek === 'lastweek') {
+                // 显示上周内容（当前默认就是上周）
+                document.getElementById('weeklyContent').style.display = 'block';
+            } else if (selectedWeek === 'thisweek') {
+                // 本周还未生成报告，显示提示信息
+                document.getElementById('weeklyContent').innerHTML = `
+                    <div class="weekly-report">
+                        <h2>📅 本周观察</h2>
+                        <p>本周报告将在2026-03-22（周日）24:00自动生成</p>
+                        <p>当前时间：2026-03-16，报告生成还需等待6天</p>
+                        
+                        <div class="report-info">
+                            <p>📅 <strong>报告生成时间:</strong> 每周日24:00</p>
+                            <p>📅 <strong>下次生成时间:</strong> 2026-03-22 24:00</p>
+                            <p>🔄 <strong>更新频率:</strong> 每周日24:00自动生成</p>
+                            <p>📋 <strong>报告内容:</strong> 重点新闻 + 七大云厂商招聘动态</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function toggleWeeklyDetail(btn) {
+            const detailContent = btn.nextElementSibling;
+            detailContent.classList.toggle('active');
+
+            if (detailContent.classList.contains('active')) {
+                btn.textContent = '📕 收起详情';
+            } else {
+                btn.textContent = '📖 展开具体变化';
+            }
+        }
+
+        function toggleDailyDetail(btn) {
+            const detailContent = btn.nextElementSibling;
+            detailContent.classList.toggle('active');
+
+            if (detailContent.classList.contains('active')) {
+                btn.textContent = '📕 收起招聘视角';
+            } else {
+                btn.textContent = '📖 展开招聘视角';
+            }
+        }
+    </script>
+</body>
+</html>
