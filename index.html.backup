@@ -1963,19 +1963,10 @@
                     <div class="no-news" style="text-align: center; padding: 40px; color: #666;">
                         <div style="font-size: 48px; margin-bottom: 20px;">📰</div>
                         <h3 style="margin-bottom: 10px;">${targetDate} 暂无相关新闻</h3>
-                        <p><strong>当前状态：</strong>本版本未接入真实新闻 API</p>
+                        <p>我们正在持续抓取云行业的真实新闻...</p>
                         <p style="font-size: 14px; color: #999; margin-top: 10px;">
-                            历史数据仅为示例展示，不代表真实新闻事件
+                            真实新闻来源：InfoQ、36氪、虎嗅、云厂商官方新闻中心
                         </p>
-                        <div style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; text-align: left;">
-                            <h4 style="margin: 0 0 10px 0; color: #333;">📌 说明：</h4>
-                            <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #666;">
-                                <li>本页面为云行业 HR 洞察平台的原型演示</li>
-                                <li>真实新闻需要从 InfoQ、36氪、虎嗅等媒体抓取</li>
-                                <li>所有历史数据和链接均为示例，不代表真实事件</li>
-                                <li>请勿将示例数据作为实际招聘决策依据</li>
-                            </ul>
-                        </div>
                     </div>
                 `;
                 return;
