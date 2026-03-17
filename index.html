@@ -1921,7 +1921,16 @@
             }
 
             if (newsList.length === 0) {
-                newsContainer.innerHTML = '<div class="no-news">暂无新闻数据</div>';
+                newsContainer.innerHTML = `
+                    <div class="no-news" style="text-align: center; padding: 40px; color: #666;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">📰</div>
+                        <h3 style="margin-bottom: 10px;">今日暂无相关新闻</h3>
+                        <p>我们正在持续抓取云行业的真实新闻...</p>
+                        <p style="font-size: 14px; color: #999; margin-top: 10px;">
+                            真实新闻来源：InfoQ、36氪、虎嗅、云厂商官方新闻中心
+                        </p>
+                    </div>
+                `;
                 return;
             }
 
